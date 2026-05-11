@@ -3,11 +3,38 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --menu-night-rgb: 8 7 5;
+  --menu-brass-rgb: 216 186 124;
+  --shadow-menu-navbar-scrolled: 0 18px 60px rgb(0 0 0 / 0.42);
+  --shadow-menu-navbar-top: 0 16px 50px rgb(0 0 0 / 0.18);
+  --shadow-menu-button-hover: 0 12px 34px rgb(216 186 124 / 0.18);
+  --shadow-menu-card: 0 20px 60px rgb(0 0 0 / 0.24);
+  --menu-hero-glow: radial-gradient(
+      circle at 50% 0%,
+      rgb(var(--menu-brass-rgb) / 0.22),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(var(--menu-night-rgb) / 0.08),
+      var(--color-menu-night) 92%
+    );
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-menu-night: #080705;
+  --color-menu-brass: #d8ba7c;
+  --color-menu-brass-muted: #d6b46c;
+  --color-menu-brass-hover: #e6c77f;
+  --color-menu-parchment: #f4ecdf;
+  --color-menu-cream: #efe7d7;
+  --color-menu-ivory: #fff7ea;
+  --color-menu-warm-white: #fff4dd;
+  --color-menu-logo-wash: #f3dfb3;
+  --color-menu-language-active: #efe0bd;
+  --color-menu-button-text: #f8eed9;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -23,4 +50,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu-hero-glow {
+  background: var(--menu-hero-glow);
 }
