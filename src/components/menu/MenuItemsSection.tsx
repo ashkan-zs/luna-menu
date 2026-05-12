@@ -1,6 +1,6 @@
 import { MENU_ITEMS } from "@/data/menu";
 import type { MenuItem as MenuItemType } from "@/types/menu";
-import MenuItem from "./MenuItem";
+import MenuItem from "./MenuItemCard";
 
 function groupItemsByCategory(
   items: MenuItemType[],
