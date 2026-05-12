@@ -1,39 +1,14 @@
-import { MENU_ITEMS } from "@/data/menu";
-import type { MenuItem as MenuItemType } from "@/types/menu";
+import { CATEGORIES, MENU_ITEMS } from "@/data/menu";
+import type { SupportedLanguage } from "@/types/menu";
 import MenuItem from "./MenuItemCard";
-
-function groupItemsByCategory(
-  items: MenuItemType[],
-): [string, MenuItemType[]][] {
-  const groupedItems = new Map<string, MenuItemType[]>();
-
-  for (const item of items) {
-    const categoryItems = groupedItems.get(item.category) ?? [];
-    categoryItems.push(item);
-    groupedItems.set(item.category, categoryItems);
-  }
-
-  return Array.from(groupedItems.entries());
-}
-
-// support Turkish language
-function slugify(value: string) {
-  return value
-    .trim()
-    .toLocaleLowerCase("tr")
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
 
 export default function MenuItemsSection({
   restaurantName = "Luna Bistro",
+  language = "en",
 }: {
   restaurantName?: string;
+  language?: SupportedLanguage;
 }) {
-  const groupedItems = groupItemsByCategory(MENU_ITEMS);
-
   return (
     <section
       id="menu"
@@ -58,16 +33,20 @@ export default function MenuItemsSection({
         </div>
 
         <div className="space-y-14">
-          {groupedItems.map(([category, items]) => {
-            const headingId = `${slugify(category)}-heading`;
+          {CATEGORIES.map((category) => {
+            const headingId = `${category.id}-heading`;
+            const items = MENU_ITEMS.filter(
+              (item) => item.category === category.id,
+            );
 
             return (
               <section
-                key={category}
+                id={category.id}
+                key={category.id}
                 aria-labelledby={headingId}
                 className="space-y-5"
               >
-                <div className="flex items-end justify-between gap-5 border-b border-white/10 pb-4">
+                <div className="flex items-end justify-between border-b border-white/10 pb-4">
                   <div>
                     <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-menu-brass/70">
                       {restaurantName}
@@ -76,17 +55,16 @@ export default function MenuItemsSection({
                       id={headingId}
                       className="mt-2 font-serif text-2xl text-menu-warm-white sm:text-3xl"
                     >
-                      {category}
+                      {category.label[language]}
                     </h3>
                   </div>
                   <span className="rounded-full border border-menu-brass/20 bg-menu-brass/10 px-3 py-1 text-xs font-medium text-menu-brass">
                     {items.length} {items.length === 1 ? "item" : "items"}
                   </span>
                 </div>
-
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {items.map((item) => (
-                    <MenuItem key={item.id} item={item} />
+                    <MenuItem key={item.id} item={item} language={language} />
                   ))}
                 </div>
               </section>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { MenuItem as MenuItemType } from "@/types/menu";
+import type { MenuItem as MenuItemType, SupportedLanguage } from "@/types/menu";
 
 type ItemTag = {
   label: string;
@@ -42,8 +42,16 @@ function getItemTags(item: MenuItemType): ItemTag[] {
   return tags;
 }
 
-export default function MenuItem({ item }: { item: MenuItemType }) {
+export default function MenuItemCard({
+  item,
+  language = "en",
+}: {
+  item: MenuItemType;
+  language?: SupportedLanguage;
+}) {
   const isAvailable = item.available !== false;
+  const itemName = item.name[language];
+  const itemDescription = item.description[language];
 
   return (
     <article
@@ -56,7 +64,7 @@ export default function MenuItem({ item }: { item: MenuItemType }) {
         <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
           <Image
             src={item.image}
-            alt={`${item.name} from ${item.category}`}
+            alt={`${itemName} from ${item.category}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover"
@@ -90,7 +98,7 @@ export default function MenuItem({ item }: { item: MenuItemType }) {
 
         <div className="flex items-start justify-between gap-5">
           <h4 className="font-serif text-xl leading-7 text-menu-ivory">
-            {item.name}
+            {itemName}
           </h4>
           <p className="shrink-0 pt-1 text-sm font-semibold text-menu-brass">
             {formatPrice(item.price)}
@@ -98,7 +106,7 @@ export default function MenuItem({ item }: { item: MenuItemType }) {
         </div>
 
         <p className="text-sm leading-6 text-menu-cream/66">
-          {item.description}
+          {itemDescription}
         </p>
       </div>
     </article>

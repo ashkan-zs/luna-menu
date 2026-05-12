@@ -1,7 +1,9 @@
+import CategoryTabs from "@/components/menu/CategoryTabs";
 import MenuHero from "@/components/menu/MenuHero";
 import MenuNavbar from "@/components/menu/MenuNavbar";
 import MenuItemsSection from "@/components/menu/MenuItemsSection";
 
+import { CATEGORIES } from "@/data/menu";
 import { RESTAURANT } from "@/data/restaurant";
 
 export default function MenuPage() {
@@ -19,7 +21,9 @@ export default function MenuPage() {
         backgroundImage={RESTAURANT.backgroundImage}
       />
 
-      <MenuItemsSection />
+      <CategoryTabs categories={CATEGORIES} language="en" />
+
+      <MenuItemsSection language="en" />
     </main>
   );
 }
