@@ -1,6 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import { CATEGORIES, MENU_ITEMS } from "@/data/menu";
-import type { SupportedLanguage } from "@/types/menu";
+import type {
+  MenuItem as MenuItemType,
+  SupportedLanguage,
+} from "@/types/menu";
 import MenuItem from "./MenuItemCard";
+import MenuItemModal from "./MenuItemModal";
 
 export default function MenuItemsSection({
   restaurantName = "Luna Bistro",
@@ -9,6 +16,8 @@ export default function MenuItemsSection({
   restaurantName?: string;
   language?: SupportedLanguage;
 }) {
+  const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null);
+
   return (
     <section
       id="menu"
@@ -64,7 +73,12 @@ export default function MenuItemsSection({
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {items.map((item) => (
-                    <MenuItem key={item.id} item={item} language={language} />
+                    <MenuItem
+                      key={item.id}
+                      item={item}
+                      language={language}
+                      onSelect={setSelectedItem}
+                    />
                   ))}
                 </div>
               </section>
@@ -72,6 +86,12 @@ export default function MenuItemsSection({
           })}
         </div>
       </div>
+
+      <MenuItemModal
+        item={selectedItem}
+        language={language}
+        onClose={() => setSelectedItem(null)}
+      />
     </section>
   );
 }

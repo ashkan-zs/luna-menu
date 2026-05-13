@@ -28,4 +28,7 @@ export type MenuItem = {
   spicy?: boolean;
   vegetarian?: boolean;
   available?: boolean;
+  ingredients?: LocalizedText;
+  allergens?: LocalizedText[];
+  calories?: number;
 };

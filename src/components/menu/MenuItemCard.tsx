@@ -1,18 +1,12 @@
 import Image from "next/image";
+import type { KeyboardEvent } from "react";
 import type { MenuItem as MenuItemType, SupportedLanguage } from "@/types/menu";
+import { formatPrice } from "@/lib/formatPrice";
 
 type ItemTag = {
   label: string;
   className: string;
 };
-
-function formatPrice(price: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(price);
-}
 
 function getItemTags(item: MenuItemType): ItemTag[] {
   const tags: ItemTag[] = [];
@@ -45,18 +39,32 @@ function getItemTags(item: MenuItemType): ItemTag[] {
 export default function MenuItemCard({
   item,
   language = "en",
+  onSelect,
 }: {
   item: MenuItemType;
   language?: SupportedLanguage;
+  onSelect?: (item: MenuItemType) => void;
 }) {
   const isAvailable = item.available !== false;
   const itemName = item.name[language];
   const itemDescription = item.description[language];
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onSelect?.(item);
+    }
+  };
+
   return (
     <article
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${itemName}`}
+      onClick={() => onSelect?.(item)}
+      onKeyDown={handleKeyDown}
       className={[
-        "group overflow-hidden rounded-[1.75rem] border bg-white/[0.045] shadow-[var(--shadow-menu-card)] backdrop-blur-xl transition duration-300 sm:hover:-translate-y-1 sm:hover:border-menu-brass/28 sm:hover:bg-white/[0.065]",
+        "group cursor-pointer overflow-hidden rounded-[1.75rem] border bg-white/[0.045] shadow-[var(--shadow-menu-card)] backdrop-blur-xl transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 sm:hover:-translate-y-1 sm:hover:border-menu-brass/28 sm:hover:bg-white/[0.065]",
         isAvailable ? "border-white/10" : "border-white/5 opacity-62 grayscale",
       ].join(" ")}
     >
