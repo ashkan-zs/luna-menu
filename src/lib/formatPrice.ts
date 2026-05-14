@@ -1,7 +1,13 @@
 type Currency = "USD" | "TRY" | "EUR";
 
-export function formatPrice(price: number, currency: Currency = "USD", locale = "en-US") {
-  return new Intl.NumberFormat(locale, {
+const localeByCurrency: Record<Currency, string> = {
+  USD: "en-us",
+  TRY: "tr-TR",
+  EUR: "de-DE",
+};
+
+export function formatPrice(price: number, currency: Currency = "TRY") {
+  return new Intl.NumberFormat(localeByCurrency[currency], {
     style: "currency",
     currency,
     maximumFractionDigits: 0,

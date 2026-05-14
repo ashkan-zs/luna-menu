@@ -1,3 +1,5 @@
+"use client";
+
 import CategoryTabs from "@/components/menu/CategoryTabs";
 import MenuHero from "@/components/menu/MenuHero";
 import MenuNavbar from "@/components/menu/MenuNavbar";
@@ -5,8 +7,16 @@ import MenuItemsSection from "@/components/menu/MenuItemsSection";
 
 import { CATEGORIES } from "@/data/menu";
 import { RESTAURANT } from "@/data/restaurant";
+import { useState } from "react";
+import { SupportedLanguage } from "@/types/menu";
 
 export default function MenuPage() {
+  const [language, setLanguage] = useState<SupportedLanguage>("en");
+
+  const handelLanguageSwitch = () => {
+    setLanguage((currentLang) => (currentLang === "en" ? "tr" : "en"));
+  };
+
   return (
     <main
       id="top"
@@ -16,14 +26,16 @@ export default function MenuPage() {
 
       <MenuHero
         restaurantName={RESTAURANT.name}
-        tagline={RESTAURANT.tagline}
-        description={RESTAURANT.description}
+        tagline={RESTAURANT.tagline[language]}
+        description={RESTAURANT.description[language]}
         backgroundImage={RESTAURANT.backgroundImage}
+        language={language}
+        onLanguageSwitch={handelLanguageSwitch}
       />
 
-      <CategoryTabs categories={CATEGORIES} language="en" />
+      <CategoryTabs categories={CATEGORIES} language={language} />
 
-      <MenuItemsSection language="en" />
+      <MenuItemsSection language={language} />
     </main>
   );
 }

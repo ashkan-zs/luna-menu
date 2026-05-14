@@ -6,7 +6,7 @@ import type {
   MenuItem as MenuItemType,
   SupportedLanguage,
 } from "@/types/menu";
-import MenuItem from "./MenuItemCard";
+import MenuItemCard from "./MenuItemCard";
 import MenuItemModal from "./MenuItemModal";
 
 export default function MenuItemsSection({
@@ -73,7 +73,7 @@ export default function MenuItemsSection({
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {items.map((item) => (
-                    <MenuItem
+                    <MenuItemCard
                       key={item.id}
                       item={item}
                       language={language}

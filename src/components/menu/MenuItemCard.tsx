@@ -8,12 +8,31 @@ type ItemTag = {
   className: string;
 };
 
-function getItemTags(item: MenuItemType): ItemTag[] {
+const copy = {
+  en: {
+    featured: "Featured",
+    spicy: "Spicy",
+    vegetarian: "Vegetarian",
+    unavailable: "Unavailable",
+  },
+  tr: {
+    featured: "Öne çıkan",
+    spicy: "Acılı",
+    vegetarian: "Vejetaryen",
+    unavailable: "Mevcut değil",
+  },
+} satisfies Record<SupportedLanguage, Record<string, string>>;
+
+function getItemTags(
+  item: MenuItemType,
+  language: SupportedLanguage,
+): ItemTag[] {
+  const labels = copy[language];
   const tags: ItemTag[] = [];
 
   if (item.featured) {
     tags.push({
-      label: "Featured",
+      label: labels.featured,
       className:
         "border-menu-brass/40 bg-menu-brass/14 text-menu-warm-white",
     });
@@ -21,14 +40,14 @@ function getItemTags(item: MenuItemType): ItemTag[] {
 
   if (item.vegetarian) {
     tags.push({
-      label: "Vegetarian",
+      label: labels.vegetarian,
       className: "border-emerald-200/20 bg-emerald-300/10 text-emerald-100",
     });
   }
 
   if (item.spicy) {
     tags.push({
-      label: "Spicy",
+      label: labels.spicy,
       className: "border-red-300/25 bg-red-400/10 text-red-100",
     });
   }
@@ -84,14 +103,14 @@ export default function MenuItemCard({
         </div>
         {!isAvailable ? (
           <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-menu-night/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-menu-cream backdrop-blur-md">
-            Unavailable
+            {copy[language].unavailable}
           </div>
         ) : null}
       </div>
 
       <div className="space-y-4 p-5">
         <div className="flex flex-wrap gap-2">
-          {getItemTags(item).map((tag) => (
+          {getItemTags(item, language).map((tag) => (
             <span
               key={tag.label}
               className={[

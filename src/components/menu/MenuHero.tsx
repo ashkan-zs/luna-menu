@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Camera, Languages, MapPin } from "lucide-react";
+import { Camera, MapPin } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { SupportedLanguage } from "@/types/menu";
 
 type MenuHeroProps = {
   restaurantName?: string;
@@ -10,7 +12,22 @@ type MenuHeroProps = {
   description?: string;
   backgroundImage?: string;
   logoSrc?: string;
+  language: SupportedLanguage;
+  onLanguageSwitch: () => void;
 };
+
+const copy = {
+  en: {
+    exploreMenu: "Explore Menu",
+    quickLinks: "Restaurant quick links",
+    location: "Location",
+  },
+  tr: {
+    exploreMenu: "Menüyü İncele",
+    quickLinks: "Restoran hızlı bağlantıları",
+    location: "Konum",
+  },
+} satisfies Record<SupportedLanguage, Record<string, string>>;
 
 function getRestaurantInitials(name: string) {
   const words = name.trim().split(/\s+/).filter(Boolean);
@@ -36,9 +53,12 @@ export default function MenuHero({
   description = "Seasonal dishes, crafted cocktails, and warm hospitality.",
   backgroundImage = "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80",
   logoSrc,
+  language = "en",
+  onLanguageSwitch,
 }: MenuHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const restaurantInitials = getRestaurantInitials(restaurantName);
+  const labels = copy[language];
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -125,12 +145,12 @@ export default function MenuHero({
             onClick={scrollToMenu}
             className="min-h-12 rounded-full border border-menu-brass/45 bg-menu-brass/16 px-7 text-sm font-medium tracking-wide text-menu-warm-white shadow-[var(--shadow-menu-button-hover)] transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass-hover/80 hover:bg-menu-brass/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 active:translate-y-0"
           >
-            Explore Menu
+            {labels.exploreMenu}
           </button>
 
           <ul
             className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-menu-cream/70"
-            aria-label="Restaurant quick links"
+            aria-label={labels.quickLinks}
           >
             <li>
               <a
@@ -140,7 +160,7 @@ export default function MenuHero({
                 rel="noreferrer"
               >
                 <MapPin size={14} aria-hidden="true" />
-                Location
+                {labels.location}
               </a>
             </li>
             <li>
@@ -155,10 +175,14 @@ export default function MenuHero({
               </a>
             </li>
             <li>
-              <span className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3">
+              <LanguageSwitcher
+                activeLanguage={language}
+                onLanguageChange={onLanguageSwitch}
+              />
+              {/* <span className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3">
                 <Languages size={14} aria-hidden="true" />
                 EN
-              </span>
+              </span> */}
             </li>
           </ul>
         </div>
