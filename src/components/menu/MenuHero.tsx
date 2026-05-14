@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Camera, MapPin } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { SupportedLanguage } from "@/types/menu";
+import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 
 type MenuHeroProps = {
   restaurantName?: string;
@@ -28,24 +29,6 @@ const copy = {
     location: "Konum",
   },
 } satisfies Record<SupportedLanguage, Record<string, string>>;
-
-function getRestaurantInitials(name: string) {
-  const words = name.trim().split(/\s+/).filter(Boolean);
-
-  if (words.length === 0) {
-    return "R";
-  }
-
-  if (words.length === 1) {
-    return words[0].slice(0, 2).toUpperCase();
-  }
-
-  return words
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-}
 
 export default function MenuHero({
   restaurantName = "Luna Bistro",

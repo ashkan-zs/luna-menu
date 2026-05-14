@@ -94,7 +94,7 @@ export default function CategoryTabs({
       return;
     }
 
-    const stickyOffset = 112;
+    const stickyOffset = 76;
     const top = target.getBoundingClientRect().top + window.scrollY;
 
     window.scrollTo({
@@ -105,7 +105,7 @@ export default function CategoryTabs({
 
   return (
     <nav
-      className="sticky top-[4.75rem] z-40 border-y border-white/10 bg-menu-night/78 px-3 py-3 shadow-[0_18px_50px_rgb(0_0_0_/_0.28)] backdrop-blur-2xl sm:top-20 sm:px-5"
+      className="sticky top-0 z-50 border-y border-white/10 bg-menu-night/78 px-3 py-3 shadow-[0_18px_50px_rgb(0_0_0_/_0.28)] backdrop-blur-2xl sm:px-5"
       aria-label="Menu categories"
     >
       <div className="mx-auto max-w-7xl">

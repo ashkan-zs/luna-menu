@@ -3,30 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { UtensilsCrossed } from "lucide-react";
+import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 
 type MenuNavbarProps = {
   restaurantName?: string;
   restaurantTagline?: string;
   logoSrc?: string;
 };
-
-function getRestaurantInitials(name: string) {
-  const words = name.trim().split(/\s+/).filter(Boolean);
-
-  if (words.length === 0) {
-    return "R";
-  }
-
-  if (words.length === 1) {
-    return words[0].slice(0, 2).toUpperCase();
-  }
-
-  return words
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-}
 
 export default function MenuNavbar({
   restaurantName = "Luna Bistro",
@@ -57,7 +40,7 @@ export default function MenuNavbar({
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
+    <header className="sticky inset-x-0 top-0 z-40 h-0 px-3 pt-3 sm:px-5 sm:pt-5">
       <nav
         aria-label="Restaurant navigation"
         className={[
@@ -100,7 +83,6 @@ export default function MenuNavbar({
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3">
-
           <button
             type="button"
             onClick={scrollToMenu}
@@ -108,7 +90,9 @@ export default function MenuNavbar({
             aria-label="View menu"
           >
             <UtensilsCrossed size={18} strokeWidth={1.6} />
-            <span className="hidden sm:inline" aria-hidden="true">Menu</span>
+            <span className="hidden sm:inline" aria-hidden="true">
+              Menu
+            </span>
           </button>
         </div>
       </nav>

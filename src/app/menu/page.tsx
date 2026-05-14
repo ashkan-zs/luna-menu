@@ -22,16 +22,18 @@ export default function MenuPage() {
       id="top"
       className="min-h-screen bg-menu-night font-sans text-menu-parchment"
     >
-      <MenuNavbar restaurantName={RESTAURANT.name} />
+      <div className="relative">
+        <MenuNavbar restaurantName={RESTAURANT.name} />
 
-      <MenuHero
-        restaurantName={RESTAURANT.name}
-        tagline={RESTAURANT.tagline[language]}
-        description={RESTAURANT.description[language]}
-        backgroundImage={RESTAURANT.backgroundImage}
-        language={language}
-        onLanguageSwitch={handelLanguageSwitch}
-      />
+        <MenuHero
+          restaurantName={RESTAURANT.name}
+          tagline={RESTAURANT.tagline[language]}
+          description={RESTAURANT.description[language]}
+          backgroundImage={RESTAURANT.backgroundImage}
+          language={language}
+          onLanguageSwitch={handelLanguageSwitch}
+        />
+      </div>
 
       <CategoryTabs categories={CATEGORIES} language={language} />
 
