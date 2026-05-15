@@ -123,7 +123,7 @@ export default function CategoryTabs({
 
   return (
     <nav
-      className="sticky top-20 z-30 border-y border-white/10 bg-menu-night/80 px-1 py-3 shadow-[0_18px_50px_rgb(0_0_0_/0.28)] backdrop-blur-xl sm:top-21 sm:px-5"
+      className="sticky top-20 z-30 border-y border-white/10 bg-menu-night/80 px-4 py-3 shadow-[0_18px_50px_rgb(0_0_0_/0.28)] backdrop-blur-xl sm:top-21 sm:px-5"
       aria-label="Menu Categories"
     >
       <div
