@@ -24,7 +24,7 @@ export default function LanguageSwitcher({
           type="button"
           onClick={() => onLanguageChange?.(language)}
           aria-pressed={activeLanguage === language}
-          className="flex items-center"
+          className="flex items-center cursor-pointer"
         >
           <span
             className={[

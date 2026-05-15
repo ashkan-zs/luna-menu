@@ -63,13 +63,13 @@ export default function MenuSearchFilter({
   return (
     <section
       aria-label={labels.searchLabel}
-      className="mb-10 rounded-[1.75rem] border border-white/10 bg-white/[0.055] p-3 shadow-[0_24px_70px_rgb(0_0_0_/_0.26)] backdrop-blur-2xl sm:p-4"
+      className="mb-10 rounded-[1.75rem] border border-white/10 bg-white/5.5 p-3 shadow-[0_24px_70px_rgb(0_0_0_/0.26)] backdrop-blur-2xl sm:p-4"
     >
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <div className="relative">
           <label
             htmlFor="menu-search"
-            className="mb-2 block text-[0.66rem] font-medium uppercase tracking-[0.26em] text-menu-brass/75"
+            className="mb-2 ps-4 block text-[0.66rem] font-medium uppercase tracking-[0.26em] text-menu-brass/75"
           >
             {labels.eyebrow}
           </label>
@@ -85,7 +85,7 @@ export default function MenuSearchFilter({
               value={query}
               onChange={(event) => onQueryChange(event.target.value)}
               placeholder={labels.searchPlaceholder}
-              className="min-h-12 w-full rounded-full border border-white/10 bg-menu-night/44 pl-11 pr-4 text-sm text-menu-ivory outline-none transition placeholder:text-menu-cream/42 focus:border-menu-brass/45 focus:bg-menu-night/62 focus:ring-2 focus:ring-menu-brass/25"
+              className="min-h-11 w-full rounded-full border border-white/10 bg-menu-night/44 pl-11 pr-4 text-sm text-menu-ivory outline-none transition placeholder:text-menu-cream/42 focus:border-menu-brass/45 focus:bg-menu-night/62 focus:ring-2 focus:ring-menu-brass/25"
             />
           </div>
         </div>
@@ -99,8 +99,8 @@ export default function MenuSearchFilter({
               className={[
                 "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
                 featuredOnly
-                  ? "border-menu-brass/45 bg-menu-brass/18 text-menu-warm-white shadow-[var(--shadow-menu-button-hover)]"
-                  : "border-white/10 bg-white/[0.045] text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
+                  ? "border-menu-brass/45 bg-menu-brass/18 text-menu-warm-white shadow-(--shadow-menu-button-hover)"
+                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
               ].join(" ")}
             >
               <Sparkles size={15} aria-hidden="true" strokeWidth={1.7} />
@@ -114,7 +114,7 @@ export default function MenuSearchFilter({
                 "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
                 availableOnly
                   ? "border-emerald-200/25 bg-emerald-300/12 text-emerald-100"
-                  : "border-white/10 bg-white/[0.045] text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
+                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
               ].join(" ")}
             >
               <CheckCircle2 size={15} aria-hidden="true" strokeWidth={1.7} />
@@ -128,7 +128,7 @@ export default function MenuSearchFilter({
                 "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
                 vegetarianOnly
                   ? "border-emerald-200/25 bg-emerald-300/12 text-emerald-100"
-                  : "border-white/10 bg-white/[0.045] text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
+                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
               ].join(" ")}
             >
               <Leaf size={15} aria-hidden="true" strokeWidth={1.7} />
@@ -142,7 +142,7 @@ export default function MenuSearchFilter({
                 "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
                 spicyOnly
                   ? "border-red-300/25 bg-red-400/12 text-red-100"
-                  : "border-white/10 bg-white/[0.045] text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
+                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
               ].join(" ")}
             >
               <Flame size={15} aria-hidden="true" strokeWidth={1.7} />

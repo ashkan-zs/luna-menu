@@ -81,3 +81,77 @@ The experience should feel cinematic, elegant, mobile-first, and luxury-focused 
 - Use semantic headings
 - Optimize images
 - Ensure mobile performance is excellent
+
+# State Management
+
+- Prefer local component state first
+- Avoid global state libraries unless truly necessary
+- URL state should be minimal
+- Keep filtering and modal state close to the feature
+- Avoid prop drilling deeper than 2–3 levels
+
+# Performance Rules
+
+- Minimize client-side JavaScript
+- Avoid unnecessary re-renders
+- Prefer static rendering where possible
+- Use optimized Next.js Image component
+- Lazy load heavy UI sections when appropriate
+- Keep animation performance GPU-friendly
+- Avoid layout shift
+
+# Image Rules
+
+- Use cinematic landscape imagery
+- Optimize all images
+- Prefer responsive image sizing
+- Use object-cover consistently
+- Avoid distorted aspect ratios
+- Preserve visual consistency across menu items
+
+# Accessibility
+
+- Maintain sufficient text contrast
+- Ensure touch targets are large enough
+- Use semantic buttons and sections
+- Support keyboard navigation for modals
+- Use aria labels where appropriate
+
+# CMS Architecture
+
+- Structure components to work with both static data and CMS data
+- Avoid tightly coupling UI to demo data
+- Keep data transformation logic inside `/lib`
+- Prefer serializable data structures
+
+# Motion Rules
+
+- Respect reduced motion preferences
+- Prefer opacity and transform animations
+- Avoid animating expensive properties
+- Keep animations under 400ms unless cinematic intent requires otherwise
+
+# Component Architecture
+
+- Keep presentational and logic concerns separated
+- Avoid massive all-in-one components
+- Extract reusable UI primitives
+- Prefer composition over deeply nested conditionals
+
+# Visual Philosophy
+
+The UI should feel like a premium restaurant brand experience,
+not a software product.
+
+Every screen should prioritize atmosphere, readability,
+and emotional presentation over dense functionality.
+
+# Next.js Rules
+
+- Prefer Server Components by default
+- Use Client Components only for:
+  - animations
+  - interactivity
+  - browser APIs
+  - local state
+- Avoid fetching data inside deeply nested client components

@@ -10,6 +10,8 @@ import { filterMenuItems } from "@/lib/filterMenuItems";
 import MenuItemCard from "./MenuItemCard";
 import MenuItemModal from "./MenuItemModal";
 import MenuSearchFilter from "./MenuSearchFilter";
+import CategoryTabs from "./CategoryTabs";
+import { useActiveCategory } from "@/hooks/useActiveCategory";
 
 const copy = {
   en: {
@@ -50,7 +52,15 @@ export default function MenuItemsSection({
   const [vegetarianOnly, setVegetarianOnly] = useState(false);
   const [spicyOnly, setSpicyOnly] = useState(false);
   const labels = copy[language];
+  const categoryIds = CATEGORIES.map((category) => category.id);
+  const activeCategory = useActiveCategory(categoryIds);
 
+  function scrollToCategory(categoryId: string) {
+    document.getElementById(categoryId)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
   const filteredItems = useMemo(
     () =>
       filterMenuItems(
@@ -73,7 +83,14 @@ export default function MenuItemsSection({
       className="scroll-mt-28 px-5 py-14 sm:px-8 lg:px-12"
       aria-labelledby="menu-heading"
     >
-      <div className="mx-auto max-w-7xl">
+      <CategoryTabs
+        categories={CATEGORIES}
+        language={language}
+        activeCategory={activeCategory}
+        onCategoryClick={scrollToCategory}
+      />
+
+      <div className="mx-auto max-w-7xl mt-4">
         <div className="mb-10 max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.32em] text-menu-brass/80">
             {labels.eyebrow}
@@ -155,7 +172,7 @@ export default function MenuItemsSection({
         </div>
 
         {filteredItems.length === 0 ? (
-          <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.045] px-5 py-12 text-center shadow-[0_18px_60px_rgb(0_0_0_/_0.2)] backdrop-blur-xl">
+          <div className="rounded-[1.75rem] border border-white/10 bg-white/4.5 px-5 py-12 text-center shadow-[0_18px_60px_rgb(0_0_0_/0.2)] backdrop-blur-xl">
             <h3 className="font-serif text-2xl text-menu-ivory">
               {labels.emptyHeading}
             </h3>

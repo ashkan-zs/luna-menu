@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Camera, MapPin } from "lucide-react";
-import LanguageSwitcher from "./LanguageSwitcher";
+import { Camera, MapPin, UtensilsCrossed } from "lucide-react";
 import { SupportedLanguage } from "@/types/menu";
 import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 
@@ -14,7 +13,6 @@ type MenuHeroProps = {
   backgroundImage?: string;
   logoSrc?: string;
   language: SupportedLanguage;
-  onLanguageSwitch: () => void;
 };
 
 const copy = {
@@ -37,7 +35,6 @@ export default function MenuHero({
   backgroundImage = "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80",
   logoSrc,
   language = "en",
-  onLanguageSwitch,
 }: MenuHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const restaurantInitials = getRestaurantInitials(restaurantName);
@@ -93,7 +90,7 @@ export default function MenuHero({
             : "translate-y-4 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100",
         ].join(" ")}
       >
-        <div className="relative mb-7 grid size-20 place-items-center overflow-hidden rounded-full border border-menu-brass/35 bg-menu-night/38 shadow-[0_18px_60px_rgb(0_0_0_/_0.36)] backdrop-blur-xl">
+        <div className="relative mb-7 grid size-20 place-items-center overflow-hidden rounded-full border border-menu-brass/35 bg-menu-night/38 shadow-[0_18px_60px_rgb(0_0_0_/0.36)] backdrop-blur-xl">
           {logoSrc ? (
             <Image
               src={logoSrc}
@@ -126,8 +123,9 @@ export default function MenuHero({
           <button
             type="button"
             onClick={scrollToMenu}
-            className="min-h-12 rounded-full border border-menu-brass/45 bg-menu-brass/16 px-7 text-sm font-medium tracking-wide text-menu-warm-white shadow-[var(--shadow-menu-button-hover)] transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass-hover/80 hover:bg-menu-brass/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 active:translate-y-0"
+            className="flex items-center gap-2 cursor-pointer min-h-12 rounded-full border border-menu-brass/45 bg-menu-brass/16 px-7 text-sm font-medium tracking-wide text-menu-warm-white hover:shadow-(--shadow-menu-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass-hover/80 hover:bg-menu-brass/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 active:translate-y-0"
           >
+            <UtensilsCrossed size={18} strokeWidth={1.6} />
             {labels.exploreMenu}
           </button>
 
@@ -156,16 +154,6 @@ export default function MenuHero({
                 <Camera size={14} aria-hidden="true" />
                 Instagram
               </a>
-            </li>
-            <li>
-              <LanguageSwitcher
-                activeLanguage={language}
-                onLanguageChange={onLanguageSwitch}
-              />
-              {/* <span className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3">
-                <Languages size={14} aria-hidden="true" />
-                EN
-              </span> */}
             </li>
           </ul>
         </div>
