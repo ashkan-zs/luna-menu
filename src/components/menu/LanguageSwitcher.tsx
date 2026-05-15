@@ -1,13 +1,14 @@
 "use client";
 
-export type Language = "tr" | "en";
+import { SupportedLanguage } from "@/types/menu";
+import React from "react";
 
 type LanguageSwitcherProps = {
-  activeLanguage: Language;
-  onLanguageChange?: (language: Language) => void;
+  activeLanguage: SupportedLanguage;
+  onLanguageChange?: (language: SupportedLanguage) => void;
 };
 
-const languages: Language[] = ["tr", "en"];
+const languages: SupportedLanguage[] = ["tr", "en"];
 
 export default function LanguageSwitcher({
   activeLanguage,
@@ -15,33 +16,35 @@ export default function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   return (
     <div
-      className="flex min-h-11 items-center rounded-full border border-white/10 bg-white/[0.045] px-1 text-[0.68rem] font-medium tracking-[0.18em] text-menu-cream/70"
+      className="flex items-center rounded-full border border-white/10 bg-white/4.5 p-1 text-[0.68rem] font-medium tracking-[0.18em] text-menu-cream/70"
       aria-label="Language selector"
     >
       {languages.map((language, index) => (
-        <button
-          key={language}
-          type="button"
-          onClick={() => onLanguageChange?.(language)}
-          aria-pressed={activeLanguage === language}
-          className="flex items-center cursor-pointer"
-        >
-          <span
-            className={[
-              "flex items-center min-h-9 rounded-full px-2.5 transition outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70",
-              activeLanguage === language
-                ? "bg-menu-language-active/12 text-menu-button-text"
-                : "hover:text-menu-button-text",
-            ].join(" ")}
-          >
-            {language.toUpperCase()}
-          </span>
-          {index === 0 ? (
-            <span className="ml-2 mr-1 text-menu-brass/35" aria-hidden="true">
+        <React.Fragment key={language}>
+          {index === 1 && (
+            <span className="mx-1 text-menu-brass/35" aria-hidden="true">
               |
             </span>
-          ) : null}
-        </button>
+          )}
+          <button
+            key={language}
+            type="button"
+            onClick={() => onLanguageChange?.(language)}
+            aria-pressed={activeLanguage === language}
+            className="flex items-center cursor-pointer"
+          >
+            <span
+              className={[
+                "flex items-center rounded-full px-2 py-2 transition outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70",
+                activeLanguage === language
+                  ? "bg-menu-language-active/12 text-menu-button-text"
+                  : "hover:text-menu-button-text",
+              ].join(" ")}
+            >
+              {language.toUpperCase()}
+            </span>
+          </button>
+        </React.Fragment>
       ))}
     </div>
   );

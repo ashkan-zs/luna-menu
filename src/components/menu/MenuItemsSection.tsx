@@ -52,7 +52,10 @@ export default function MenuItemsSection({
   const [vegetarianOnly, setVegetarianOnly] = useState(false);
   const [spicyOnly, setSpicyOnly] = useState(false);
   const labels = copy[language];
-  const categoryIds = CATEGORIES.map((category) => category.id);
+  const categoryIds = useMemo(
+    () => CATEGORIES.map((category) => category.id),
+    [],
+  );
   const activeCategory = useActiveCategory(categoryIds);
 
   function scrollToCategory(categoryId: string) {
@@ -80,7 +83,7 @@ export default function MenuItemsSection({
   return (
     <section
       id="menu"
-      className="scroll-mt-28 px-5 py-14 sm:px-8 lg:px-12"
+      className="scroll-mt-18 px-5 py-14 sm:px-8 lg:px-12"
       aria-labelledby="menu-heading"
     >
       <CategoryTabs
@@ -137,7 +140,7 @@ export default function MenuItemsSection({
                 id={category.id}
                 key={category.id}
                 aria-labelledby={headingId}
-                className="space-y-5"
+                className="space-y-5 scroll-mt-32"
               >
                 <div className="flex items-end justify-between border-b border-white/10 pb-4">
                   <div>

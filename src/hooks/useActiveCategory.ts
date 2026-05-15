@@ -1,4 +1,3 @@
-// hooks/useActiveCategory.ts
 "use client";
 
 import { useEffect, useState } from "react";
@@ -18,7 +17,11 @@ export function useActiveCategory(categoryIds: string[]) {
         const mostVisibleEntry = visibleEntries[0];
 
         if (mostVisibleEntry) {
-          setActiveCategory(mostVisibleEntry.target.id);
+          setActiveCategory((current) =>
+            current === mostVisibleEntry.target.id
+              ? current
+              : mostVisibleEntry.target.id,
+          );
         }
       },
       {
