@@ -1,6 +1,12 @@
-"use client";
-
-import { CheckCircle2, Flame, Leaf, Search, Sparkles } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+import {
+  CheckCircle2,
+  Flame,
+  Leaf,
+  Search,
+  SlidersHorizontal,
+  Sparkles,
+} from "lucide-react";
 import type { SupportedLanguage } from "@/types/menu";
 
 type MenuSearchFilterProps = {
@@ -20,28 +26,35 @@ type MenuSearchFilterProps = {
 
 const copy = {
   en: {
-    eyebrow: "Find your table favorite",
+    eyebrow: "Menu Discovery",
     searchLabel: "Search menu",
-    searchPlaceholder: "Search dishes, ingredients, allergens...",
-    featured: "Featured",
+    searchPlaceholder: "Search dishes, ingredients, notes...",
+    featured: "Signature",
     available: "Available",
     vegetarian: "Vegetarian",
     spicy: "Spicy",
-    result: "item",
-    results: "items",
+    result: "dish available",
+    results: "dishes available",
   },
   tr: {
-    eyebrow: "Masadaki favorini bul",
+    eyebrow: "Menü Keşfi",
     searchLabel: "Menüde ara",
-    searchPlaceholder: "Yemek, içerik, alerjen ara...",
-    featured: "Öne çıkan",
+    searchPlaceholder: "Yemek, içerik, not ara...",
+    featured: "İmza",
     available: "Mevcut",
     vegetarian: "Vejetaryen",
     spicy: "Acılı",
-    result: "ürün",
-    results: "ürün",
+    result: "ürün mevcut",
+    results: "ürün mevcut",
   },
 } satisfies Record<SupportedLanguage, Record<string, string>>;
+
+type FilterChipProps = {
+  label: string;
+  active: boolean;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  onClick: () => void;
+};
 
 export default function MenuSearchFilter({
   query,
@@ -59,102 +72,109 @@ export default function MenuSearchFilter({
 }: MenuSearchFilterProps) {
   const labels = copy[language];
   const resultLabel = resultCount === 1 ? labels.result : labels.results;
+  const filters = [
+    {
+      label: labels.featured,
+      active: featuredOnly,
+      icon: Sparkles,
+      onClick: () => onFeaturedOnlyChange(!featuredOnly),
+    },
+    {
+      label: labels.available,
+      active: availableOnly,
+      icon: CheckCircle2,
+      onClick: () => onAvailableOnlyChange(!availableOnly),
+    },
+    {
+      label: labels.vegetarian,
+      active: vegetarianOnly,
+      icon: Leaf,
+      onClick: () => onVegetarianOnlyChange(!vegetarianOnly),
+    },
+    {
+      label: labels.spicy,
+      active: spicyOnly,
+      icon: Flame,
+      onClick: () => onSpicyOnlyChange(!spicyOnly),
+    },
+  ];
 
   return (
     <section
       aria-label={labels.searchLabel}
-      className="mb-10 rounded-[1.75rem] border border-white/10 bg-white/5.5 p-3 shadow-[0_24px_70px_rgb(0_0_0_/0.26)] backdrop-blur-2xl sm:p-4"
+      className="relative mb-12"
     >
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <div className="relative">
-          <label
-            htmlFor="menu-search"
-            className="mb-2 ps-4 block text-[0.66rem] font-medium uppercase tracking-[0.26em] text-menu-brass/75"
-          >
-            {labels.eyebrow}
+      <div
+        className="pointer-events-none absolute inset-x-8 -top-8 h-24 bg-[radial-gradient(circle_at_50%_0%,rgb(var(--menu-brass-rgb)/0.12),transparent_62%)]"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-4xl space-y-4">
+        <div className="flex items-end justify-between gap-5 px-1">
+          <label htmlFor="menu-search" className="block">
+            <span className="block text-[0.64rem] font-medium uppercase tracking-[0.32em] text-menu-brass/70">
+              {labels.eyebrow}
+            </span>
+            <span className="mt-1 block text-xs text-menu-cream/44">
+              {resultCount} {resultLabel}
+            </span>
           </label>
-          <div className="relative">
-            <Search
-              aria-hidden="true"
-              className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-menu-brass/72"
-              strokeWidth={1.8}
-            />
-            <input
-              id="menu-search"
-              type="search"
-              value={query}
-              onChange={(event) => onQueryChange(event.target.value)}
-              placeholder={labels.searchPlaceholder}
-              className="min-h-11 w-full rounded-full border border-white/10 bg-menu-night/44 pl-11 pr-4 text-sm text-menu-ivory outline-none transition placeholder:text-menu-cream/42 focus:border-menu-brass/45 focus:bg-menu-night/62 focus:ring-2 focus:ring-menu-brass/25"
-            />
-          </div>
         </div>
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-end">
-            <button
-              type="button"
-              aria-pressed={featuredOnly}
-              onClick={() => onFeaturedOnlyChange(!featuredOnly)}
-              className={[
-                "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
-                featuredOnly
-                  ? "border-menu-brass/45 bg-menu-brass/18 text-menu-warm-white shadow-(--shadow-menu-button-hover)"
-                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
-              ].join(" ")}
-            >
-              <Sparkles size={15} aria-hidden="true" strokeWidth={1.7} />
-              {labels.featured}
-            </button>
-            <button
-              type="button"
-              aria-pressed={availableOnly}
-              onClick={() => onAvailableOnlyChange(!availableOnly)}
-              className={[
-                "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
-                availableOnly
-                  ? "border-emerald-200/25 bg-emerald-300/12 text-emerald-100"
-                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
-              ].join(" ")}
-            >
-              <CheckCircle2 size={15} aria-hidden="true" strokeWidth={1.7} />
-              {labels.available}
-            </button>
-            <button
-              type="button"
-              aria-pressed={vegetarianOnly}
-              onClick={() => onVegetarianOnlyChange(!vegetarianOnly)}
-              className={[
-                "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
-                vegetarianOnly
-                  ? "border-emerald-200/25 bg-emerald-300/12 text-emerald-100"
-                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
-              ].join(" ")}
-            >
-              <Leaf size={15} aria-hidden="true" strokeWidth={1.7} />
-              {labels.vegetarian}
-            </button>
-            <button
-              type="button"
-              aria-pressed={spicyOnly}
-              onClick={() => onSpicyOnlyChange(!spicyOnly)}
-              className={[
-                "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 text-xs font-medium uppercase tracking-[0.14em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80",
-                spicyOnly
-                  ? "border-red-300/25 bg-red-400/12 text-red-100"
-                  : "border-white/10 bg-white/4.5 text-menu-cream/68 hover:border-menu-brass/30 hover:text-menu-warm-white",
-              ].join(" ")}
-            >
-              <Flame size={15} aria-hidden="true" strokeWidth={1.7} />
-              {labels.spicy}
-            </button>
-          </div>
+        <div className="relative">
+          <Search
+            aria-hidden="true"
+            className="pointer-events-none absolute left-5 top-1/2 size-4 -translate-y-1/2 text-menu-brass/68"
+            strokeWidth={1.7}
+          />
+          <input
+            id="menu-search"
+            type="search"
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value)}
+            placeholder={labels.searchPlaceholder}
+            className="min-h-13 w-full rounded-full border border-white/10 bg-white/[0.055] pl-12 pr-12 text-sm text-menu-ivory shadow-[0_16px_55px_rgb(0_0_0_/0.18)] outline-none backdrop-blur-xl transition duration-300 placeholder:text-menu-cream/38 focus:border-menu-brass/38 focus:bg-menu-night/46 focus:ring-2 focus:ring-menu-brass/18"
+          />
+          <SlidersHorizontal
+            aria-hidden="true"
+            className="pointer-events-none absolute right-5 top-1/2 size-4 -translate-y-1/2 text-menu-cream/38"
+            strokeWidth={1.6}
+          />
+        </div>
 
-          <p className="rounded-full border border-white/10 bg-black/10 px-3 py-2 text-center text-xs font-medium text-menu-cream/64 sm:min-w-24">
-            {resultCount} {resultLabel}
-          </p>
+        <div className="-mx-5 overflow-x-auto px-5 pb-1 [-ms-overflow-style:none] scrollbar-none sm:mx-0 sm:px-1 [&::-webkit-scrollbar]:hidden">
+          <div className="flex w-max items-center gap-2.5">
+            {filters.map((filter) => (
+              <FilterChip
+                key={filter.label}
+                label={filter.label}
+                active={filter.active}
+                icon={filter.icon}
+                onClick={filter.onClick}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function FilterChip({ label, active, icon: Icon, onClick }: FilterChipProps) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={[
+        "inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-full border px-3.5 text-[0.66rem] font-medium uppercase tracking-[0.15em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70 sm:min-h-9",
+        active
+          ? "border-menu-brass/32 bg-menu-brass/12 text-menu-brass shadow-[0_10px_30px_rgb(var(--menu-brass-rgb)/0.12)]"
+          : "border-white/8 bg-white/[0.035] text-menu-cream/56 hover:border-menu-brass/22 hover:text-menu-cream/78",
+      ].join(" ")}
+    >
+      <Icon className="size-3.5" aria-hidden="true" strokeWidth={1.7} />
+      {label}
+    </button>
   );
 }
