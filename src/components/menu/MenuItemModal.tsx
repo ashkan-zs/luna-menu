@@ -4,7 +4,12 @@ import Image from "next/image";
 
 import type { MenuItem, SupportedLanguage } from "@/types/menu";
 import { formatPrice } from "@/lib/formatPrice";
-import { AnimatePresence, motion, PanInfo } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  PanInfo,
+  useDragControls,
+} from "framer-motion";
 import { ChefHat, Flame, Leaf, Star, X } from "lucide-react";
 
 type MenuItemModalProps = {
@@ -19,6 +24,7 @@ export default function MenuItemModal({
   onClose,
 }: MenuItemModalProps) {
   const CLOSE_THRESHOLD = 120;
+  const dragControls = useDragControls();
 
   function handleDragEnd(info: PanInfo) {
     if (info.offset.y > CLOSE_THRESHOLD) onClose();
@@ -37,21 +43,19 @@ export default function MenuItemModal({
           onClick={onClose}
         >
           <motion.article
-            className="relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-4xl border border-white/10 bg-[#0b0b0c]/95 shadow-2xl shadow-black/50 sm:rounded-4xl scrollbar-none"
+            className="relative max-h-[92vh] w-full max-w-lg overflow-hidden rounded-t-4xl border border-white/10 bg-[#0b0b0c]/95 shadow-2xl shadow-black/50 sm:rounded-4xl"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 269, damping: 30 }}
             drag="y"
+            dragControls={dragControls}
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={0.12}
+            dragListener={false}
             onDragEnd={(_, info) => handleDragEnd(info)}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="sticky top-0 z-20 flex justify-center py-3 sm:hidden">
-              <div className="h-1.5 w-14 rounded-full bg-white/25" />
-            </div>
-
             <button
               type="button"
               onClick={onClose}
@@ -61,108 +65,121 @@ export default function MenuItemModal({
               <X size={22} />
             </button>
 
-            <div className="relative h-80 overflow-hidden rounded-t-4xl">
-              <Image
-                src={item.image}
-                alt={item.name[language]}
-                fill
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-[#0b0b0c] via-black/20 to-black/10" />
-            </div>
-
-            <div className="space-y-6 px-6 pb-8 pt-2">
-              {item.featured && (
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#c8a96b]/30 bg-[#c8a96b]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-[#c8a96b]">
-                  <Star size={14} />
-                  Chef&apos;s Recommendation
-                </div>
-              )}
-
-              <div>
-                <h2 className="font-serif text-4xl leading-tight text-white">
-                  {item.name[language]}
-                </h2>
-
-                <p className="mt-3 text-2xl font-medium text-[#c8a96b]">
-                  {formatPrice(item.price)}
-                </p>
-
-                <p className="mt-4 text-base leading-7 text-white/65">
-                  {item.description[language]}
-                </p>
+            <div className="max-h-[92vh] overflow-y-auto overscroll-contain scrollbar-none [-webkit-overflow-scrolling:touch]">
+              <div
+                className="sticky top-0 z-20 flex touch-none justify-center py-3 sm:hidden"
+                onPointerDown={(event) => dragControls.start(event)}
+              >
+                <div className="h-1.5 w-14 rounded-full bg-white/25" />
               </div>
 
-              <div className="grid grid-cols-3 gap-3 border-y border-white/10 py-4 text-xs uppercase tracking-[0.16em] text-white/60">
-                <div className="flex items-center gap-2">
-                  <Flame size={16} className="text-[#c8a96b]" />
-                  Spicy
-                </div>
-                <div className="flex items-center gap-2">
-                  <Leaf size={16} className="text-[#c8a96b]" />
-                  Fresh
-                </div>
-                <div className="flex items-center gap-2">
-                  <ChefHat size={16} className="text-[#c8a96b]" />
-                  Special
-                </div>
+              <div className="relative h-80 overflow-hidden rounded-t-4xl">
+                <Image
+                  src={item.image}
+                  alt={item.name[language]}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-[#0b0b0c] via-black/20 to-black/10" />
               </div>
 
-              {item.ingredients && (
-                <section>
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-                    Ingredients
-                  </h3>
-                  <p className="mt-3 leading-7 text-white/55">
-                    {item.ingredients[language]}
-                  </p>
-                </section>
-              )}
-
-              {item.allergens && (
-                <section>
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-                    Allergens
-                  </h3>
-
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {item.allergens ? (
-                      item.allergens.map((allergen) => (
-                        <span
-                          key={allergen[language]}
-                          className="rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-sm text-white/60"
-                        >
-                          {allergen[language]}
-                        </span>
-                      ))
-                    ) : (
-                      <p className="text-sm text-white/50">
-                        No listed allergens
-                      </p>
-                    )}
+              <div className="space-y-6 px-6 pb-8 pt-2">
+                {item.featured && (
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#c8a96b]/30 bg-[#c8a96b]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-[#c8a96b]">
+                    <Star size={14} />
+                    Chef&apos;s Recommendation
                   </div>
-                </section>
-              )}
+                )}
 
-              {(item.calories || item.protein || item.carbs || item.fats) && (
-                <div className="grid grid-cols-4 rounded-3xl border border-white/10 bg-white/4 py-5 text-center">
-                  <NutritionItem label="Calories" value={item.calories} />
-                  <NutritionItem
-                    label="Protein"
-                    value={item.protein}
-                    suffix="g"
-                  />
-                  <NutritionItem label="Carbs" value={item.carbs} suffix="g" />
-                  <NutritionItem label="Fats" value={item.fats} suffix="g" />
+                <div>
+                  <h2 className="font-serif text-4xl leading-tight text-white">
+                    {item.name[language]}
+                  </h2>
+
+                  <p className="mt-3 text-2xl font-medium text-[#c8a96b]">
+                    {formatPrice(item.price)}
+                  </p>
+
+                  <p className="mt-4 text-base leading-7 text-white/65">
+                    {item.description[language]}
+                  </p>
                 </div>
-              )}
 
-              {!item.available && (
-                <p className="rounded-2xl border border-red-400/20 bg-red-400/10 p-4 text-sm text-red-200">
-                  This item is currently unavailable.
-                </p>
-              )}
+                <div className="grid grid-cols-3 gap-3 border-y border-white/10 py-4 text-xs uppercase tracking-[0.16em] text-white/60">
+                  <div className="flex items-center gap-2">
+                    <Flame size={16} className="text-[#c8a96b]" />
+                    Spicy
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Leaf size={16} className="text-[#c8a96b]" />
+                    Fresh
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ChefHat size={16} className="text-[#c8a96b]" />
+                    Special
+                  </div>
+                </div>
+
+                {item.ingredients && (
+                  <section>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                      Ingredients
+                    </h3>
+                    <p className="mt-3 leading-7 text-white/55">
+                      {item.ingredients[language]}
+                    </p>
+                  </section>
+                )}
+
+                {item.allergens && (
+                  <section>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                      Allergens
+                    </h3>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {item.allergens ? (
+                        item.allergens.map((allergen) => (
+                          <span
+                            key={allergen[language]}
+                            className="rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-sm text-white/60"
+                          >
+                            {allergen[language]}
+                          </span>
+                        ))
+                      ) : (
+                        <p className="text-sm text-white/50">
+                          No listed allergens
+                        </p>
+                      )}
+                    </div>
+                  </section>
+                )}
+
+                {(item.calories || item.protein || item.carbs || item.fats) && (
+                  <div className="grid grid-cols-4 rounded-3xl border border-white/10 bg-white/4 py-5 text-center">
+                    <NutritionItem label="Calories" value={item.calories} />
+                    <NutritionItem
+                      label="Protein"
+                      value={item.protein}
+                      suffix="g"
+                    />
+                    <NutritionItem
+                      label="Carbs"
+                      value={item.carbs}
+                      suffix="g"
+                    />
+                    <NutritionItem label="Fats" value={item.fats} suffix="g" />
+                  </div>
+                )}
+
+                {!item.available && (
+                  <p className="rounded-2xl border border-red-400/20 bg-red-400/10 p-4 text-sm text-red-200">
+                    This item is currently unavailable.
+                  </p>
+                )}
+              </div>
             </div>
           </motion.article>
         </motion.div>

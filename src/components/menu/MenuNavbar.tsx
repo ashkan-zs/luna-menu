@@ -28,7 +28,7 @@ export default function MenuNavbar({
     <header className="absolute inset-x-0 top-2 z-50 px-3 sm:top-4 sm:px-5">
       <nav
         aria-label="Restaurant navigation"
-        className="mx-auto flex h-15 max-w-5xl items-center justify-between rounded-full border border-menu-brass-muted/12 bg-menu-night/14 px-3 shadow-[0_12px_36px_rgb(0_0_0_/0.12)] backdrop-blur-md transition-all duration-500 ease-out sm:h-16 sm:px-4"
+        className="mx-auto flex h-15 max-w-5xl items-center justify-between sm:rounded-full sm:border sm:border-menu-brass-muted/12 sm:bg-menu-night/14 px-3 sm:shadow-[0_12px_36px_rgb(0_0_0_/0.12)] sm:backdrop-blur-md transition-all duration-500 ease-out sm:h-16 sm:px-4"
       >
         <a
           href="#top"

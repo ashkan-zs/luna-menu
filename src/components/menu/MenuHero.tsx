@@ -2,29 +2,27 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Camera, MapPin, UtensilsCrossed } from "lucide-react";
+import { BookOpenText, UtensilsCrossed } from "lucide-react";
 import { SupportedLanguage } from "@/types/menu";
-import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 
 type MenuHeroProps = {
   restaurantName?: string;
   tagline?: string;
   description?: string;
   backgroundImage?: string;
-  logoSrc?: string;
   language: SupportedLanguage;
 };
 
 const copy = {
   en: {
-    exploreMenu: "Explore Menu",
-    quickLinks: "Restaurant quick links",
-    location: "Location",
+    welcome: "Welcome to",
+    exploreMenu: "Show Full Menu",
+    story: "Our Story",
   },
   tr: {
-    exploreMenu: "Menüyü İncele",
-    quickLinks: "Restoran hızlı bağlantıları",
-    location: "Konum",
+    welcome: "Hoş geldiniz",
+    exploreMenu: "Tüm Menüyü Göster",
+    story: "Hikayemiz",
   },
 } satisfies Record<SupportedLanguage, Record<string, string>>;
 
@@ -33,11 +31,9 @@ export default function MenuHero({
   tagline = "Modern Mediterranean Dining",
   description = "Seasonal dishes, crafted cocktails, and warm hospitality.",
   backgroundImage = "/images/hero/luna-bistro-hero.jpg",
-  logoSrc,
   language = "en",
 }: MenuHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const restaurantInitials = getRestaurantInitials(restaurantName);
   const labels = copy[language];
 
   useEffect(() => {
@@ -52,6 +48,13 @@ export default function MenuHero({
 
   const scrollToMenu = () => {
     document.getElementById("menu")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const scrollToStory = () => {
+    document.getElementById("restaurant-info")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -90,36 +93,27 @@ export default function MenuHero({
             : "translate-y-4 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100",
         ].join(" ")}
       >
-        <div className="relative mb-7 grid size-20 place-items-center overflow-hidden rounded-full border border-menu-brass/35 bg-menu-night/38 shadow-[0_18px_60px_rgb(0_0_0_/0.36)] backdrop-blur-xl">
-          {logoSrc ? (
-            <Image
-              src={logoSrc}
-              alt={`${restaurantName} logo`}
-              fill
-              sizes="80px"
-              className="object-cover"
-            />
-          ) : (
-            <span className="font-serif text-xl tracking-[0.2em] text-menu-logo-wash">
-              {restaurantInitials}
-            </span>
-          )}
-        </div>
-
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.38em] text-menu-brass">
-          {tagline}
+        <p className="mb-5 text-xs font-medium uppercase tracking-[0.42em] text-menu-brass">
+          {labels.welcome}
         </p>
         <h1
           id="menu-hero-heading"
-          className="max-w-3xl font-serif text-5xl leading-[0.92] tracking-wide text-menu-ivory sm:text-7xl"
+          className="max-w-3xl font-serif text-6xl leading-[0.88] tracking-wide text-menu-ivory sm:text-8xl"
         >
           {restaurantName}
         </h1>
-        <p className="mt-6 max-w-xl text-base leading-7 text-menu-cream/78 sm:text-lg">
+        <div
+          className="mt-6 h-px w-20 bg-linear-to-r from-transparent via-menu-brass/80 to-transparent"
+          aria-hidden="true"
+        />
+        <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-menu-brass/78">
+          {tagline}
+        </p>
+        <p className="mt-4 max-w-xl text-base leading-7 text-menu-cream/78 sm:text-lg">
           {description}
         </p>
 
-        <div className="mt-9 flex flex-col items-center gap-5">
+        <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
           <button
             type="button"
             onClick={scrollToMenu}
@@ -129,33 +123,14 @@ export default function MenuHero({
             {labels.exploreMenu}
           </button>
 
-          <ul
-            className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-menu-cream/70"
-            aria-label={labels.quickLinks}
+          <button
+            type="button"
+            onClick={scrollToStory}
+            className="flex min-h-12 cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/4.5 px-7 text-sm font-medium tracking-wide text-menu-cream/76 transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70 active:translate-y-0"
           >
-            <li>
-              <a
-                href="https://maps.google.com/?q=Luna%20Bistro"
-                className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/4.5 px-3 transition hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <MapPin size={14} aria-hidden="true" />
-                {labels.location}
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://instagram.com"
-                className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/4.5 px-3 transition hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Camera size={14} aria-hidden="true" />
-                Instagram
-              </a>
-            </li>
-          </ul>
+            <BookOpenText size={18} strokeWidth={1.6} />
+            {labels.story}
+          </button>
         </div>
       </div>
     </section>

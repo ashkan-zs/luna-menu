@@ -100,10 +100,7 @@ export default function MenuSearchFilter({
   ];
 
   return (
-    <section
-      aria-label={labels.searchLabel}
-      className="relative mb-12"
-    >
+    <section aria-label={labels.searchLabel} className="relative mb-12">
       <div
         className="pointer-events-none absolute inset-x-8 -top-8 h-24 bg-[radial-gradient(circle_at_50%_0%,rgb(var(--menu-brass-rgb)/0.12),transparent_62%)]"
         aria-hidden="true"
@@ -133,7 +130,7 @@ export default function MenuSearchFilter({
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
             placeholder={labels.searchPlaceholder}
-            className="min-h-13 w-full rounded-full border border-white/10 bg-white/[0.055] pl-12 pr-12 text-sm text-menu-ivory shadow-[0_16px_55px_rgb(0_0_0_/0.18)] outline-none backdrop-blur-xl transition duration-300 placeholder:text-menu-cream/38 focus:border-menu-brass/38 focus:bg-menu-night/46 focus:ring-2 focus:ring-menu-brass/18"
+            className="min-h-13 w-full rounded-full border border-white/10 bg-white/5.5 pl-12 pr-12 text-sm text-menu-ivory shadow-[0_16px_55px_rgb(0_0_0_/0.18)] outline-none backdrop-blur-xl transition duration-300 placeholder:text-menu-cream/38 focus:border-menu-brass/38 focus:bg-menu-night/46 focus:ring-2 focus:ring-menu-brass/18"
           />
           <SlidersHorizontal
             aria-hidden="true"
