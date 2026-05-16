@@ -4,14 +4,19 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 import LanguageSwitcher from "./LanguageSwitcher";
+import MenuThemeSwitcher from "./MenuThemeSwitcher";
 import { SupportedLanguage } from "@/types/menu";
+import type { MenuTheme, MenuThemeId } from "@/types/theme";
 
 type MenuNavbarProps = {
   restaurantName?: string;
   restaurantTagline?: string;
   logoSrc?: string;
   language: SupportedLanguage;
+  themes: MenuTheme[];
+  activeThemeId: MenuThemeId;
   onLanguageChange: () => void;
+  onThemeChange: (themeId: MenuThemeId) => void;
 };
 
 export default function MenuNavbar({
@@ -19,7 +24,10 @@ export default function MenuNavbar({
   restaurantTagline = "Dining & Cocktails",
   logoSrc,
   language,
+  themes,
+  activeThemeId,
   onLanguageChange,
+  onThemeChange,
 }: MenuNavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const restaurantInitials = getRestaurantInitials(restaurantName);
@@ -36,15 +44,6 @@ export default function MenuNavbar({
       window.removeEventListener("scroll", updateNavbar);
     };
   }, []);
-
-  //   <nav
-  //   className={[
-  //     "mx-auto flex h-14 max-w-5xl items-center justify-between rounded-2xl border px-3.5 transition-all duration-500 ease-out sm:px-5",
-  //     isScrolled
-  //       ? "border-menu-brass-muted/15 bg-menu-night/75 shadow-[var(--shadow-menu-navbar-scrolled)] backdrop-blur-2xl"
-  //       : "border-white/10 bg-black/20 backdrop-blur-md",
-  //   ].join(" ")}
-  // ></nav>
 
   return (
     <header className="sticky inset-x-0 top-0 z-50 h-0 px-3 pt-3 sm:px-5 sm:pt-5">
@@ -89,6 +88,11 @@ export default function MenuNavbar({
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <MenuThemeSwitcher
+            themes={themes}
+            activeThemeId={activeThemeId}
+            onThemeChange={onThemeChange}
+          />
           <LanguageSwitcher
             activeLanguage={language}
             onLanguageChange={onLanguageChange}

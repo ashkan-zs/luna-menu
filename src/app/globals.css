@@ -3,6 +3,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --theme-night: #080705;
+  --theme-brass: #d8ba7c;
+  --theme-brass-muted: #d6b46c;
+  --theme-brass-hover: #e6c77f;
+  --theme-parchment: #f4ecdf;
+  --theme-cream: #efe7d7;
+  --theme-ivory: #fff7ea;
+  --theme-warm-white: #fff4dd;
+  --theme-logo-wash: #f3dfb3;
+  --theme-language-active: #efe0bd;
+  --theme-button-text: #f8eed9;
   --menu-night-rgb: 8 7 5;
   --menu-brass-rgb: 216 186 124;
   --shadow-menu-navbar-scrolled: 0 18px 60px rgb(0 0 0 / 0.42);
@@ -24,19 +35,113 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-menu-night: #080705;
-  --color-menu-brass: #d8ba7c;
-  --color-menu-brass-muted: #d6b46c;
-  --color-menu-brass-hover: #e6c77f;
-  --color-menu-parchment: #f4ecdf;
-  --color-menu-cream: #efe7d7;
-  --color-menu-ivory: #fff7ea;
-  --color-menu-warm-white: #fff4dd;
-  --color-menu-logo-wash: #f3dfb3;
-  --color-menu-language-active: #efe0bd;
-  --color-menu-button-text: #f8eed9;
+  --color-menu-night: var(--theme-night);
+  --color-menu-brass: var(--theme-brass);
+  --color-menu-brass-muted: var(--theme-brass-muted);
+  --color-menu-brass-hover: var(--theme-brass-hover);
+  --color-menu-parchment: var(--theme-parchment);
+  --color-menu-cream: var(--theme-cream);
+  --color-menu-ivory: var(--theme-ivory);
+  --color-menu-warm-white: var(--theme-warm-white);
+  --color-menu-logo-wash: var(--theme-logo-wash);
+  --color-menu-language-active: var(--theme-language-active);
+  --color-menu-button-text: var(--theme-button-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+[data-menu-theme="amber-bistro"] {
+  --theme-night: #100b08;
+  --theme-brass: #e4ad61;
+  --theme-brass-muted: #cf9650;
+  --theme-brass-hover: #f3c577;
+  --theme-parchment: #f6ead8;
+  --theme-cream: #ead8c1;
+  --theme-ivory: #fff2df;
+  --theme-warm-white: #ffe9cf;
+  --theme-logo-wash: #f2cc93;
+  --theme-language-active: #f0c888;
+  --theme-button-text: #fff1dc;
+  --menu-night-rgb: 16 11 8;
+  --menu-brass-rgb: 228 173 97;
+}
+
+[data-menu-theme="olive-cafe"] {
+  --theme-night: #080c08;
+  --theme-brass: #b8c58a;
+  --theme-brass-muted: #9faf74;
+  --theme-brass-hover: #ccd99a;
+  --theme-parchment: #eff1df;
+  --theme-cream: #dde2c8;
+  --theme-ivory: #f8f9e8;
+  --theme-warm-white: #f4f7dd;
+  --theme-logo-wash: #d9e5a8;
+  --theme-language-active: #d9e5a8;
+  --theme-button-text: #fbffe9;
+  --menu-night-rgb: 8 12 8;
+  --menu-brass-rgb: 184 197 138;
+}
+
+[data-menu-theme="copper-cocktail"] {
+  --theme-night: #0d0707;
+  --theme-brass: #d68a63;
+  --theme-brass-muted: #c47755;
+  --theme-brass-hover: #eea37a;
+  --theme-parchment: #f5e5da;
+  --theme-cream: #ead0c1;
+  --theme-ivory: #fff0e5;
+  --theme-warm-white: #ffe5d7;
+  --theme-logo-wash: #efb18f;
+  --theme-language-active: #ebb08f;
+  --theme-button-text: #fff0e7;
+  --menu-night-rgb: 13 7 7;
+  --menu-brass-rgb: 214 138 99;
+}
+
+[data-menu-theme="ivory-brasserie"] {
+  --theme-night: #0d0b09;
+  --theme-brass: #d9c78e;
+  --theme-brass-muted: #c5ad73;
+  --theme-brass-hover: #ead9a1;
+  --theme-parchment: #fff5e5;
+  --theme-cream: #eee3cf;
+  --theme-ivory: #fff9ef;
+  --theme-warm-white: #fff1d9;
+  --theme-logo-wash: #f1dfaa;
+  --theme-language-active: #ecdcae;
+  --theme-button-text: #fff7ea;
+  --menu-night-rgb: 13 11 9;
+  --menu-brass-rgb: 217 199 142;
+}
+
+[data-menu-theme="pearl-daylight"] {
+  --theme-night: #f7f1e7;
+  --theme-brass: #8a6439;
+  --theme-brass-muted: #a77d4b;
+  --theme-brass-hover: #6f4e2b;
+  --theme-parchment: #1f1913;
+  --theme-cream: #4a3d31;
+  --theme-ivory: #17120e;
+  --theme-warm-white: #2b2118;
+  --theme-logo-wash: #7b552f;
+  --theme-language-active: #8a6439;
+  --theme-button-text: #1f1913;
+  --menu-night-rgb: 247 241 231;
+  --menu-brass-rgb: 138 100 57;
+  --shadow-menu-navbar-scrolled: 0 18px 60px rgb(80 55 24 / 0.16);
+  --shadow-menu-navbar-top: 0 16px 50px rgb(80 55 24 / 0.12);
+  --shadow-menu-button-hover: 0 12px 34px rgb(138 100 57 / 0.16);
+  --shadow-menu-card: 0 20px 60px rgb(80 55 24 / 0.14);
+  --menu-hero-glow: radial-gradient(
+      circle at 50% 0%,
+      rgb(var(--menu-brass-rgb) / 0.2),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(255 250 242 / 0.2),
+      var(--color-menu-night) 92%
+    );
 }
 
 @media (prefers-color-scheme: dark) {
