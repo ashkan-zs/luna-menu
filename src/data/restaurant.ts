@@ -11,9 +11,18 @@ export const RESTAURANT = {
     tr: "Mevsimsel tabaklar, özenle hazırlanmış kokteyller ve sıcak misafirperverlik.",
   },
   backgroundImage: "/images/hero/luna-bistro-hero.jpg",
+  location: {
+    en: "Nisantasi, Istanbul",
+    tr: "Nişantaşı, İstanbul",
+  },
+  footerStatement: {
+    en: "Crafted for slow evenings.",
+    tr: "Yavaş akşamlar için hazırlandı.",
+  },
   contact: {
     phone: "+90 212 555 18 18",
     instagramUrl: "https://instagram.com/lunabistro",
+    whatsappUrl: "https://wa.me/902125551818",
     googleMapsUrl:
       "https://maps.google.com/?q=Luna%20Bistro%20Nisantasi%20Istanbul",
   },
@@ -22,9 +31,12 @@ export const RESTAURANT = {
   tagline: LocalizedText;
   description: LocalizedText;
   backgroundImage: string;
+  location: LocalizedText;
+  footerStatement: LocalizedText;
   contact: {
     phone: string;
     instagramUrl: string;
+    whatsappUrl: string;
     googleMapsUrl: string;
   };
 };

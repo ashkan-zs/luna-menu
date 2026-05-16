@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 import LanguageSwitcher from "./LanguageSwitcher";
-import MenuThemeSwitcher from "./MenuThemeSwitcher";
 import { SupportedLanguage } from "@/types/menu";
 import type { MenuTheme, MenuThemeId } from "@/types/theme";
 
@@ -24,10 +23,7 @@ export default function MenuNavbar({
   restaurantTagline = "Dining & Cocktails",
   logoSrc,
   language,
-  themes,
-  activeThemeId,
   onLanguageChange,
-  onThemeChange,
 }: MenuNavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const restaurantInitials = getRestaurantInitials(restaurantName);
@@ -88,11 +84,6 @@ export default function MenuNavbar({
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* <MenuThemeSwitcher
-            themes={themes}
-            activeThemeId={activeThemeId}
-            onThemeChange={onThemeChange}
-          /> */}
           <LanguageSwitcher
             activeLanguage={language}
             onLanguageChange={onLanguageChange}
