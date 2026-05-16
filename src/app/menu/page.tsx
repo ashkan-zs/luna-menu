@@ -3,6 +3,7 @@
 import MenuHero from "@/components/menu/MenuHero";
 import MenuNavbar from "@/components/menu/MenuNavbar";
 import MenuItemsSection from "@/components/menu/MenuItemsSection";
+import RestaurantInfoSection from "@/components/menu/RestaurantInfoSection";
 
 import { RESTAURANT } from "@/data/restaurant";
 import { DEFAULT_MENU_THEME_ID, MENU_THEMES } from "@/data/menuThemes";
@@ -42,6 +43,13 @@ export default function MenuPage() {
       />
 
       <MenuItemsSection language={language} />
+
+      <RestaurantInfoSection
+        language={language}
+        restaurantName={RESTAURANT.name}
+        backgroundImage={RESTAURANT.backgroundImage}
+        contact={RESTAURANT.contact}
+      />
     </main>
   );
 }
