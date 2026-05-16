@@ -55,25 +55,7 @@ export default function MenuItemsSection({
   const [vegetarianOnly, setVegetarianOnly] = useState(false);
   const [spicyOnly, setSpicyOnly] = useState(false);
   const labels = copy[language];
-  const categoryIds = useMemo(
-    () => CATEGORIES.map((category) => category.id),
-    [],
-  );
-  const activeCategory = useActiveCategory(categoryIds);
-  const featuredItems = useMemo(
-    () =>
-      SIGNATURE_ITEM_IDS
-        .map((id) => MENU_ITEMS.find((item) => item.id === id))
-        .filter((item): item is MenuItemType => Boolean(item)),
-    [],
-  );
 
-  function scrollToCategory(categoryId: string) {
-    document.getElementById(categoryId)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
   const filteredItems = useMemo(
     () =>
       filterMenuItems(
@@ -90,14 +72,42 @@ export default function MenuItemsSection({
     [availableOnly, featuredOnly, language, query, spicyOnly, vegetarianOnly],
   );
 
+  const categoryIds = useMemo(
+    () => filteredItems.map((item) => item.category),
+    [filteredItems],
+  );
+
+  const visibleCategories = useMemo(() => {
+    const categoryIdsWithItem = new Set(
+      filteredItems.map((item) => item.category),
+    );
+    return CATEGORIES.filter((item) => categoryIdsWithItem.has(item.id));
+  }, [filteredItems]);
+
+  const activeCategory = useActiveCategory(categoryIds);
+  const featuredItems = useMemo(
+    () =>
+      SIGNATURE_ITEM_IDS
+        .map((id) => MENU_ITEMS.find((item) => item.id === id))
+        .filter((item): item is MenuItemType => Boolean(item)),
+    [],
+  );
+
+  function scrollToCategory(categoryId: string) {
+    document.getElementById(categoryId)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+
   return (
     <section
       id="menu"
-      className="scroll-mt-18 pt-14"
+      className="scroll-mt-16 pt-0"
       aria-labelledby="featured-heading"
     >
       <CategoryTabs
-        categories={CATEGORIES}
+        categories={visibleCategories}
         language={language}
         activeCategory={activeCategory}
         onCategoryClick={scrollToCategory}
@@ -129,7 +139,7 @@ export default function MenuItemsSection({
           />
 
           <div className="space-y-14">
-            {CATEGORIES.map((category) => {
+            {visibleCategories.map((category) => {
               const headingId = `${category.id}-heading`;
               const items = filteredItems.filter(
                 (item) => item.category === category.id,
