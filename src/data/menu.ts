@@ -154,16 +154,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 22,
     carbs: 38,
     fats: 31,
-    tags: [
-      {
-        en: "Vegetarian",
-        tr: "Vejetaryen",
-      },
-      {
-        en: "Chef's Special",
-        tr: "Şefin Önerisi",
-      },
-    ],
+    tags: ["vegetarian", "chef_choice"],
   },
   {
     id: "br-2",
@@ -206,16 +197,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 34,
     carbs: 36,
     fats: 41,
-    tags: [
-      {
-        en: "Chef's Recommendation",
-        tr: "Şefin Önerisi",
-      },
-      {
-        en: "Brunch Favorite",
-        tr: "Brunch Favorisi",
-      },
-    ],
+    tags: ["chef_choice"],
   },
 
   // --- STARTERS & SALADS ---
@@ -248,20 +230,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 12,
     carbs: 58,
     fats: 29,
-    tags: [
-      {
-        en: "Vegetarian",
-        tr: "Vejetaryen",
-      },
-      {
-        en: "Signature Starter",
-        tr: "İmza Başlangıç",
-      },
-      {
-        en: "Truffle Selection",
-        tr: "Trüf Seçkisi",
-      },
-    ],
+    tags: ["vegetarian", "signature"],
   },
   {
     id: "st-2",
@@ -291,10 +260,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 28,
     carbs: 32,
     fats: 26,
-    tags: [
-      { en: "Seafood", tr: "Deniz Ürünleri" },
-      { en: "Crispy", tr: "Çıtır" },
-    ],
+    tags: ["seafood"],
   },
   {
     id: "sl-1",
@@ -323,10 +289,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 14,
     carbs: 28,
     fats: 26,
-    tags: [
-      { en: "Vegetarian", tr: "Vejetaryen" },
-      { en: "Signature Salad", tr: "İmza Salata" },
-    ],
+    tags: ["vegetarian", "signature", "seasonal"],
   },
 
   // --- MAIN COURSES & SIDES ---
@@ -354,10 +317,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 62,
     carbs: 18,
     fats: 64,
-    tags: [
-      { en: "Chef's Recommendation", tr: "Şefin Önerisi" },
-      { en: "Premium Cut", tr: "Premium Et" },
-    ],
+    tags: ["chef_choice", "signature"],
   },
   {
     id: "mc-2",
@@ -386,10 +346,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 44,
     carbs: 10,
     fats: 39,
-    tags: [
-      { en: "Seafood", tr: "Deniz Ürünleri" },
-      { en: "Light Dish", tr: "Hafif Seçim" },
-    ],
+    tags: ["seafood", "seasonal"],
   },
   {
     id: "mc-3",
@@ -418,10 +375,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 20,
     carbs: 92,
     fats: 24,
-    tags: [
-      { en: "Spicy", tr: "Acılı" },
-      { en: "Vegetarian", tr: "Vejetaryen" },
-    ],
+    tags: ["spicy", "vegetarian"],
   },
   {
     id: "sd-1",
@@ -447,10 +401,7 @@ export const MENU_ITEMS: MenuItem[] = [
     protein: 6,
     carbs: 12,
     fats: 11,
-    tags: [
-      { en: "Vegetarian", tr: "Vejetaryen" },
-      { en: "Healthy Side", tr: "Sağlıklı Garnitür" },
-    ],
+    tags: ["vegetarian"],
   },
 
   // --- BAKERY & DESSERTS ---
@@ -505,10 +456,6 @@ export const MENU_ITEMS: MenuItem[] = [
     },
     price: 140,
     image: "/images/menu/pour-over.jpg",
-    tags: [
-      { en: "Single Origin", tr: "Tek Köken" },
-      { en: "Hot", tr: "Sıcak" },
-    ],
     available: true,
   },
   {
@@ -521,7 +468,6 @@ export const MENU_ITEMS: MenuItem[] = [
     },
     price: 130,
     image: "/images/menu/iced-flat-white.jpg",
-    tags: [{ en: "Iced", tr: "Buzlu" }],
     available: true,
   },
   {
@@ -534,10 +480,6 @@ export const MENU_ITEMS: MenuItem[] = [
     },
     price: 150,
     image: "/images/menu/nitro-cold-brew.jpg",
-    tags: [
-      { en: "Cold Brew", tr: "Soğuk Demleme" },
-      { en: "Iced", tr: "Buzlu" },
-    ],
     available: true,
   },
   {
@@ -550,7 +492,6 @@ export const MENU_ITEMS: MenuItem[] = [
     },
     price: 160,
     image: "/images/menu/matcha-latte.jpg",
-    tags: [{ en: "Hot", tr: "Sıcak" }],
     available: true,
   },
 
@@ -566,7 +507,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 420,
     image: "/images/menu/whiskey-sour.jpg",
     featured: true,
-    tags: [{ en: "House Special", tr: "Evin İmzası" }],
+    tags: ["signature"],
     available: true,
   },
   {
@@ -617,10 +558,6 @@ export const MENU_ITEMS: MenuItem[] = [
     },
     price: 180,
     image: "/images/menu/cucumber-cooler.jpg",
-    tags: [
-      { en: "Alcohol-Free", tr: "Alkolsüz" },
-      { en: "Iced", tr: "Buzlu" },
-    ],
     available: true,
   },
   {
@@ -636,7 +573,6 @@ export const MENU_ITEMS: MenuItem[] = [
     },
     price: 130,
     image: "/images/menu/lemonade.jpg",
-    tags: [{ en: "Iced", tr: "Buzlu" }],
     available: true,
   },
 ];

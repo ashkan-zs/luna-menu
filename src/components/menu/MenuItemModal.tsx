@@ -10,7 +10,8 @@ import {
   PanInfo,
   useDragControls,
 } from "framer-motion";
-import { ChefHat, Flame, Leaf, Star, X } from "lucide-react";
+import { Star, X } from "lucide-react";
+import { MENU_TAGS } from "@/data/tags";
 
 type MenuItemModalProps = {
   item: MenuItem | null;
@@ -106,20 +107,24 @@ export default function MenuItemModal({
                   </p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 border-y border-white/10 py-4 text-xs uppercase tracking-[0.16em] text-white/60">
-                  <div className="flex items-center gap-2">
-                    <Flame size={16} className="text-[#c8a96b]" />
-                    Spicy
+                {item.tags && (
+                  <div
+                    className={`grid gap-3 border-y border-white/10 py-4 text-xs uppercase tracking-[0.16em] text-white/60 ${
+                      item.tags.length >= 3 ? "grid-cols-3" : "grid-cols-2"
+                    }`}
+                  >
+                    {item.tags.slice(0, 3).map((tagKey) => {
+                      const tag = MENU_TAGS[tagKey];
+                      const Icon = tag.icon;
+                      return (
+                        <div key={tagKey} className="flex items-center gap-2">
+                          <Icon size={16} className="text-[#c8a96b]" />
+                          {tag.label[language]}
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Leaf size={16} className="text-[#c8a96b]" />
-                    Fresh
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ChefHat size={16} className="text-[#c8a96b]" />
-                    Special
-                  </div>
-                </div>
+                )}
 
                 {item.ingredients && (
                   <section>

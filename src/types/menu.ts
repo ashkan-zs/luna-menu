@@ -1,3 +1,5 @@
+import type { MenuTag } from "@/data/tags";
+
 export type SupportedLanguage = "en" | "tr";
 
 export type LocalizedText = Record<SupportedLanguage, string>;
@@ -42,5 +44,5 @@ export type MenuItem = {
   protein?: number;
   carbs?: number;
   fats?: number;
-  tags?: LocalizedText[];
+  tags?: MenuTag[];
 };

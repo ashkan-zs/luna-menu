@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ChefHat } from "lucide-react";
 import type { KeyboardEvent } from "react";
 import type { MenuItem as MenuItemType, SupportedLanguage } from "@/types/menu";
+import { MENU_TAGS } from "@/data/tags";
 import { formatPrice } from "@/lib/formatPrice";
 
 type FeaturedMenuSectionProps = {
@@ -25,7 +26,7 @@ const copy = {
 } satisfies Record<SupportedLanguage, Record<string, string>>;
 
 function getSignatureTags(item: MenuItemType, language: SupportedLanguage) {
-  return item.tags?.slice(0, 2).map((tag) => tag[language]) ?? [];
+  return item.tags?.slice(0, 2).map((tag) => MENU_TAGS[tag].label[language]) ?? [];
 }
 
 export default function FeaturedMenuSection({
