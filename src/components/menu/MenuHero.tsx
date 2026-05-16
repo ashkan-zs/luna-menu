@@ -32,7 +32,7 @@ export default function MenuHero({
   restaurantName = "Luna Bistro",
   tagline = "Modern Mediterranean Dining",
   description = "Seasonal dishes, crafted cocktails, and warm hospitality.",
-  backgroundImage = "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80",
+  backgroundImage = "/images/hero/luna-bistro-hero.jpg",
   logoSrc,
   language = "en",
 }: MenuHeroProps) {
@@ -59,7 +59,7 @@ export default function MenuHero({
 
   return (
     <section
-      className="relative flex min-h-[94svh] items-center overflow-hidden px-5 pb-14 pt-32 sm:px-8 lg:px-12"
+      className="relative flex min-h-[94svh] items-center overflow-hidden px-5 pb-14 pt-40 sm:px-8 lg:px-12"
       aria-labelledby="menu-hero-heading"
     >
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -69,16 +69,16 @@ export default function MenuHero({
           fill
           priority
           sizes="100vw"
-          className="scale-105 object-cover motion-safe:duration-[4200ms] motion-safe:ease-out sm:scale-110"
+          className="scale-105 object-cover motion-safe:duration-4200 motion-safe:ease-out sm:scale-110"
         />
       </div>
       <div className="menu-hero-glow absolute inset-0" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/44 via-menu-night/48 to-menu-night"
+        className="absolute inset-0 bg-linear-to-b from-black/44 via-menu-night/48 to-menu-night"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-menu-night to-transparent"
+        className="absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-menu-night to-transparent"
         aria-hidden="true"
       />
 
@@ -136,7 +136,7 @@ export default function MenuHero({
             <li>
               <a
                 href="https://maps.google.com/?q=Luna%20Bistro"
-                className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3 transition hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70"
+                className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/4.5 px-3 transition hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -147,7 +147,7 @@ export default function MenuHero({
             <li>
               <a
                 href="https://instagram.com"
-                className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3 transition hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70"
+                className="flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/4.5 px-3 transition hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70"
                 target="_blank"
                 rel="noreferrer"
               >

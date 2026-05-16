@@ -46,14 +46,14 @@ export default function MenuNavbar({
   }, []);
 
   return (
-    <header className="sticky inset-x-0 top-0 z-50 h-0 px-3 pt-3 sm:px-5 sm:pt-5">
+    <header className="sticky inset-x-0 top-3 z-50 h-0 px-3 sm:px-5 sm:top-5">
       <nav
         aria-label="Restaurant navigation"
         className={[
           "mx-auto flex max-w-5xl items-center justify-between rounded-full border px-3.5 transition-all duration-500 ease-out sm:px-5",
           isScrolled
             ? "h-14 border-menu-brass-muted/15 bg-menu-night/75 shadow-(--shadow-menu-navbar-scrolled) backdrop-blur-2xl"
-            : "h-19 border-white/10 bg-black/10 shadow-(--shadow-menu-navbar-top) backdrop-blur-md",
+            : "h-19 border-menu-brass-muted/15 bg-menu-night/12 shadow-(--shadow-menu-navbar-top) backdrop-blur-md",
         ].join(" ")}
       >
         <a
@@ -88,11 +88,11 @@ export default function MenuNavbar({
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <MenuThemeSwitcher
+          {/* <MenuThemeSwitcher
             themes={themes}
             activeThemeId={activeThemeId}
             onThemeChange={onThemeChange}
-          />
+          /> */}
           <LanguageSwitcher
             activeLanguage={language}
             onLanguageChange={onLanguageChange}

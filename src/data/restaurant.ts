@@ -10,8 +10,7 @@ export const RESTAURANT = {
     en: "Seasonal dishes, crafted cocktails, and warm hospitality.",
     tr: "Mevsimsel tabaklar, özenle hazırlanmış kokteyller ve sıcak misafirperverlik.",
   },
-  backgroundImage:
-    "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=80",
+  backgroundImage: "/images/hero/luna-bistro-hero.jpg",
 } satisfies {
   name: string;
   tagline: LocalizedText;

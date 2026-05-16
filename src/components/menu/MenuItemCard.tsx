@@ -41,14 +41,15 @@ function getItemTags(
   if (item.vegetarian) {
     tags.push({
       label: labels.vegetarian,
-      className: "border-emerald-200/20 bg-emerald-300/10 text-emerald-100",
+      className:
+        "border-menu-vegetarian/25 bg-menu-vegetarian/10 text-menu-vegetarian-text",
     });
   }
 
   if (item.spicy) {
     tags.push({
       label: labels.spicy,
-      className: "border-red-300/25 bg-red-400/10 text-red-100",
+      className: "border-menu-spicy/25 bg-menu-spicy/10 text-menu-spicy-text",
     });
   }
 
@@ -83,11 +84,11 @@ export default function MenuItemCard({
       onClick={() => onSelect?.(item)}
       onKeyDown={handleKeyDown}
       className={[
-        "group cursor-pointer overflow-hidden rounded-[1.75rem] border bg-white/[0.045] shadow-[var(--shadow-menu-card)] backdrop-blur-xl transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 sm:hover:-translate-y-1 sm:hover:border-menu-brass/28 sm:hover:bg-white/[0.065]",
+        "group cursor-pointer overflow-hidden rounded-[1.75rem] border bg-white/4.5 shadow-(--shadow-menu-card) backdrop-blur-xl transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 sm:hover:-translate-y-1 sm:hover:border-menu-brass/28 sm:hover:bg-white/6.5",
         isAvailable ? "border-white/10" : "border-white/5 opacity-62 grayscale",
       ].join(" ")}
     >
-      <div className="relative isolate aspect-[4/3] overflow-hidden bg-white/[0.035]">
+      <div className="relative isolate aspect-4/3 overflow-hidden bg-white/[0.035]">
         <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
           <Image
             src={item.image}

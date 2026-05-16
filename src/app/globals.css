@@ -14,6 +14,10 @@
   --theme-logo-wash: #f3dfb3;
   --theme-language-active: #efe0bd;
   --theme-button-text: #f8eed9;
+  --theme-vegetarian: #86efac;
+  --theme-vegetarian-text: #d1fae5;
+  --theme-spicy: #fca5a5;
+  --theme-spicy-text: #fee2e2;
   --menu-night-rgb: 8 7 5;
   --menu-brass-rgb: 216 186 124;
   --shadow-menu-navbar-scrolled: 0 18px 60px rgb(0 0 0 / 0.42);
@@ -46,6 +50,10 @@
   --color-menu-logo-wash: var(--theme-logo-wash);
   --color-menu-language-active: var(--theme-language-active);
   --color-menu-button-text: var(--theme-button-text);
+  --color-menu-vegetarian: var(--theme-vegetarian);
+  --color-menu-vegetarian-text: var(--theme-vegetarian-text);
+  --color-menu-spicy: var(--theme-spicy);
+  --color-menu-spicy-text: var(--theme-spicy-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -78,6 +86,8 @@
   --theme-logo-wash: #d9e5a8;
   --theme-language-active: #d9e5a8;
   --theme-button-text: #fbffe9;
+  --theme-vegetarian: #b8c58a;
+  --theme-vegetarian-text: #edf4c7;
   --menu-night-rgb: 8 12 8;
   --menu-brass-rgb: 184 197 138;
 }
@@ -126,6 +136,10 @@
   --theme-logo-wash: #7b552f;
   --theme-language-active: #8a6439;
   --theme-button-text: #1f1913;
+  --theme-vegetarian: #5f7f43;
+  --theme-vegetarian-text: #2f4d27;
+  --theme-spicy: #a4563e;
+  --theme-spicy-text: #74351f;
   --menu-night-rgb: 247 241 231;
   --menu-brass-rgb: 138 100 57;
   --shadow-menu-navbar-scrolled: 0 18px 60px rgb(80 55 24 / 0.16);

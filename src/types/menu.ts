@@ -3,14 +3,22 @@ export type SupportedLanguage = "en" | "tr";
 export type LocalizedText = Record<SupportedLanguage, string>;
 
 export type MenuCategory =
-  | "recommended"
   | "breakfast"
+  | "brunch"
   | "starters"
+  | "salads"
   | "main-courses"
+  | "sides"
   | "desserts"
-  | "cocktails"
+  | "bakery"
   | "coffee"
-  | "wine";
+  | "tea"
+  | "mocktails"
+  | "cocktails"
+  | "spirits"
+  | "beer"
+  | "wine"
+  | "soft-drinks";
 
 export type Category = {
   id: MenuCategory;
@@ -31,4 +39,8 @@ export type MenuItem = {
   ingredients?: LocalizedText;
   allergens?: LocalizedText[];
   calories?: number;
+  protein?: number;
+  carbs?: number;
+  fats?: number;
+  tags?: LocalizedText[];
 };
