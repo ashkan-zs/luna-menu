@@ -11,14 +11,15 @@ import MenuItemCard from "./MenuItemCard";
 import MenuItemModal from "./MenuItemModal";
 import MenuSearchFilter from "./MenuSearchFilter";
 import CategoryTabs from "./CategoryTabs";
+import FeaturedMenuSection from "./FeaturedMenuSection";
 import { useActiveCategory } from "@/hooks/useActiveCategory";
 
 const copy = {
   en: {
-    eyebrow: "Signature Selection",
-    heading: "Tonight's Menu",
+    eyebrow: "Chef's Recommendations",
+    heading: "Signature Dishes",
     description:
-      "Seasonal plates, polished cocktails, and cafe favorites arranged for a quiet, cinematic dining experience.",
+      "Crafted with seasonal ingredients and modern culinary techniques.",
     item: "item",
     items: "items",
     emptyHeading: "No dishes found",
@@ -26,10 +27,10 @@ const copy = {
       "Try a broader search or relax one of the filters to see more of the menu.",
   },
   tr: {
-    eyebrow: "İmza Seçkisi",
-    heading: "Bu Akşamın Menüsü",
+    eyebrow: "Tüm Gün Lezzetleri",
+    heading: "İmza Seçkisi",
     description:
-      "Mevsimsel tabaklar, rafine kokteyller ve kafe favorileri sakin, sinematik bir deneyim için düzenlendi.",
+      "Mevsimsel malzemeler ve modern mutfak teknikleriyle hazırlandı.",
     item: "ürün",
     items: "ürün",
     emptyHeading: "Ürün bulunamadı",
@@ -37,6 +38,8 @@ const copy = {
       "Daha geniş bir arama deneyin veya menüden daha fazlasını görmek için filtrelerden birini kaldırın.",
   },
 } satisfies Record<SupportedLanguage, Record<string, string>>;
+
+const SIGNATURE_ITEM_IDS = ["mc-1", "st-1", "mc-2"] as const;
 
 export default function MenuItemsSection({
   restaurantName = "Luna Bistro",
@@ -57,6 +60,13 @@ export default function MenuItemsSection({
     [],
   );
   const activeCategory = useActiveCategory(categoryIds);
+  const featuredItems = useMemo(
+    () =>
+      SIGNATURE_ITEM_IDS
+        .map((id) => MENU_ITEMS.find((item) => item.id === id))
+        .filter((item): item is MenuItemType => Boolean(item)),
+    [],
+  );
 
   function scrollToCategory(categoryId: string) {
     document.getElementById(categoryId)?.scrollIntoView({
@@ -84,7 +94,7 @@ export default function MenuItemsSection({
     <section
       id="menu"
       className="scroll-mt-18 pt-14"
-      aria-labelledby="menu-heading"
+      aria-labelledby="featured-heading"
     >
       <CategoryTabs
         categories={CATEGORIES}
@@ -94,20 +104,14 @@ export default function MenuItemsSection({
       />
       <div className="px-5 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-7xl mt-4">
-          <div className="mb-10 max-w-3xl">
-            <p className="text-xs font-medium uppercase tracking-[0.32em] text-menu-brass/80">
-              {labels.eyebrow}
-            </p>
-            <h2
-              id="menu-heading"
-              className="mt-3 font-serif text-3xl text-menu-ivory sm:text-4xl"
-            >
-              {labels.heading}
-            </h2>
-            <p className="mt-4 text-sm leading-6 text-menu-cream/64 sm:text-base">
-              {labels.description}
-            </p>
-          </div>
+          <FeaturedMenuSection
+            items={featuredItems}
+            language={language}
+            eyebrow={labels.eyebrow}
+            heading={labels.heading}
+            description={labels.description}
+            onSelect={setSelectedItem}
+          />
 
           <MenuSearchFilter
             query={query}
