@@ -40,8 +40,18 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# vs code
+# vscode
 .vscode/
 
 # codex
 .codex/
+
+# IDE
+.idea/
+
+# pnpm
+.pnpm-store
+.pnpm-debug.log*
+
+# cache
+.eslintcache
