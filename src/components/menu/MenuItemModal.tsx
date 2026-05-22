@@ -9,7 +9,7 @@ import {
   motion,
   PanInfo,
   useDragControls,
-} from "framer-motion";
+} from "motion/react";
 import { Star, X } from "lucide-react";
 import { MENU_TAGS } from "@/data/tags";
 
@@ -78,6 +78,7 @@ export default function MenuItemModal({
                 <Image
                   src={item.image}
                   alt={item.name[language]}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   priority
                   className="object-cover"

@@ -11,10 +11,11 @@ import {
   Quote,
   Sparkles,
 } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
-import type { HTMLMotionProps } from "framer-motion";
+
+
 import type { ReactNode } from "react";
 import type { SupportedLanguage } from "@/types/menu";
+import { motion, HTMLMotionProps, useReducedMotion } from "motion/react";
 
 type RestaurantInfoSectionProps = {
   language: SupportedLanguage;
