@@ -3,38 +3,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BookOpenText, UtensilsCrossed } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { RESTAURANT } from "@/data/restaurant";
 import { SupportedLanguage } from "@/types/menu";
 
-type MenuHeroProps = {
-  restaurantName?: string;
-  tagline?: string;
-  description?: string;
-  backgroundImage?: string;
-  language: SupportedLanguage;
-};
-
-const copy = {
-  en: {
-    welcome: "Welcome to",
-    exploreMenu: "Show Full Menu",
-    story: "Our Story",
-  },
-  tr: {
-    welcome: "Hoş geldiniz",
-    exploreMenu: "Tüm Menüyü Göster",
-    story: "Hikayemiz",
-  },
-} satisfies Record<SupportedLanguage, Record<string, string>>;
-
-export default function MenuHero({
-  restaurantName = "Luna Bistro",
-  tagline = "Modern Mediterranean Dining",
-  description = "Seasonal dishes, crafted cocktails, and warm hospitality.",
-  backgroundImage = "/images/hero/luna-bistro-hero.jpg",
-  language = "en",
-}: MenuHeroProps) {
+export default function MenuHero() {
   const [isVisible, setIsVisible] = useState(false);
-  const labels = copy[language];
+  const t = useTranslations("Menu");
+  const locale = useLocale() as SupportedLanguage;
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -67,7 +43,7 @@ export default function MenuHero({
     >
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <Image
-          src={backgroundImage}
+          src={RESTAURANT.backgroundImage}
           alt=""
           fill
           priority
@@ -94,23 +70,23 @@ export default function MenuHero({
         ].join(" ")}
       >
         <p className="mb-5 text-xs font-medium uppercase tracking-[0.42em] text-menu-brass">
-          {labels.welcome}
+          {t("welcome")}
         </p>
         <h1
           id="menu-hero-heading"
           className="max-w-3xl font-serif text-6xl leading-[0.88] tracking-wide text-menu-ivory sm:text-8xl"
         >
-          {restaurantName}
+          {RESTAURANT.name}
         </h1>
         <div
           className="mt-6 h-px w-20 bg-linear-to-r from-transparent via-menu-brass/80 to-transparent"
           aria-hidden="true"
         />
         <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-menu-brass/78">
-          {tagline}
+          {RESTAURANT.tagline[locale]}
         </p>
         <p className="mt-4 max-w-xl text-base leading-7 text-menu-cream/78 sm:text-lg">
-          {description}
+          {RESTAURANT.description[locale]}
         </p>
 
         <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
@@ -120,7 +96,7 @@ export default function MenuHero({
             className="flex items-center gap-2 cursor-pointer min-h-12 rounded-full border border-menu-brass/45 bg-menu-brass/16 px-7 text-sm font-medium tracking-wide text-menu-warm-white hover:shadow-(--shadow-menu-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass-hover/80 hover:bg-menu-brass/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 active:translate-y-0"
           >
             <UtensilsCrossed size={18} strokeWidth={1.6} />
-            {labels.exploreMenu}
+            {t("exploreMenu")}
           </button>
 
           <button
@@ -129,7 +105,7 @@ export default function MenuHero({
             className="flex min-h-12 cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/4.5 px-7 text-sm font-medium tracking-wide text-menu-cream/76 transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70 active:translate-y-0"
           >
             <BookOpenText size={18} strokeWidth={1.6} />
-            {labels.story}
+            {t("story")}
           </button>
         </div>
       </div>

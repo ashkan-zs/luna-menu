@@ -1,0 +1,54 @@
+{
+
+  "Menu": {
+    "welcome": "Welcome to",
+    "exploreMenu": "Show Full Menu",
+    "story": "Our Story",
+    "featuredEyebrow": "Chef's Recommendations",
+    "featuredHeading": "Signature Dishes",
+    "featuredDescription":
+      "Crafted with seasonal ingredients and modern culinary techniques.",
+    "items": "{count, plural, =0 {No items} one {# item} other {# items}}",
+    "emptyHeading": "No dishes found",
+    "emptyDescription":
+      "Try a broader search or relax one of the filters to see more of the menu.",
+    "featured": "Chef Selection",
+    "featuredCTA": "View dish",
+    "searchEyebrow": "Menu Discovery",
+    "searchLabel": "Search menu",
+    "searchPlaceholder": "Search dishes, ingredients, notes...",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "vegetarian": "Vegetarian",
+    "spicy": "Spicy",
+    "results": "{count, plural, =0 {} one {# dish available} other {# dishes available}}"
+  },
+  "RestaurantInfo": {
+    "eyebrow": "Luna at Night",
+    "heading": "A quieter kind of luxury.",
+    "story":
+      "Luna Bistro is designed for slow evenings, polished plates, and the kind of hospitality that feels personal without asking for attention. Seasonal Mediterranean cooking meets a candlelit room, measured service, and a bar program built for lingering.",
+    "quote":
+      "Our menu follows the season, but the mood stays constant: warm light, generous tables, and a little ceremony in every detail.",
+    "quoteBy": "Chef's note",
+    "hoursTitle": "Opening Hours",
+    "contactTitle": "Contact",
+    "addressLabel": "Location",
+    "phoneLabel": "Reservations",
+    "reserve": "Reserve a Table",
+    "maps": "Open Maps",
+    "instagram": "Instagram",
+    "atmosphere": "Dining & Cocktails",
+    "hours": [
+      { "days": "Mon - Thu", "time": "17:00 - 00:00" },
+      { "days": "Fri - Sat", "time": "17:00 - 01:30" },
+      { "days": "Sunday", "time": "12:00 - 23:00" }
+    ]
+  },
+  "MenuFooter": {
+    "instagram": "Instagram",
+    "maps": "Maps",
+    "whatsapp": "WhatsApp",
+    "product": "Luna Menu"
+  }
+}

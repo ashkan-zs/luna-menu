@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { KeyboardEvent } from "react";
 import type { MenuItem as MenuItemType, SupportedLanguage } from "@/types/menu";
 import { formatPrice } from "@/lib/formatPrice";
+import { useLocale, useTranslations } from "next-intl";
 
 type ItemTag = {
   label: string;
@@ -58,16 +59,16 @@ function getItemTags(
 
 export default function MenuItemCard({
   item,
-  language = "en",
   onSelect,
 }: {
   item: MenuItemType;
-  language?: SupportedLanguage;
   onSelect?: (item: MenuItemType) => void;
 }) {
+  const locale = useLocale() as SupportedLanguage;
+  const t = useTranslations("Menu");
   const isAvailable = item.available !== false;
-  const itemName = item.name[language];
-  const itemDescription = item.description[language];
+  const itemName = item.name[locale];
+  const itemDescription = item.description[locale];
 
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -98,20 +99,20 @@ export default function MenuItemCard({
             className="object-cover"
           />
           <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-menu-night/78 via-menu-night/12 to-transparent"
+            className="pointer-events-none absolute inset-0 bg-linear-to-t from-menu-night/78 via-menu-night/12 to-transparent"
             aria-hidden="true"
           />
         </div>
         {!isAvailable ? (
           <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-menu-night/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-menu-cream backdrop-blur-md">
-            {copy[language].unavailable}
+            {t("unavailable")}
           </div>
         ) : null}
       </div>
 
       <div className="space-y-4 p-5">
         <div className="flex flex-wrap gap-2">
-          {getItemTags(item, language).map((tag) => (
+          {getItemTags(item, locale).map((tag) => (
             <span
               key={tag.label}
               className={[

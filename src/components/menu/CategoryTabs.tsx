@@ -2,20 +2,20 @@
 
 import { useEffect, useRef } from "react";
 import type { Category, SupportedLanguage } from "@/types/menu";
+import { useLocale } from "next-intl";
 
 type CategoryTabsProps = {
   categories: Category[];
   activeCategory: string;
-  language: SupportedLanguage;
   onCategoryClick: (categoryId: string) => void;
 };
 
 export default function CategoryTabs({
   categories,
   activeCategory,
-  language,
   onCategoryClick,
 }: CategoryTabsProps) {
+  const locale = useLocale() as SupportedLanguage;
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
@@ -63,7 +63,7 @@ export default function CategoryTabs({
                   : "text-menu-cream/52 hover:text-menu-cream/78",
               ].join(" ")}
             >
-              {category.label[language]}
+              {category.label[locale]}
               <span
                 className={[
                   "absolute inset-x-0 bottom-0 mx-auto h-px rounded-full bg-menu-brass transition-all duration-300",

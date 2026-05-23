@@ -12,18 +12,15 @@ import {
 } from "motion/react";
 import { Star, X } from "lucide-react";
 import { MENU_TAGS } from "@/data/tags";
+import { useLocale } from "next-intl";
 
 type MenuItemModalProps = {
   item: MenuItem | null;
-  language: SupportedLanguage;
   onClose: () => void;
 };
 
-export default function MenuItemModal({
-  item,
-  language,
-  onClose,
-}: MenuItemModalProps) {
+export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
+  const locale = useLocale() as SupportedLanguage;
   const CLOSE_THRESHOLD = 120;
   const dragControls = useDragControls();
 
@@ -77,7 +74,7 @@ export default function MenuItemModal({
               <div className="relative h-80 overflow-hidden rounded-t-4xl">
                 <Image
                   src={item.image}
-                  alt={item.name[language]}
+                  alt={item.name[locale]}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   priority
@@ -96,7 +93,7 @@ export default function MenuItemModal({
 
                 <div>
                   <h2 className="font-serif text-4xl leading-tight text-white">
-                    {item.name[language]}
+                    {item.name[locale]}
                   </h2>
 
                   <p className="mt-3 text-2xl font-medium text-[#c8a96b]">
@@ -104,7 +101,7 @@ export default function MenuItemModal({
                   </p>
 
                   <p className="mt-4 text-base leading-7 text-white/65">
-                    {item.description[language]}
+                    {item.description[locale]}
                   </p>
                 </div>
 
@@ -120,7 +117,7 @@ export default function MenuItemModal({
                       return (
                         <div key={tagKey} className="flex items-center gap-2">
                           <Icon size={16} className="text-[#c8a96b]" />
-                          {tag.label[language]}
+                          {tag.label[locale]}
                         </div>
                       );
                     })}
@@ -133,7 +130,7 @@ export default function MenuItemModal({
                       Ingredients
                     </h3>
                     <p className="mt-3 leading-7 text-white/55">
-                      {item.ingredients[language]}
+                      {item.ingredients[locale]}
                     </p>
                   </section>
                 )}
@@ -148,10 +145,10 @@ export default function MenuItemModal({
                       {item.allergens ? (
                         item.allergens.map((allergen) => (
                           <span
-                            key={allergen[language]}
+                            key={allergen[locale]}
                             className="rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-sm text-white/60"
                           >
-                            {allergen[language]}
+                            {allergen[locale]}
                           </span>
                         ))
                       ) : (

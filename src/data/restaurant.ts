@@ -20,6 +20,7 @@ export const RESTAURANT = {
     tr: "Yavaş akşamlar için hazırlandı.",
   },
   contact: {
+    address: "Nisantasi, Tesvikiye Cd. No:18, Istanbul",
     phone: "+90 212 555 18 18",
     instagramUrl: "https://instagram.com/lunabistro",
     whatsappUrl: "https://wa.me/902125551818",
@@ -34,6 +35,7 @@ export const RESTAURANT = {
   location: LocalizedText;
   footerStatement: LocalizedText;
   contact: {
+    address: string;
     phone: string;
     instagramUrl: string;
     whatsappUrl: string;

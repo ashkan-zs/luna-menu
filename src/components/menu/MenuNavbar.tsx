@@ -1,28 +1,21 @@
 import Image from "next/image";
 import { getRestaurantInitials } from "@/lib/getRestaurantInitials";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { SupportedLanguage } from "@/types/menu";
 import type { MenuTheme, MenuThemeId } from "@/types/theme";
+import { RESTAURANT } from "@/data/restaurant";
+import { useLocale } from "next-intl";
+import { SupportedLanguage } from "@/types/menu";
 
 type MenuNavbarProps = {
-  restaurantName?: string;
-  restaurantTagline?: string;
   logoSrc?: string;
-  language: SupportedLanguage;
   themes: MenuTheme[];
   activeThemeId: MenuThemeId;
-  onLanguageChange: () => void;
   onThemeChange: (themeId: MenuThemeId) => void;
 };
 
-export default function MenuNavbar({
-  restaurantName = "Luna Bistro",
-  restaurantTagline = "Dining & Cocktails",
-  logoSrc,
-  language,
-  onLanguageChange,
-}: MenuNavbarProps) {
-  const restaurantInitials = getRestaurantInitials(restaurantName);
+export default function MenuNavbar({ logoSrc }: MenuNavbarProps) {
+  const restaurantInitials = getRestaurantInitials(RESTAURANT.name);
+  const locale = useLocale() as SupportedLanguage;
 
   return (
     <header className="absolute inset-x-0 top-2 z-50 px-3 sm:top-4 sm:px-5">
@@ -33,7 +26,7 @@ export default function MenuNavbar({
         <a
           href="#top"
           className="group flex min-h-10 min-w-0 items-center gap-2.5 rounded-full pr-2 outline-none transition focus-visible:ring-2 focus-visible:ring-menu-brass/70"
-          aria-label={`${restaurantName} home`}
+          aria-label={`${RESTAURANT.name} home`}
         >
           <span className="relative grid size-8 shrink-0 place-items-center overflow-hidden rounded-full border border-menu-brass/20 bg-menu-logo-wash/8 sm:size-8.5">
             {logoSrc ? (
@@ -53,19 +46,16 @@ export default function MenuNavbar({
           </span>
           <span className="min-w-0">
             <span className="block truncate font-serif text-[0.95rem] leading-none tracking-wide text-menu-parchment sm:text-base">
-              {restaurantName}
+              {RESTAURANT.name}
             </span>
             <span className="mt-1 hidden text-[0.6rem] uppercase tracking-[0.28em] text-menu-brass/64 sm:block">
-              {restaurantTagline}
+              {RESTAURANT.tagline[locale]}
             </span>
           </span>
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <LanguageSwitcher
-            activeLanguage={language}
-            onLanguageChange={onLanguageChange}
-          />
+          <LanguageSwitcher />
         </div>
       </nav>
     </header>

@@ -7,7 +7,7 @@ import {
   SlidersHorizontal,
   Sparkles,
 } from "lucide-react";
-import type { SupportedLanguage } from "@/types/menu";
+import { useTranslations } from "next-intl";
 
 type MenuSearchFilterProps = {
   query: string;
@@ -16,38 +16,12 @@ type MenuSearchFilterProps = {
   vegetarianOnly: boolean;
   spicyOnly: boolean;
   resultCount: number;
-  language: SupportedLanguage;
   onQueryChange: (query: string) => void;
   onFeaturedOnlyChange: (featuredOnly: boolean) => void;
   onAvailableOnlyChange: (availableOnly: boolean) => void;
   onVegetarianOnlyChange: (vegetarianOnly: boolean) => void;
   onSpicyOnlyChange: (spicyOnly: boolean) => void;
 };
-
-const copy = {
-  en: {
-    eyebrow: "Menu Discovery",
-    searchLabel: "Search menu",
-    searchPlaceholder: "Search dishes, ingredients, notes...",
-    featured: "Signature",
-    available: "Available",
-    vegetarian: "Vegetarian",
-    spicy: "Spicy",
-    result: "dish available",
-    results: "dishes available",
-  },
-  tr: {
-    eyebrow: "Menü Keşfi",
-    searchLabel: "Menüde ara",
-    searchPlaceholder: "Yemek, içerik, not ara...",
-    featured: "İmza",
-    available: "Mevcut",
-    vegetarian: "Vejetaryen",
-    spicy: "Acılı",
-    result: "ürün mevcut",
-    results: "ürün mevcut",
-  },
-} satisfies Record<SupportedLanguage, Record<string, string>>;
 
 type FilterChipProps = {
   label: string;
@@ -63,36 +37,34 @@ export default function MenuSearchFilter({
   vegetarianOnly,
   spicyOnly,
   resultCount,
-  language,
   onQueryChange,
   onFeaturedOnlyChange,
   onAvailableOnlyChange,
   onVegetarianOnlyChange,
   onSpicyOnlyChange,
 }: MenuSearchFilterProps) {
-  const labels = copy[language];
-  const resultLabel = resultCount === 1 ? labels.result : labels.results;
+  const t = useTranslations("Menu");
   const filters = [
     {
-      label: labels.featured,
+      label: t("featured"),
       active: featuredOnly,
       icon: Sparkles,
       onClick: () => onFeaturedOnlyChange(!featuredOnly),
     },
     {
-      label: labels.available,
+      label: t("available"),
       active: availableOnly,
       icon: CheckCircle2,
       onClick: () => onAvailableOnlyChange(!availableOnly),
     },
     {
-      label: labels.vegetarian,
+      label: t("vegetarian"),
       active: vegetarianOnly,
       icon: Leaf,
       onClick: () => onVegetarianOnlyChange(!vegetarianOnly),
     },
     {
-      label: labels.spicy,
+      label: t("spicy"),
       active: spicyOnly,
       icon: Flame,
       onClick: () => onSpicyOnlyChange(!spicyOnly),
@@ -100,7 +72,7 @@ export default function MenuSearchFilter({
   ];
 
   return (
-    <section aria-label={labels.searchLabel} className="relative mb-12">
+    <section aria-label={t("searchLabel")} className="relative mb-12">
       <div
         className="pointer-events-none absolute inset-x-8 -top-8 h-24 bg-[radial-gradient(circle_at_50%_0%,rgb(var(--menu-brass-rgb)/0.12),transparent_62%)]"
         aria-hidden="true"
@@ -110,10 +82,10 @@ export default function MenuSearchFilter({
         <div className="flex items-end justify-between gap-5 px-1">
           <label htmlFor="menu-search" className="block">
             <span className="block text-[0.64rem] font-medium uppercase tracking-[0.32em] text-menu-brass/70">
-              {labels.eyebrow}
+              {t("searchEyebrow")}
             </span>
             <span className="mt-1 block text-xs text-menu-cream/44">
-              {resultCount} {resultLabel}
+              {t("results", { count: resultCount })}
             </span>
           </label>
         </div>
@@ -129,7 +101,7 @@ export default function MenuSearchFilter({
             type="search"
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
-            placeholder={labels.searchPlaceholder}
+            placeholder={t("searchPlaceholder")}
             className="min-h-13 w-full rounded-full border border-white/10 bg-white/5.5 pl-12 pr-12 text-sm text-menu-ivory shadow-[0_16px_55px_rgb(0_0_0_/0.18)] outline-none backdrop-blur-xl transition duration-300 placeholder:text-menu-cream/38 focus:border-menu-brass/38 focus:bg-menu-night/46 focus:ring-2 focus:ring-menu-brass/18"
           />
           <SlidersHorizontal
