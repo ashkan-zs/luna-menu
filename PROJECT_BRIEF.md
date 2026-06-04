@@ -2,9 +2,13 @@
 
 ## Project Overview
 
-**Luna Menu** is a premium QR menu web application designed for restaurants, cafés, cocktail bars, wine bars, and hospitality brands that want a cinematic digital menu experience.
+**Luna Menu** is a premium QR menu SaaS web application designed for restaurants, cafés, cocktail bars, wine bars, and hospitality brands that want a cinematic digital menu experience.
 
-The product should feel like a luxury hospitality brand — not a generic restaurant SaaS dashboard.
+The product should allow each restaurant to have its own public menu page, branded dining experience, menu list, restaurant information, and selected visual theme.
+
+The public customer-facing experience should feel like a luxury hospitality brand — not a generic restaurant SaaS dashboard or food delivery app.
+
+The SaaS/admin side should support restaurant onboarding, menu management, branding configuration, and theme selection while keeping the guest-facing menu experience premium, cinematic, and minimal.
 
 The experience focuses on:
 
@@ -62,6 +66,207 @@ The user should feel like they are browsing a curated dining experience.
 * Modern hospitality brands
 
 ---
+# SaaS Product Direction
+
+Luna Menu should function as a multi-tenant QR menu SaaS platform.
+
+Each restaurant should be able to have:
+
+* its own public URL
+* its own restaurant profile
+* its own menu categories
+* its own menu items
+* its own branding assets
+* its own selected visual theme
+* its own language/content configuration
+* its own QR code pointing to its menu page
+
+Example public URLs:
+
+```txt
+/en/luna-bistro
+/tr/luna-bistro
+/en/mavi-balon
+/tr/mavi-balon
+```
+
+The platform should support multiple restaurants without duplicating frontend code.
+
+The system should separate:
+
+* restaurant content
+* restaurant settings
+* menu data
+* theme configuration
+* frontend presentation
+
+This allows new restaurants to be added through data/CMS/admin configuration instead of creating a separate custom website for each one.
+
+---
+
+# Restaurant Page Model
+
+Each restaurant should have its own customer-facing page.
+
+A restaurant page should include:
+
+* hero section
+* restaurant name
+* tagline
+* description
+* location
+* opening hours
+* contact links
+* menu categories
+* menu item list
+* featured items
+* dietary/tag filters
+* language switcher
+* selected theme styling
+* footer/brand signature
+
+The page should be generated dynamically from the restaurant slug.
+
+Example route:
+
+```txt
+/[locale]/[restaurantSlug]
+```
+
+Example:
+
+```txt
+/en/luna-bistro
+/tr/luna-bistro
+```
+
+The restaurant slug should be used to fetch the correct restaurant data.
+
+---
+
+# Theme Selection System
+
+Restaurants should be able to choose from existing themes.
+
+Each theme should control the guest-facing visual presentation while using the same shared restaurant/menu data.
+
+Themes may include different versions of:
+
+* hero layout
+* category navigation
+* menu item cards
+* featured section
+* menu item modal
+* restaurant info section
+* footer
+
+Example themes:
+
+* Luna — dark luxury / cinematic dining
+* Bistro — warm editorial / casual premium
+* Cocktail — moody bar / nightlife atmosphere
+* Café — soft minimal / specialty coffee
+* Fine Dining — restrained Michelin-inspired layout
+
+Theme choice should be stored as restaurant configuration.
+
+Example:
+
+```ts
+restaurant.themeId = "luna";
+```
+
+The theme registry should map `themeId` to the correct theme components.
+
+---
+
+# Multi-Restaurant Architecture
+
+The application should support many restaurants using one codebase.
+
+Recommended data model:
+
+```ts
+type Restaurant = {
+  id: string;
+  slug: string;
+  themeId: string;
+  name: LocalizedString;
+  tagline: LocalizedString;
+  description: LocalizedString;
+  location: LocalizedString;
+  openingHours: OpeningHour[];
+  contact: RestaurantContact;
+  branding: RestaurantBranding;
+  menu: RestaurantMenu;
+};
+```
+
+The page should follow this flow:
+
+```txt
+restaurantSlug from URL
+        ↓
+getRestaurantBySlug(restaurantSlug)
+        ↓
+load restaurant content + selected theme
+        ↓
+render shared logic with theme-specific UI
+```
+
+Components should not hardcode one restaurant.
+
+Avoid:
+
+```ts
+import { RESTAURANT } from "@/data/restaurant";
+```
+
+Prefer:
+
+```tsx
+<MenuPage restaurant={restaurant} theme={theme} />
+```
+
+This keeps the product ready for SaaS scaling, Sanity CMS, and future admin features.
+
+---
+
+# SaaS/Admin Direction
+
+The guest-facing QR menu should stay cinematic and premium.
+
+The future admin area can be practical and clean, but it should be visually separate from the public dining experience.
+
+Restaurant owners should eventually be able to:
+
+* create/edit restaurant profile
+* upload logo and hero images
+* manage menu categories
+* create/edit menu items
+* set prices
+* mark items as unavailable
+* choose featured items
+* manage tags/allergens
+* choose a theme
+* preview the menu
+* generate/download QR code
+
+Admin routes can be separated from public menu routes.
+
+Example:
+
+```txt
+/dashboard
+/dashboard/restaurants
+/dashboard/restaurants/[restaurantId]/menu
+/dashboard/restaurants/[restaurantId]/theme
+```
+
+The first version does not need a full dashboard, but the architecture should not block it.
+
+---
+
 
 # Tech Stack
 
@@ -225,6 +430,9 @@ Framer Motion should enhance the experience, not dominate it.
 * Menu item cards
 * Menu item modal
 * EN/TR multilingual support
+* Dynamic restaurant route support
+* Early multi-restaurant structure
+* Early theme architecture
 
 ---
 
@@ -232,8 +440,11 @@ Framer Motion should enhance the experience, not dominate it.
 
 ## Near-Term
 
+* Dynamic restaurant pages by slug
 * Theme customization
+* Restaurant theme selection
 * Restaurant branding
+* Restaurant-specific menu content
 * Better search UX
 * Animated menu transitions
 * Dietary filtering
@@ -265,15 +476,30 @@ Framer Motion should enhance the experience, not dominate it.
 ## Folder Structure
 
 ```txt
-/app
-/components
-  /ui
-  /menu
-/hooks
-/lib
-/types
-/data
-/styles
+/src
+  /app
+    /[locale]
+      /[restaurantSlug]
+      /dashboard
+  /components
+    /ui
+    /menu
+    /dashboard
+  /themes
+    /luna
+    /bistro
+    /cocktail
+    /cafe
+  /hooks
+  /lib
+    /data
+    /i18n
+    /theme
+  /types
+  /data
+  /messages
+  /sanity
+  /styles
 ```
 
 ---
@@ -469,6 +695,7 @@ Architecture should remain scalable for localization.
 
 Restaurant owners should eventually manage:
 
+* restaurant profile
 * menu items
 * categories
 * pricing
@@ -476,6 +703,11 @@ Restaurant owners should eventually manage:
 * featured items
 * hero images
 * restaurant information
+* opening hours
+* contact links
+* branding assets
+* selected theme
+* QR menu links
 
 without touching code.
 

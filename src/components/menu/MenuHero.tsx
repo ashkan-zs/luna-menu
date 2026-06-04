@@ -3,14 +3,21 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BookOpenText, UtensilsCrossed } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { RESTAURANT } from "@/data/restaurant";
-import { SupportedLanguage } from "@/types/menu";
+import { useTranslations } from "next-intl";
+import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
+import { Restaurant } from "@/types/restaurant";
+import { Locale } from "@/types/i18n";
 
-export default function MenuHero() {
+type MenuHeroProps = {
+  restaurant: Restaurant;
+  locale: Locale;
+};
+
+export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const t = useTranslations("Menu");
-  const locale = useLocale() as SupportedLanguage;
+  const tagline = getLocalizedValue(restaurant.tagline, locale);
+  const description = getLocalizedValue(restaurant.description, locale);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -43,7 +50,7 @@ export default function MenuHero() {
     >
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <Image
-          src={RESTAURANT.backgroundImage}
+          src={restaurant.backgroundImage}
           alt=""
           fill
           priority
@@ -76,17 +83,17 @@ export default function MenuHero() {
           id="menu-hero-heading"
           className="max-w-3xl font-serif text-6xl leading-[0.88] tracking-wide text-menu-ivory sm:text-8xl"
         >
-          {RESTAURANT.name}
+          {restaurant.name}
         </h1>
         <div
           className="mt-6 h-px w-20 bg-linear-to-r from-transparent via-menu-brass/80 to-transparent"
           aria-hidden="true"
         />
         <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-menu-brass/78">
-          {RESTAURANT.tagline[locale]}
+          {tagline}
         </p>
         <p className="mt-4 max-w-xl text-base leading-7 text-menu-cream/78 sm:text-lg">
-          {RESTAURANT.description[locale]}
+          {description}
         </p>
 
         <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">

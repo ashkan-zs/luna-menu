@@ -48,6 +48,19 @@
     "instagram": "Instagram",
     "maps": "Harita",
     "whatsapp": "WhatsApp",
-    "product": "Luna Menu"
+    "product": "Luna Menu",
+    "footerStatement": "Yavaş akşamlar için hazırlandı."
+  },
+  "MenuItemModal": {
+    "chefRecommendation": "Şefin Önerisi",
+    "ingredients": "İçindekiler",
+    "allergens": "Alerjenler",
+    "noListedAllergens": "Listelenen alerjen yok",
+    "calories": "Kalori",
+    "protein": "Protein",
+    "carbs": "Karbonhidrat",
+    "fats": "Yağ",
+    "unavailable": "Bu ürün şu anda mevcut değil.",
+    "close": "Ürün detaylarını kapat"
   }
 }

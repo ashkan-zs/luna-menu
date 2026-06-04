@@ -1,6 +1,8 @@
-import type { Category, MenuItem } from "@/types/menu";
+import type { CategorySeed, MenuItemSeed } from "@/types/menu";
 
-export const CATEGORIES: Category[] = [
+const LUNA_BISTRO_SLUG = "luna-bistro";
+
+const LUNA_BISTRO_CATEGORIES: Omit<CategorySeed, "restaurantId">[] = [
   {
     id: "breakfast",
     label: {
@@ -115,7 +117,12 @@ export const CATEGORIES: Category[] = [
   },
 ];
 
-export const MENU_ITEMS: MenuItem[] = [
+export const CATEGORIES: CategorySeed[] = LUNA_BISTRO_CATEGORIES.map((category) => ({
+  ...category,
+  restaurantId: LUNA_BISTRO_SLUG,
+}));
+
+const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
   // --- BREAKFAST & BRUNCH ---
   {
     id: "br-1",
@@ -576,3 +583,10 @@ export const MENU_ITEMS: MenuItem[] = [
     available: true,
   },
 ];
+
+export const MENU_ITEMS: MenuItemSeed[] = LUNA_BISTRO_MENU_ITEMS.map(
+  (item) => ({
+    ...item,
+    restaurantId: LUNA_BISTRO_SLUG,
+  }),
+);

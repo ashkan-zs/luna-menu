@@ -1,7 +1,9 @@
 import Image from "next/image";
 import type { KeyboardEvent } from "react";
-import type { MenuItem as MenuItemType, SupportedLanguage } from "@/types/menu";
+import type { MenuItem as MenuItemType } from "@/types/menu";
+import type { Locale } from "@/types/i18n";
 import { formatPrice } from "@/lib/formatPrice";
+import { hasMenuTag } from "@/lib/menuTags";
 import { useLocale, useTranslations } from "next-intl";
 
 type ItemTag = {
@@ -22,24 +24,20 @@ const copy = {
     vegetarian: "Vejetaryen",
     unavailable: "Mevcut değil",
   },
-} satisfies Record<SupportedLanguage, Record<string, string>>;
+} satisfies Record<Locale, Record<string, string>>;
 
-function getItemTags(
-  item: MenuItemType,
-  language: SupportedLanguage,
-): ItemTag[] {
+function getItemTags(item: MenuItemType, language: Locale): ItemTag[] {
   const labels = copy[language];
   const tags: ItemTag[] = [];
 
   if (item.featured) {
     tags.push({
       label: labels.featured,
-      className:
-        "border-menu-brass/40 bg-menu-brass/14 text-menu-warm-white",
+      className: "border-menu-brass/40 bg-menu-brass/14 text-menu-warm-white",
     });
   }
 
-  if (item.vegetarian) {
+  if (hasMenuTag(item, "vegetarian")) {
     tags.push({
       label: labels.vegetarian,
       className:
@@ -47,7 +45,7 @@ function getItemTags(
     });
   }
 
-  if (item.spicy) {
+  if (hasMenuTag(item, "spicy")) {
     tags.push({
       label: labels.spicy,
       className: "border-menu-spicy/25 bg-menu-spicy/10 text-menu-spicy-text",
@@ -64,11 +62,12 @@ export default function MenuItemCard({
   item: MenuItemType;
   onSelect?: (item: MenuItemType) => void;
 }) {
-  const locale = useLocale() as SupportedLanguage;
+  const locale = useLocale() as Locale;
   const t = useTranslations("Menu");
   const isAvailable = item.available !== false;
   const itemName = item.name[locale];
   const itemDescription = item.description[locale];
+  const itemImageAlt = item.image.alt[locale];
 
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -92,8 +91,8 @@ export default function MenuItemCard({
       <div className="relative isolate aspect-4/3 overflow-hidden bg-white/[0.035]">
         <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
           <Image
-            src={item.image}
-            alt={`${itemName} from ${item.category}`}
+            src={item.image.src}
+            alt={itemImageAlt}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover"

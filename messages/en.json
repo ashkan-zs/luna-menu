@@ -1,5 +1,4 @@
 {
-
   "Menu": {
     "welcome": "Welcome to",
     "exploreMenu": "Show Full Menu",
@@ -49,6 +48,19 @@
     "instagram": "Instagram",
     "maps": "Maps",
     "whatsapp": "WhatsApp",
-    "product": "Luna Menu"
+    "product": "Luna Menu",
+    "footerStatement": "Crafted for slow evenings."
+  },
+  "MenuItemModal": {
+    "chefRecommendation": "Chef's Recommendation",
+    "ingredients": "Ingredients",
+    "allergens": "Allergens",
+    "noListedAllergens": "No listed allergens",
+    "calories": "Calories",
+    "protein": "Protein",
+    "carbs": "Carbs",
+    "fats": "Fats",
+    "unavailable": "This item is currently unavailable.",
+    "close": "Close item details"
   }
 }

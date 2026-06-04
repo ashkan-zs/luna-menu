@@ -15,11 +15,15 @@ import {
 import type { ReactNode } from "react";
 import { motion, HTMLMotionProps, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { RESTAURANT } from "../../data/restaurant";
+import { Restaurant } from "@/types/restaurant";
 
-export default function RestaurantInfoSection() {
+type InfoSectionProps = { restaurant: Restaurant };
+
+export default function RestaurantInfoSection({
+  restaurant,
+}: InfoSectionProps) {
   const t = useTranslations("RestaurantInfo");
-  const phoneHref = `tel:${RESTAURANT.contact.phone.replaceAll(" ", "")}`;
+  const phoneHref = `tel:${restaurant.contact.phone.replaceAll(" ", "")}`;
   const shouldReduceMotion = useReducedMotion();
   const motionProps: HTMLMotionProps<"section"> = shouldReduceMotion
     ? { initial: false }
@@ -46,8 +50,8 @@ export default function RestaurantInfoSection() {
       <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:items-stretch">
         <div className="relative min-h-136 overflow-hidden rounded-[2.25rem] border border-white/10 bg-menu-night/55 shadow-[0_30px_100px_rgb(0_0_0_/0.38)] sm:rounded-[2.5rem]">
           <Image
-            src={RESTAURANT.backgroundImage}
-            alt={`${RESTAURANT.name} dining room atmosphere`}
+            src={restaurant.backgroundImage}
+            alt={`${restaurant.name} dining room atmosphere`}
             fill
             sizes="(max-width: 1024px) 100vw, 58vw"
             className="scale-105 object-cover opacity-72 transition duration-700 ease-out motion-safe:hover:scale-110"
@@ -77,7 +81,7 @@ export default function RestaurantInfoSection() {
             </div>
 
             <p className="text-sm uppercase tracking-[0.34em] text-menu-cream/60">
-              {RESTAURANT.name}
+              {restaurant.name}
             </p>
             <h2
               id="restaurant-info-heading"
@@ -142,12 +146,12 @@ export default function RestaurantInfoSection() {
                 <InfoLine
                   icon={<MapPin className="size-4" aria-hidden="true" />}
                   label={t("addressLabel")}
-                  value={RESTAURANT.contact.address}
+                  value={restaurant.contact.address}
                 />
                 <InfoLine
                   icon={<Phone className="size-4" aria-hidden="true" />}
                   label={t("phoneLabel")}
-                  value={RESTAURANT.contact.phone}
+                  value={restaurant.contact.phone}
                   href={phoneHref}
                 />
               </address>
@@ -162,7 +166,7 @@ export default function RestaurantInfoSection() {
                 </a>
                 <div className="grid grid-cols-2 gap-3">
                   <a
-                    href={RESTAURANT.contact.googleMapsUrl}
+                    href={restaurant.contact.googleMapsUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5.5 px-4 text-xs font-medium uppercase tracking-[0.14em] text-menu-cream/76 transition duration-300 hover:border-menu-brass/34 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80"
@@ -171,7 +175,7 @@ export default function RestaurantInfoSection() {
                     {t("maps")}
                   </a>
                   <a
-                    href={RESTAURANT.contact.instagramUrl}
+                    href={restaurant.contact.instagramUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5.5 px-4 text-xs font-medium uppercase tracking-[0.14em] text-menu-cream/76 transition duration-300 hover:border-menu-brass/34 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80"

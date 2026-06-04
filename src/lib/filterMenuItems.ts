@@ -1,4 +1,6 @@
-import type { MenuItem, SupportedLanguage } from "@/types/menu";
+import { Locale } from "@/types/i18n";
+import { hasMenuTag } from "@/lib/menuTags";
+import type { MenuItem } from "@/types/menu";
 
 export type MenuItemFilters = {
   query: string;
@@ -8,14 +10,14 @@ export type MenuItemFilters = {
   spicyOnly: boolean;
 };
 
-function normalizeSearchValue(value: string, language: SupportedLanguage) {
+function normalizeSearchValue(value: string, language: Locale) {
   return value.trim().toLocaleLowerCase(language);
 }
 
 export function filterMenuItems(
   items: MenuItem[],
   filters: MenuItemFilters,
-  language: SupportedLanguage,
+  language: Locale,
 ) {
   const query = normalizeSearchValue(filters.query, language);
 
@@ -28,11 +30,11 @@ export function filterMenuItems(
       return false;
     }
 
-    if (filters.vegetarianOnly && !item.vegetarian) {
+    if (filters.vegetarianOnly && !hasMenuTag(item, "vegetarian")) {
       return false;
     }
 
-    if (filters.spicyOnly && !item.spicy) {
+    if (filters.spicyOnly && !hasMenuTag(item, "spicy")) {
       return false;
     }
 

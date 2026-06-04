@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { ChefHat } from "lucide-react";
 import type { KeyboardEvent } from "react";
-import type { MenuItem as MenuItemType, SupportedLanguage } from "@/types/menu";
-import { MENU_TAGS } from "@/data/tags";
+import type { MenuItem as MenuItemType } from "@/types/menu";
+import type { Locale } from "@/types/i18n";
+import { MENU_TAGS } from "@/lib/menuTags";
 import { formatPrice } from "@/lib/formatPrice";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -11,8 +12,10 @@ type FeaturedMenuSectionProps = {
   onSelect: (item: MenuItemType) => void;
 };
 
-function getSignatureTags(item: MenuItemType, language: SupportedLanguage) {
-  return item.tags?.slice(0, 2).map((tag) => MENU_TAGS[tag].label[language]) ?? [];
+function getSignatureTags(item: MenuItemType, language: Locale) {
+  return (
+    item.tags?.slice(0, 2).map((tag) => MENU_TAGS[tag].label[language]) ?? []
+  );
 }
 
 export default function FeaturedMenuSection({
@@ -74,9 +77,10 @@ function FeaturedDishCard({
   item: MenuItemType;
   onSelect: (item: MenuItemType) => void;
 }) {
-  const locale = useLocale() as SupportedLanguage;
+  const locale = useLocale() as Locale;
   const itemName = item.name[locale];
   const itemDescription = item.description[locale];
+  const itemImageAlt = item.image.alt[locale];
   const tags = getSignatureTags(item, locale);
   const t = useTranslations("Menu");
 
@@ -98,8 +102,8 @@ function FeaturedDishCard({
     >
       <div className="relative aspect-[1.18/1] overflow-hidden bg-white/[0.035]">
         <Image
-          src={item.image}
-          alt={itemName}
+          src={item.image.src}
+          alt={itemImageAlt}
           fill
           sizes="(max-width: 640px) 82vw, (max-width: 1024px) 23rem, 25rem"
           className="object-cover transition duration-700 ease-out sm:group-hover:scale-105 mask-b-from-50%"

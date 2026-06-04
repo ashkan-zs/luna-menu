@@ -1,48 +1,58 @@
-import type { MenuTag } from "@/data/tags";
+import type { MenuTag } from "@/lib/menuTags";
+import { LocalizedString } from "./i18n";
 
-export type SupportedLanguage = "en" | "tr";
+export type MenuCategory = string;
 
-export type LocalizedText = Record<SupportedLanguage, string>;
-
-export type MenuCategory =
-  | "breakfast"
-  | "brunch"
-  | "starters"
-  | "salads"
-  | "main-courses"
-  | "sides"
-  | "desserts"
-  | "bakery"
-  | "coffee"
-  | "tea"
-  | "mocktails"
-  | "cocktails"
-  | "spirits"
-  | "beer"
-  | "wine"
-  | "soft-drinks";
+export type MenuImage = {
+  src: string;
+  alt: LocalizedString;
+};
 
 export type Category = {
-  id: MenuCategory;
-  label: LocalizedText;
+  id: string;
+  restaurantSlug: string;
+  slug: string;
+  label: LocalizedString;
+  order: number;
 };
 
 export type MenuItem = {
   id: string;
-  category: MenuCategory;
-  name: LocalizedText;
-  description: LocalizedText;
+  restaurantId: string;
+  categoryId: string;
+  categorySlug: string;
+  name: LocalizedString;
+  description: LocalizedString;
   price: number;
-  image: string;
+  image: MenuImage;
+  order: number;
   featured?: boolean;
-  spicy?: boolean;
-  vegetarian?: boolean;
   available?: boolean;
-  ingredients?: LocalizedText;
-  allergens?: LocalizedText[];
+  ingredients?: LocalizedString;
+  allergens?: LocalizedString[];
   calories?: number;
   protein?: number;
   carbs?: number;
   fats?: number;
+  tags?: MenuTag[];
+};
+
+export type CategorySeed = {
+  id: MenuCategory;
+  restaurantId: string;
+  slug?: string;
+  label: LocalizedString;
+  order?: number;
+};
+
+export type MenuItemSeed = Omit<
+  MenuItem,
+  "categoryId" | "categorySlug" | "image" | "order" | "tags"
+> & {
+  category: MenuCategory;
+  image: string;
+  order?: number;
+  spicy?: boolean;
+  vegetarian?: boolean;
   tags?: MenuTag[];
 };

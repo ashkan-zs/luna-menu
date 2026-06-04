@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Category, SupportedLanguage } from "@/types/menu";
+import type { Category } from "@/types/menu";
+import type { Locale } from "@/types/i18n";
 import { useLocale } from "next-intl";
 
 type CategoryTabsProps = {
@@ -15,7 +16,7 @@ export default function CategoryTabs({
   activeCategory,
   onCategoryClick,
 }: CategoryTabsProps) {
-  const locale = useLocale() as SupportedLanguage;
+  const locale = useLocale() as Locale;
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 

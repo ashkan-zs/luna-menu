@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 
-import type { MenuItem, SupportedLanguage } from "@/types/menu";
+import type { MenuItem } from "@/types/menu";
+import type { Locale } from "@/types/i18n";
 import { formatPrice } from "@/lib/formatPrice";
 import {
   AnimatePresence,
@@ -11,8 +12,8 @@ import {
   useDragControls,
 } from "motion/react";
 import { Star, X } from "lucide-react";
-import { MENU_TAGS } from "@/data/tags";
-import { useLocale } from "next-intl";
+import { MENU_TAGS } from "@/lib/menuTags";
+import { useLocale, useTranslations } from "next-intl";
 
 type MenuItemModalProps = {
   item: MenuItem | null;
@@ -20,7 +21,8 @@ type MenuItemModalProps = {
 };
 
 export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
-  const locale = useLocale() as SupportedLanguage;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("MenuItemModal");
   const CLOSE_THRESHOLD = 120;
   const dragControls = useDragControls();
 
@@ -58,7 +60,7 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
               type="button"
               onClick={onClose}
               className="absolute right-4 top-4 z-10 grid size-11 place-items-center rounded-full bg-black/50 text-white backdrop-blur-xl transition hover:bg-white/10"
-              aria-label="Close item details"
+              aria-label={t("close")}
             >
               <X size={22} />
             </button>
@@ -73,8 +75,8 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
 
               <div className="relative h-80 overflow-hidden rounded-t-4xl">
                 <Image
-                  src={item.image}
-                  alt={item.name[locale]}
+                  src={item.image.src}
+                  alt={item.image.alt[locale]}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   priority
@@ -87,7 +89,7 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                 {item.featured && (
                   <div className="inline-flex items-center gap-2 rounded-full border border-[#c8a96b]/30 bg-[#c8a96b]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-[#c8a96b]">
                     <Star size={14} />
-                    Chef&apos;s Recommendation
+                    {t("chefRecommendation")}
                   </div>
                 )}
 
@@ -127,7 +129,7 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                 {item.ingredients && (
                   <section>
                     <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-                      Ingredients
+                      {t("ingredients")}
                     </h3>
                     <p className="mt-3 leading-7 text-white/55">
                       {item.ingredients[locale]}
@@ -138,7 +140,7 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                 {item.allergens && (
                   <section>
                     <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-                      Allergens
+                      {t("allergens")}
                     </h3>
 
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -153,7 +155,7 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                         ))
                       ) : (
                         <p className="text-sm text-white/50">
-                          No listed allergens
+                          {t("noListedAllergens")}
                         </p>
                       )}
                     </div>
@@ -162,24 +164,28 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
 
                 {(item.calories || item.protein || item.carbs || item.fats) && (
                   <div className="grid grid-cols-4 rounded-3xl border border-white/10 bg-white/4 py-5 text-center">
-                    <NutritionItem label="Calories" value={item.calories} />
+                    <NutritionItem label={t("calories")} value={item.calories} />
                     <NutritionItem
-                      label="Protein"
+                      label={t("protein")}
                       value={item.protein}
                       suffix="g"
                     />
                     <NutritionItem
-                      label="Carbs"
+                      label={t("carbs")}
                       value={item.carbs}
                       suffix="g"
                     />
-                    <NutritionItem label="Fats" value={item.fats} suffix="g" />
+                    <NutritionItem
+                      label={t("fats")}
+                      value={item.fats}
+                      suffix="g"
+                    />
                   </div>
                 )}
 
                 {!item.available && (
                   <p className="rounded-2xl border border-red-400/20 bg-red-400/10 p-4 text-sm text-red-200">
-                    This item is currently unavailable.
+                    {t("unavailable")}
                   </p>
                 )}
               </div>

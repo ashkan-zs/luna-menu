@@ -10,6 +10,83 @@ Premium QR menu web application for restaurants, cafés, and cocktail bars.
 
 The experience should feel cinematic, elegant, mobile-first, and luxury-focused rather than like a generic SaaS dashboard.
 
+# SaaS Architecture
+
+Luna Menu is a multi-tenant SaaS platform.
+
+Each restaurant has:
+
+- its own public menu URL
+- its own branding
+- its own menu data
+- its own theme selection
+- its own CMS-managed content
+
+Examples:
+
+/en/luna-bistro
+/tr/luna-bistro
+
+/en/rooftop-bar
+/tr/rooftop-bar
+
+All UI components must be designed to support multiple restaurants.
+Never hardcode restaurant-specific content inside components.
+
+# Restaurant Routing
+
+Restaurant pages are dynamic.
+
+Route structure:
+
+/[locale]/[restaurantSlug]
+
+Examples:
+
+/en/luna-bistro
+/tr/luna-bistro
+
+Restaurant data should be resolved from the slug.
+
+Do not assume a single restaurant exists.
+
+# Theme System
+
+The application supports multiple themes.
+
+A restaurant selects a theme.
+
+Themes control:
+
+- Hero
+- FeaturedSection
+- MenuItemCard
+- MenuItemModal
+- RestaurantInfoSection
+- Footer
+
+Business logic must remain shared.
+
+Theme components should contain presentation only.
+
+Avoid duplicating business logic across themes.
+
+# Data Architecture
+
+Data should always be accessed through data providers.
+
+Avoid importing static demo data directly into UI components.
+
+Preferred flow:
+
+Page
+  → Data Layer
+    → Theme Components
+
+Components should receive data via props whenever possible.
+
+Prepare all structures to work with Sanity CMS.
+
 # Tech Stack
 
 - Next.js App Router
@@ -124,6 +201,24 @@ The experience should feel cinematic, elegant, mobile-first, and luxury-focused 
 - Keep data transformation logic inside `/lib`
 - Prefer serializable data structures
 
+# CMS Rules
+
+Restaurant content belongs in Sanity CMS.
+
+Examples:
+
+- restaurant information
+- menu items
+- categories
+- pricing
+- featured items
+- opening hours
+- hero content
+
+UI labels belong in next-intl.
+
+Avoid storing restaurant content in translation files.
+
 # Motion Rules
 
 - Respect reduced motion preferences
@@ -155,3 +250,14 @@ and emotional presentation over dense functionality.
   - browser APIs
   - local state
 - Avoid fetching data inside deeply nested client components
+
+# Critical Rule
+
+When generating code:
+
+- Assume multiple restaurants exist.
+- Assume multiple themes exist.
+- Assume content comes from Sanity CMS.
+- Avoid hardcoded restaurant values.
+- Avoid single-restaurant architecture.
+- Keep business logic separated from theme presentation.

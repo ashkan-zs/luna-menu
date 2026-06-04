@@ -1,11 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CATEGORIES, MENU_ITEMS } from "@/data/menu";
-import type {
-  MenuItem as MenuItemType,
-  SupportedLanguage,
-} from "@/types/menu";
+import type { Category, MenuItem as MenuItemType } from "@/types/menu";
 import { filterMenuItems } from "@/lib/filterMenuItems";
 import MenuItemCard from "./MenuItemCard";
 import MenuItemModal from "./MenuItemModal";
@@ -13,24 +9,34 @@ import MenuSearchFilter from "./MenuSearchFilter";
 import CategoryTabs from "./CategoryTabs";
 import FeaturedMenuSection from "./FeaturedMenuSection";
 import { useActiveCategory } from "@/hooks/useActiveCategory";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import { Locale } from "@/types/i18n";
 
-const SIGNATURE_ITEM_IDS = ["mc-1", "st-1", "mc-2"] as const;
+type MenuItemsSectionProps = {
+  locale: Locale;
+  items: MenuItemType[];
+  categories: Category[];
+  featuredItemIds?: string[];
+};
 
-export default function MenuItemsSection() {
+export default function MenuItemsSection({
+  locale,
+  items,
+  categories,
+  featuredItemIds = [],
+}: MenuItemsSectionProps) {
   const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null);
   const [query, setQuery] = useState("");
   const [featuredOnly, setFeaturedOnly] = useState(false);
   const [availableOnly, setAvailableOnly] = useState(false);
   const [vegetarianOnly, setVegetarianOnly] = useState(false);
   const [spicyOnly, setSpicyOnly] = useState(false);
-  const locale = useLocale() as SupportedLanguage;
   const t = useTranslations("Menu");
 
   const filteredItems = useMemo(
     () =>
       filterMenuItems(
-        MENU_ITEMS,
+        items,
         {
           query,
           featuredOnly,
@@ -40,28 +46,36 @@ export default function MenuItemsSection() {
         },
         locale,
       ),
-    [availableOnly, featuredOnly, locale, query, spicyOnly, vegetarianOnly],
+    [
+      availableOnly,
+      featuredOnly,
+      items,
+      locale,
+      query,
+      spicyOnly,
+      vegetarianOnly,
+    ],
   );
 
   const categoryIds = useMemo(
-    () => filteredItems.map((item) => item.category),
+    () => filteredItems.map((item) => item.categoryId),
     [filteredItems],
   );
 
   const visibleCategories = useMemo(() => {
     const categoryIdsWithItem = new Set(
-      filteredItems.map((item) => item.category),
+      filteredItems.map((item) => item.categoryId),
     );
-    return CATEGORIES.filter((item) => categoryIdsWithItem.has(item.id));
-  }, [filteredItems]);
+    return categories.filter((item) => categoryIdsWithItem.has(item.id));
+  }, [categories, filteredItems]);
 
   const activeCategory = useActiveCategory(categoryIds);
   const featuredItems = useMemo(
     () =>
-      SIGNATURE_ITEM_IDS.map((id) =>
-        MENU_ITEMS.find((item) => item.id === id),
-      ).filter((item): item is MenuItemType => Boolean(item)),
-    [],
+      featuredItemIds
+        .map((id) => items.find((item) => item.id === id))
+        .filter((item): item is MenuItemType => Boolean(item)),
+    [featuredItemIds, items],
   );
 
   function scrollToCategory(categoryId: string) {
@@ -107,7 +121,7 @@ export default function MenuItemsSection() {
             {visibleCategories.map((category) => {
               const headingId = `${category.id}-heading`;
               const items = filteredItems.filter(
-                (item) => item.category === category.id,
+                (item) => item.categoryId === category.id,
               );
 
               if (items.length === 0) {

@@ -1,11 +1,11 @@
 "use client";
 
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { SupportedLanguage } from "@/types/menu";
+import type { Locale } from "@/types/i18n";
 import { useLocale } from "next-intl";
 import React, { useTransition } from "react";
 
-const languages: SupportedLanguage[] = ["tr", "en"];
+const languages: Locale[] = ["tr", "en"];
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
@@ -13,7 +13,7 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  function handleLanguageChange(language: SupportedLanguage) {
+  function handleLanguageChange(language: Locale) {
     if (language === locale) return;
 
     startTransition(() => router.replace(pathname, { locale: language }));
