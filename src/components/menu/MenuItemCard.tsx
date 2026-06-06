@@ -58,16 +58,20 @@ function getItemTags(item: MenuItemType, language: Locale): ItemTag[] {
 export default function MenuItemCard({
   item,
   onSelect,
+  showPrices,
+  showImages,
 }: {
   item: MenuItemType;
   onSelect?: (item: MenuItemType) => void;
+  showPrices: boolean;
+  showImages: boolean;
 }) {
   const locale = useLocale() as Locale;
   const t = useTranslations("Menu");
   const isAvailable = item.available !== false;
   const itemName = item.name[locale];
   const itemDescription = item.description[locale];
-  const itemImageAlt = item.image.alt[locale];
+  const itemImageAlt = item.image?.alt[locale] ?? itemName;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -88,26 +92,28 @@ export default function MenuItemCard({
         isAvailable ? "border-white/10" : "border-white/5 opacity-62 grayscale",
       ].join(" ")}
     >
-      <div className="relative isolate aspect-4/3 overflow-hidden bg-white/[0.035]">
-        <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
-          <Image
+      {showImages && item.image ? (
+        <div className="relative isolate aspect-4/3 overflow-hidden bg-white/[0.035]">
+          <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
+            <Image
             src={item.image.src}
-            alt={itemImageAlt}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover"
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-linear-to-t from-theme-bg/78 via-theme-bg/12 to-transparent"
-            aria-hidden="true"
-          />
-        </div>
-        {!isAvailable ? (
-          <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-theme-bg/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-theme-text-muted backdrop-blur-md">
-            {t("unavailable")}
+              alt={itemImageAlt}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              className="object-cover"
+            />
+            <div
+              className="pointer-events-none absolute inset-0 bg-linear-to-t from-theme-bg/78 via-theme-bg/12 to-transparent"
+              aria-hidden="true"
+            />
           </div>
-        ) : null}
-      </div>
+          {!isAvailable ? (
+            <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-theme-bg/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-theme-text-muted backdrop-blur-md">
+              {t("unavailable")}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="space-y-4 p-5">
         <div className="flex flex-wrap gap-2">
@@ -128,9 +134,11 @@ export default function MenuItemCard({
           <h4 className="font-serif text-xl leading-7 text-theme-text-strong">
             {itemName}
           </h4>
-          <p className="shrink-0 pt-1 text-sm font-semibold text-theme-accent">
-            {formatPrice(item.price)}
-          </p>
+          {showPrices ? (
+            <p className="shrink-0 pt-1 text-sm font-semibold text-theme-accent">
+              {formatPrice(item.price, item.currency)}
+            </p>
+          ) : null}
         </div>
 
         <p className="text-sm leading-6 text-theme-text-muted/66">

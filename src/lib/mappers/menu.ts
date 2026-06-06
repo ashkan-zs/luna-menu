@@ -19,6 +19,7 @@ export function mapCategorySeedToCategory(
     restaurantId: category.restaurantId,
     slug: category.slug ?? category.id,
     label: category.label,
+    description: category.description,
     order: category.order ?? index,
   };
 }
@@ -27,11 +28,7 @@ export function mapMenuItemSeedToMenuItem(
   item: MenuItemSeed,
   index: number,
 ): MenuItem {
-  const tags = uniqueTags([
-    ...(item.tags ?? []),
-    ...(item.spicy ? (["spicy"] as const) : []),
-    ...(item.vegetarian ? (["vegetarian"] as const) : []),
-  ]);
+  const tags = uniqueTags(item.tags ?? []);
 
   return {
     id: item.id,
@@ -41,19 +38,19 @@ export function mapMenuItemSeedToMenuItem(
     name: item.name,
     description: item.description,
     price: item.price,
-    image: {
-      src: item.image,
-      alt: item.name,
-    },
+    currency: item.currency ?? "TRY",
+    image: item.image
+      ? {
+          src: item.image,
+          alt: item.name,
+        }
+      : undefined,
     order: item.order ?? index,
-    featured: item.featured,
-    available: item.available,
+    featured: item.featured ?? false,
+    available: item.available ?? true,
     ingredients: item.ingredients,
     allergens: item.allergens,
-    calories: item.calories,
-    protein: item.protein,
-    carbs: item.carbs,
-    fats: item.fats,
+    nutrition: item.nutrition,
     tags,
   };
 }

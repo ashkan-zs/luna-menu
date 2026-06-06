@@ -18,6 +18,9 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
   const t = useTranslations("Menu");
   const tagline = getLocalizedValue(restaurant.tagline, locale);
   const description = getLocalizedValue(restaurant.description, locale);
+  const eyebrow = restaurant.content?.hero?.eyebrow
+    ? getLocalizedValue(restaurant.content.hero.eyebrow, locale)
+    : t("welcome");
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -50,7 +53,7 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
     >
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <Image
-          src={restaurant.backgroundImage}
+          src={restaurant.coverImage}
           alt=""
           fill
           priority
@@ -77,7 +80,7 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
         ].join(" ")}
       >
         <p className="mb-5 text-xs font-medium uppercase tracking-[0.42em] text-theme-accent">
-          {t("welcome")}
+          {eyebrow}
         </p>
         <h1
           id="menu-hero-heading"

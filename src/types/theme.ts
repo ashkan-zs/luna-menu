@@ -33,8 +33,12 @@ export type CategoryTabsProps = {
 };
 
 export type FeaturedMenuThemeProps = {
+  restaurant: Restaurant;
+  locale: Locale;
   items: MenuItem[];
   onSelect: (item: MenuItem) => void;
+  showPrices: boolean;
+  showImages: boolean;
 };
 
 export type MenuSearchFilterThemeProps = {
@@ -56,6 +60,8 @@ export type MenuSectionThemeProps = {
   items: MenuItem[];
   locale: Locale;
   onSelect: (item: MenuItem) => void;
+  showPrices: boolean;
+  showImages: boolean;
 };
 
 export type EmptyMenuThemeProps = {
@@ -65,16 +71,18 @@ export type EmptyMenuThemeProps = {
 export type MenuItemCardThemeProps = {
   item: MenuItem;
   onSelect?: (item: MenuItem) => void;
+  showPrices: boolean;
+  showImages: boolean;
 };
 
 export type MenuItemModalThemeProps = {
   item: MenuItem | null;
   onClose: () => void;
+  showPrices: boolean;
+  showImages: boolean;
 };
 
-export type RestaurantInfoThemeProps = {
-  restaurant: Restaurant;
-};
+export type RestaurantInfoThemeProps = RestaurantLocaleProps;
 
 export type MenuFooterThemeProps = RestaurantLocaleProps;
 

@@ -17,7 +17,7 @@ export default function ArtisanHero({ restaurant, locale }: MenuHeroThemeProps) 
     <section className="relative min-h-svh overflow-hidden bg-matte-black text-paper">
       <motion.div style={{ y }} className="absolute inset-0">
         <Image
-          src={restaurant.backgroundImage}
+          src={restaurant.coverImage}
           alt=""
           fill
           priority

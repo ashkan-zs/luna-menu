@@ -16,14 +16,48 @@ import type { ReactNode } from "react";
 import { motion, HTMLMotionProps, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Restaurant } from "@/types/restaurant";
+import { Locale } from "@/types/i18n";
+import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
 
-type InfoSectionProps = { restaurant: Restaurant };
+type InfoSectionProps = { restaurant: Restaurant; locale: Locale };
+
+const closedLabel = {
+  en: "Closed",
+  tr: "Kapalı",
+} satisfies Record<Locale, string>;
 
 export default function RestaurantInfoSection({
   restaurant,
+  locale,
 }: InfoSectionProps) {
   const t = useTranslations("RestaurantInfo");
-  const phoneHref = `tel:${restaurant.contact.phone.replaceAll(" ", "")}`;
+  const phoneHref = restaurant.contact.phone
+    ? `tel:${restaurant.contact.phone.replaceAll(" ", "")}`
+    : undefined;
+  const address = [
+    restaurant.location.address,
+    restaurant.location.city,
+    restaurant.location.country,
+  ].join(", ");
+  const storyContent = restaurant.content?.story;
+  const eyebrow = storyContent?.eyebrow
+    ? getLocalizedValue(storyContent.eyebrow, locale)
+    : t("eyebrow");
+  const heading = storyContent?.title
+    ? getLocalizedValue(storyContent.title, locale)
+    : t("heading");
+  const story = storyContent?.body
+    ? getLocalizedValue(storyContent.body, locale)
+    : t("story");
+  const quote = storyContent?.quote
+    ? getLocalizedValue(storyContent.quote, locale)
+    : t("quote");
+  const quoteBy = storyContent?.quoteBy
+    ? getLocalizedValue(storyContent.quoteBy, locale)
+    : t("quoteBy");
+  const atmosphere = storyContent?.atmosphere
+    ? getLocalizedValue(storyContent.atmosphere, locale)
+    : t("atmosphere");
   const shouldReduceMotion = useReducedMotion();
   const motionProps: HTMLMotionProps<"section"> = shouldReduceMotion
     ? { initial: false }
@@ -33,7 +67,10 @@ export default function RestaurantInfoSection({
         viewport: { once: true, margin: "-12% 0px" },
         transition: { duration: 0.55, ease: "easeOut" },
       };
-  const hours = t.raw("hours") as { days: string; time: string }[];
+  const hours = restaurant.openingHours.map((item) => ({
+    days: getLocalizedValue(item.day, locale),
+    time: item.closed ? closedLabel[locale] : `${item.open} - ${item.close}`,
+  }));
 
   return (
     <motion.section
@@ -50,7 +87,7 @@ export default function RestaurantInfoSection({
       <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:items-stretch">
         <div className="relative min-h-136 overflow-hidden rounded-[2.25rem] border border-white/10 bg-theme-bg/55 shadow-[0_30px_100px_rgb(0_0_0_/0.38)] sm:rounded-[2.5rem]">
           <Image
-            src={restaurant.backgroundImage}
+            src={restaurant.coverImage}
             alt={`${restaurant.name} dining room atmosphere`}
             fill
             sizes="(max-width: 1024px) 100vw, 58vw"
@@ -77,7 +114,7 @@ export default function RestaurantInfoSection({
           <div className="relative flex min-h-136 flex-col justify-end p-6 sm:p-8 lg:p-10">
             <div className="mb-8 inline-flex w-fit items-center gap-3 rounded-full border border-theme-accent/24 bg-theme-bg/44 px-4 py-2 text-[0.66rem] font-medium uppercase tracking-[0.24em] text-theme-accent backdrop-blur-xl">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              {t("eyebrow")}
+              {eyebrow}
             </div>
 
             <p className="text-sm uppercase tracking-[0.34em] text-theme-text-muted/60">
@@ -87,21 +124,26 @@ export default function RestaurantInfoSection({
               id="restaurant-info-heading"
               className="mt-3 max-w-2xl font-serif text-4xl leading-[0.98] text-theme-text-strong sm:text-5xl lg:text-6xl"
             >
-              {t("heading")}
+              {heading}
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-theme-text-muted/76 sm:text-lg">
-              {t("story")}
+              {story}
             </p>
 
-            <figure className="mt-8 max-w-xl rounded-3xl border border-white/10 bg-white/5.5 p-5 shadow-[0_20px_70px_rgb(0_0_0_/0.28)] backdrop-blur-xl">
-              <Quote className="size-5 text-theme-accent" aria-hidden="true" />
-              <blockquote className="mt-4 font-serif text-xl leading-8 text-theme-text-soft">
-                {t("quote")}
-              </blockquote>
-              <figcaption className="mt-4 text-[0.68rem] font-medium uppercase tracking-[0.24em] text-theme-accent/78">
-                {t("quoteBy")}
-              </figcaption>
-            </figure>
+            {quote ? (
+              <figure className="mt-8 max-w-xl rounded-3xl border border-white/10 bg-white/5.5 p-5 shadow-[0_20px_70px_rgb(0_0_0_/0.28)] backdrop-blur-xl">
+                <Quote
+                  className="size-5 text-theme-accent"
+                  aria-hidden="true"
+                />
+                <blockquote className="mt-4 font-serif text-xl leading-8 text-theme-text-soft">
+                  {quote}
+                </blockquote>
+                <figcaption className="mt-4 text-[0.68rem] font-medium uppercase tracking-[0.24em] text-theme-accent/78">
+                  {quoteBy}
+                </figcaption>
+              </figure>
+            ) : null}
           </div>
         </div>
 
@@ -110,7 +152,7 @@ export default function RestaurantInfoSection({
             <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
               <div>
                 <p className="text-[0.66rem] font-medium uppercase tracking-[0.24em] text-theme-accent/78">
-                  {t("atmosphere")}
+                  {atmosphere}
                 </p>
                 <h3 className="mt-2 font-serif text-2xl text-theme-text-strong">
                   {t("hoursTitle")}
@@ -146,43 +188,51 @@ export default function RestaurantInfoSection({
                 <InfoLine
                   icon={<MapPin className="size-4" aria-hidden="true" />}
                   label={t("addressLabel")}
-                  value={restaurant.contact.address}
+                  value={address}
                 />
-                <InfoLine
-                  icon={<Phone className="size-4" aria-hidden="true" />}
-                  label={t("phoneLabel")}
-                  value={restaurant.contact.phone}
-                  href={phoneHref}
-                />
+                {restaurant.contact.phone ? (
+                  <InfoLine
+                    icon={<Phone className="size-4" aria-hidden="true" />}
+                    label={t("phoneLabel")}
+                    value={restaurant.contact.phone}
+                    href={phoneHref}
+                  />
+                ) : null}
               </address>
 
               <div className="mt-6 grid gap-3">
-                <a
-                  href={phoneHref}
-                  className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-theme-accent/36 bg-theme-accent/18 px-5 text-sm font-medium uppercase tracking-[0.16em] text-theme-on-accent shadow-(--shadow-theme-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-theme-accent-hover/70 hover:bg-theme-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
-                >
-                  <CalendarCheck className="size-4" aria-hidden="true" />
-                  {t("reserve")}
-                </a>
+                {phoneHref ? (
+                  <a
+                    href={phoneHref}
+                    className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-theme-accent/36 bg-theme-accent/18 px-5 text-sm font-medium uppercase tracking-[0.16em] text-theme-on-accent shadow-(--shadow-theme-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-theme-accent-hover/70 hover:bg-theme-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
+                  >
+                    <CalendarCheck className="size-4" aria-hidden="true" />
+                    {t("reserve")}
+                  </a>
+                ) : null}
                 <div className="grid grid-cols-2 gap-3">
-                  <a
-                    href={restaurant.contact.googleMapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5.5 px-4 text-xs font-medium uppercase tracking-[0.14em] text-theme-text-muted/76 transition duration-300 hover:border-theme-accent/34 hover:text-theme-text-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
-                  >
-                    <Navigation className="size-4" aria-hidden="true" />
-                    {t("maps")}
-                  </a>
-                  <a
-                    href={restaurant.contact.instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5.5 px-4 text-xs font-medium uppercase tracking-[0.14em] text-theme-text-muted/76 transition duration-300 hover:border-theme-accent/34 hover:text-theme-text-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
-                  >
-                    <AtSign className="size-4" aria-hidden="true" />
-                    {t("instagram")}
-                  </a>
+                  {restaurant.location.mapsUrl ? (
+                    <a
+                      href={restaurant.location.mapsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5.5 px-4 text-xs font-medium uppercase tracking-[0.14em] text-theme-text-muted/76 transition duration-300 hover:border-theme-accent/34 hover:text-theme-text-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
+                    >
+                      <Navigation className="size-4" aria-hidden="true" />
+                      {t("maps")}
+                    </a>
+                  ) : null}
+                  {restaurant.socials?.instagram ? (
+                    <a
+                      href={restaurant.socials.instagram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5.5 px-4 text-xs font-medium uppercase tracking-[0.14em] text-theme-text-muted/76 transition duration-300 hover:border-theme-accent/34 hover:text-theme-text-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
+                    >
+                      <AtSign className="size-4" aria-hidden="true" />
+                      {t("instagram")}
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </div>

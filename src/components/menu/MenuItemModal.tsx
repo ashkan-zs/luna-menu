@@ -18,9 +18,16 @@ import { useLocale, useTranslations } from "next-intl";
 type MenuItemModalProps = {
   item: MenuItem | null;
   onClose: () => void;
+  showPrices: boolean;
+  showImages: boolean;
 };
 
-export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
+export default function MenuItemModal({
+  item,
+  onClose,
+  showPrices,
+  showImages,
+}: MenuItemModalProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("MenuItemModal");
   const CLOSE_THRESHOLD = 120;
@@ -73,17 +80,19 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                 <div className="h-1.5 w-14 rounded-full bg-white/25" />
               </div>
 
-              <div className="relative h-80 overflow-hidden rounded-t-4xl">
-                <Image
-                  src={item.image.src}
-                  alt={item.image.alt[locale]}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  fill
-                  priority
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-[#0b0b0c] via-black/20 to-black/10" />
-              </div>
+              {showImages && item.image ? (
+                <div className="relative h-80 overflow-hidden rounded-t-4xl">
+                  <Image
+                    src={item.image.src}
+                    alt={item.image.alt[locale]}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    fill
+                    priority
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#0b0b0c] via-black/20 to-black/10" />
+                </div>
+              ) : null}
 
               <div className="space-y-6 px-6 pb-8 pt-2">
                 {item.featured && (
@@ -98,9 +107,11 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                     {item.name[locale]}
                   </h2>
 
-                  <p className="mt-3 text-2xl font-medium text-[#c8a96b]">
-                    {formatPrice(item.price)}
-                  </p>
+                  {showPrices ? (
+                    <p className="mt-3 text-2xl font-medium text-[#c8a96b]">
+                      {formatPrice(item.price, item.currency)}
+                    </p>
+                  ) : null}
 
                   <p className="mt-4 text-base leading-7 text-white/65">
                     {item.description[locale]}
@@ -162,26 +173,29 @@ export default function MenuItemModal({ item, onClose }: MenuItemModalProps) {
                   </section>
                 )}
 
-                {(item.calories || item.protein || item.carbs || item.fats) && (
+                {item.nutrition ? (
                   <div className="grid grid-cols-4 rounded-3xl border border-white/10 bg-white/4 py-5 text-center">
-                    <NutritionItem label={t("calories")} value={item.calories} />
+                    <NutritionItem
+                      label={t("calories")}
+                      value={item.nutrition.calories}
+                    />
                     <NutritionItem
                       label={t("protein")}
-                      value={item.protein}
+                      value={item.nutrition.protein}
                       suffix="g"
                     />
                     <NutritionItem
                       label={t("carbs")}
-                      value={item.carbs}
+                      value={item.nutrition.carbs}
                       suffix="g"
                     />
                     <NutritionItem
                       label={t("fats")}
-                      value={item.fats}
+                      value={item.nutrition.fats}
                       suffix="g"
                     />
                   </div>
-                )}
+                ) : null}
 
                 {!item.available && (
                   <p className="rounded-2xl border border-red-400/20 bg-red-400/10 p-4 text-sm text-red-200">

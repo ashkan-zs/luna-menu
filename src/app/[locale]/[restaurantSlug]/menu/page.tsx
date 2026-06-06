@@ -38,11 +38,13 @@ export default async function MenuPage({ params }: PageProps) {
       <MenuItemsSection
         locale={locale}
         themeId={theme.id}
+        restaurant={restaurant}
         items={menu.items}
         categories={menu.categories}
         featuredItemIds={menu.featuredItemIds}
+        settings={restaurant.settings}
       />
-      <RestaurantInfoSection restaurant={restaurant} />
+      <RestaurantInfoSection restaurant={restaurant} locale={locale} />
       <Footer restaurant={restaurant} locale={locale} />
     </main>
   );

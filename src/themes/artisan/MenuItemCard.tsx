@@ -11,6 +11,8 @@ import type { MenuItemCardThemeProps } from "@/types/theme";
 export default function ArtisanMenuItemCard({
   item,
   onSelect,
+  showPrices,
+  showImages,
 }: MenuItemCardThemeProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("Menu");
@@ -36,30 +38,32 @@ export default function ArtisanMenuItemCard({
         isAvailable ? "border-theme-accent/14" : "border-white/5 opacity-60",
       ].join(" ")}
     >
-      <div className="relative aspect-4/3 overflow-hidden bg-surface">
-        {item.image ? (
-          <Image
-            src={item.image.src}
-            alt={item.image.alt[locale]}
-            fill
-            sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw"
-            className={[
-              "object-cover transition duration-700 group-hover:scale-[1.035]",
-              isAvailable ? "" : "grayscale",
-            ].join(" ")}
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center bg-surface text-sm uppercase text-text-secondary">
-            restaurant name
-          </div>
-        )}
-        <div className="absolute inset-0 bg-linear-to-t from-matte-black/42 via-transparent to-transparent" />
-        {!isAvailable ? (
-          <span className="absolute left-4 top-4 rounded-full bg-matte-black/78 px-3 py-2 text-xs font-semibold uppercase text-paper">
-            {t("unavailable")}
-          </span>
-        ) : null}
-      </div>
+      {showImages ? (
+        <div className="relative aspect-4/3 overflow-hidden bg-surface">
+          {item.image ? (
+            <Image
+              src={item.image.src}
+              alt={item.image.alt[locale]}
+              fill
+              sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw"
+              className={[
+                "object-cover transition duration-700 group-hover:scale-[1.035]",
+                isAvailable ? "" : "grayscale",
+              ].join(" ")}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center bg-surface text-sm uppercase text-text-secondary">
+              restaurant name
+            </div>
+          )}
+          <div className="absolute inset-0 bg-linear-to-t from-matte-black/42 via-transparent to-transparent" />
+          {!isAvailable ? (
+            <span className="absolute left-4 top-4 rounded-full bg-matte-black/78 px-3 py-2 text-xs font-semibold uppercase text-paper">
+              {t("unavailable")}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="space-y-5 p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
@@ -67,9 +71,11 @@ export default function ArtisanMenuItemCard({
             {itemName}
           </h3>
         </div>
-        <p className="pt-1 font-heading text-3xl text-burgundy">
-          {formatPrice(item.price)}
-        </p>
+        {showPrices ? (
+          <p className="pt-1 font-heading text-3xl text-burgundy">
+            {formatPrice(item.price, item.currency)}
+          </p>
+        ) : null}
         <p className="text-sm leading-7 text-text-secondary">
           {item.description[locale]}
         </p>

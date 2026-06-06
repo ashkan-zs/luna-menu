@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Category, MenuItem as MenuItemType } from "@/types/menu";
 import type { MenuThemeId } from "@/types/theme";
+import type { Restaurant, RestaurantSettings } from "@/types/restaurant";
 import { filterMenuItems } from "@/lib/filterMenuItems";
 import { useActiveCategory } from "@/hooks/useActiveCategory";
 import { Locale } from "@/types/i18n";
@@ -11,17 +12,21 @@ import { getMenuItemsThemeComponents } from "@/themes/registry";
 type MenuItemsSectionProps = {
   locale: Locale;
   themeId: MenuThemeId;
+  restaurant: Restaurant;
   items: MenuItemType[];
   categories: Category[];
   featuredItemIds?: string[];
+  settings?: RestaurantSettings;
 };
 
 export default function MenuItemsSection({
   locale,
   themeId,
+  restaurant,
   items,
   categories,
   featuredItemIds = [],
+  settings,
 }: MenuItemsSectionProps) {
   const {
     FeaturedSection,
@@ -37,17 +42,26 @@ export default function MenuItemsSection({
   const [availableOnly, setAvailableOnly] = useState(false);
   const [vegetarianOnly, setVegetarianOnly] = useState(false);
   const [spicyOnly, setSpicyOnly] = useState(false);
+  const menuSettings = useMemo(
+    () => ({
+      showPrices: settings?.showPrices ?? true,
+      showImages: settings?.showImages ?? true,
+      enableSearch: settings?.enableSearch ?? true,
+      enableCategoryTabs: settings?.enableCategoryTabs ?? true,
+    }),
+    [settings],
+  );
 
   const filteredItems = useMemo(
     () =>
       filterMenuItems(
         items,
         {
-          query,
-          featuredOnly,
-          availableOnly,
-          vegetarianOnly,
-          spicyOnly,
+          query: menuSettings.enableSearch ? query : "",
+          featuredOnly: menuSettings.enableSearch ? featuredOnly : false,
+          availableOnly: menuSettings.enableSearch ? availableOnly : false,
+          vegetarianOnly: menuSettings.enableSearch ? vegetarianOnly : false,
+          spicyOnly: menuSettings.enableSearch ? spicyOnly : false,
         },
         locale,
       ),
@@ -56,6 +70,7 @@ export default function MenuItemsSection({
       featuredOnly,
       items,
       locale,
+      menuSettings.enableSearch,
       query,
       spicyOnly,
       vegetarianOnly,
@@ -96,28 +111,39 @@ export default function MenuItemsSection({
       className="scroll-mt-16 pt-0"
       aria-labelledby="featured-heading"
     >
-      <CategoryTabs
-        categories={visibleCategories}
-        activeCategoryId={activeCategory}
-        onCategoryClick={scrollToCategory}
-      />
+      {menuSettings.enableCategoryTabs ? (
+        <CategoryTabs
+          categories={visibleCategories}
+          activeCategoryId={activeCategory}
+          onCategoryClick={scrollToCategory}
+        />
+      ) : null}
       <div className="px-5 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-7xl mt-4">
-          <FeaturedSection items={featuredItems} onSelect={setSelectedItem} />
-
-          <SearchFilter
-            query={query}
-            featuredOnly={featuredOnly}
-            availableOnly={availableOnly}
-            vegetarianOnly={vegetarianOnly}
-            spicyOnly={spicyOnly}
-            resultCount={filteredItems.length}
-            onQueryChange={setQuery}
-            onFeaturedOnlyChange={setFeaturedOnly}
-            onAvailableOnlyChange={setAvailableOnly}
-            onVegetarianOnlyChange={setVegetarianOnly}
-            onSpicyOnlyChange={setSpicyOnly}
+          <FeaturedSection
+            restaurant={restaurant}
+            locale={locale}
+            items={featuredItems}
+            onSelect={setSelectedItem}
+            showPrices={menuSettings.showPrices}
+            showImages={menuSettings.showImages}
           />
+
+          {menuSettings.enableSearch ? (
+            <SearchFilter
+              query={query}
+              featuredOnly={featuredOnly}
+              availableOnly={availableOnly}
+              vegetarianOnly={vegetarianOnly}
+              spicyOnly={spicyOnly}
+              resultCount={filteredItems.length}
+              onQueryChange={setQuery}
+              onFeaturedOnlyChange={setFeaturedOnly}
+              onAvailableOnlyChange={setAvailableOnly}
+              onVegetarianOnlyChange={setVegetarianOnly}
+              onSpicyOnlyChange={setSpicyOnly}
+            />
+          ) : null}
 
           <div className="space-y-14">
             {visibleCategories.map((category) => {
@@ -136,6 +162,8 @@ export default function MenuItemsSection({
                   items={categoryItems}
                   locale={locale}
                   onSelect={setSelectedItem}
+                  showPrices={menuSettings.showPrices}
+                  showImages={menuSettings.showImages}
                 />
               );
             })}
@@ -147,6 +175,8 @@ export default function MenuItemsSection({
         <ThemedMenuItemModal
           item={selectedItem}
           onClose={() => setSelectedItem(null)}
+          showPrices={menuSettings.showPrices}
+          showImages={menuSettings.showImages}
         />
       </div>
     </section>

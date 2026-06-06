@@ -1,33 +1,23 @@
 "use client";
 
-import Image from "next/image";
-import { Sparkles } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { formatPrice } from "@/lib/formatPrice";
-import type { Locale } from "@/types/i18n";
+import { useTranslations } from "next-intl";
 import type { FeaturedMenuThemeProps } from "@/types/theme";
 
-const copy = {
-  en: {
-    eyebrow: "Oteki Menu",
-    title: "Browse slowly with the rhythm of the day.",
-    description:
-      "A warm table experience from breakfast to coffee pauses, handmade pasta, and shareable pizza.",
-  },
-  tr: {
-    eyebrow: "Oteki Menu",
-    title: "Browse slowly with the rhythm of the day.",
-    description:
-      "A warm table experience from breakfast to coffee pauses, handmade pasta, and shareable pizza.",
-  },
-} satisfies Record<Locale, { eyebrow: string; title: string; description: string }>;
-
 export default function ArtisanFeaturedSection({
+  restaurant,
+  locale,
   items,
-  onSelect,
 }: FeaturedMenuThemeProps) {
-  const locale = useLocale() as Locale;
   const t = useTranslations("Menu");
+  const eyebrow = restaurant.content?.featured?.eyebrow
+    ? restaurant.content.featured.eyebrow[locale]
+    : t("featuredEyebrow");
+  const title = restaurant.content?.featured?.title
+    ? restaurant.content.featured.title[locale]
+    : t("featuredHeading");
+  const description = restaurant.content?.featured?.description
+    ? restaurant.content.featured.description[locale]
+    : t("featuredDescription");
 
   if (items.length === 0) {
     return null;
@@ -40,16 +30,16 @@ export default function ArtisanFeaturedSection({
     >
       <div className="mb-9 max-w-3xl">
         <p className="mb-3 text-xs uppercase text-burgundy">
-          {copy[locale].eyebrow}
+          {eyebrow}
         </p>
         <h2
           id="featured-heading"
           className="font-heading text-5xl uppercase leading-none text-espresso sm:text-7xl"
         >
-          {copy[locale].title}
+          {title}
         </h2>
         <p className="mt-5 text-base leading-8 text-text-secondary">
-          {copy[locale].description}
+          {description}
         </p>
       </div>
 

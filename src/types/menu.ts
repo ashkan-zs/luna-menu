@@ -8,11 +8,21 @@ export type MenuImage = {
   alt: LocalizedString;
 };
 
+export type Currency = "TRY" | "USD" | "EUR";
+
+export type MenuNutrition = {
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fats?: number;
+};
+
 export type Category = {
   id: string;
   restaurantId: string;
   slug: string;
   label: LocalizedString;
+  description?: LocalizedString;
   order: number;
 };
 
@@ -24,16 +34,14 @@ export type MenuItem = {
   name: LocalizedString;
   description: LocalizedString;
   price: number;
-  image: MenuImage;
+  currency: Currency;
+  image?: MenuImage;
   order: number;
-  featured?: boolean;
-  available?: boolean;
+  featured: boolean;
+  available: boolean;
   ingredients?: LocalizedString;
   allergens?: LocalizedString[];
-  calories?: number;
-  protein?: number;
-  carbs?: number;
-  fats?: number;
+  nutrition?: MenuNutrition;
   tags?: MenuTag[];
 };
 
@@ -42,17 +50,26 @@ export type CategorySeed = {
   restaurantId: string;
   slug?: string;
   label: LocalizedString;
+  description?: LocalizedString;
   order?: number;
 };
 
 export type MenuItemSeed = Omit<
   MenuItem,
-  "categoryId" | "categorySlug" | "image" | "order" | "tags"
+  | "categoryId"
+  | "categorySlug"
+  | "image"
+  | "order"
+  | "currency"
+  | "featured"
+  | "available"
+  | "tags"
 > & {
   category: MenuCategory;
-  image: string;
+  currency?: Currency;
+  image?: string;
   order?: number;
-  spicy?: boolean;
-  vegetarian?: boolean;
+  featured?: boolean;
+  available?: boolean;
   tags?: MenuTag[];
 };

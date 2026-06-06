@@ -122,38 +122,74 @@ const OTEKI_RESTAURANT_CATEGORIES: Omit<CategorySeed, "restaurantId">[] = [
   {
     id: "breakfast",
     label: { tr: "Kahvaltı", en: "Breakfast" },
+    description: {
+      tr: "Kahvaltı tabaklarının yanında Americano veya filtre kahve ikramdır.\nHafta içi 13.00 - Hafta sonu 16.00",
+      en: "All breakfast plates are served with a complimentary Americano or filter coffee.\nWeekdays until 1 PM - Weekends until 4 PM",
+    },
   },
   {
     id: "toast-and-sandwich",
     label: { tr: "Tost & Sandviç", en: "Toast & Sandwich" },
+    description: {
+      tr: "Fırından sıcak, doyurucu ve rahat tabaklar.",
+      en: "Warm from the oven, generous, and easygoing plates.",
+    },
   },
   {
     id: "pizza",
     label: { tr: "Pizza", en: "Pizza" },
+    description: {
+      tr: "Özel ekşi mayamızla yapılan pizza hamurlarımız minimum 3-5 gün dinlenmektedir.",
+      en: "Our pizzas are made with a special sourdough starter and a dough rested for at least 3-5 days.",
+    },
   },
   {
     id: "pasta",
     label: { tr: "Makarna", en: "Pasta" },
+    description: {
+      tr: "Ev yapımı makarnalarımız taze yapılmaktadır.\nMakarnaların yapımında %100 semolina un kullanılmaktadır.",
+      en: "Our handmade pastas are freshly made daily.\nAll of our pasta doughs are prepared using 100% semolina flour.",
+    },
   },
   {
     id: "burgers-and-wraps",
     label: { tr: "Burger & Wrap", en: "Burger & Wrap" },
+    description: {
+      tr: "Patates, sos ve bol malzemeli rahat favoriler.",
+      en: "Relaxed favorites with fries, sauces, and generous fillings.",
+    },
   },
   {
     id: "salads",
     label: { tr: "Salatalar", en: "Salads" },
+    description: {
+      tr: "Yeşillikler, proteinler ve ferah tabaklar.",
+      en: "Greens, proteins, and fresh plates.",
+    },
   },
   {
     id: "coffee",
     label: { tr: "Kahve", en: "Coffee" },
+    description: {
+      tr: "Taze kavrulmuş kahve.",
+      en: "Freshly roasted coffee beans.",
+    },
   },
   {
     id: "signature-coffee",
     label: { tr: "İmza Kahveler", en: "Signature Coffee" },
+    description: {
+      tr: "Taze kavrulmuş kahve.",
+      en: "Freshly roasted coffee beans.",
+    },
   },
   {
     id: "drinks",
     label: { tr: "İçecekler", en: "Drinks" },
+    description: {
+      tr: "Çay, Türk kahvesi ve ferahlatıcı soğuk içecekler.",
+      en: "Tea, Turkish coffee, and refreshing cold drinks.",
+    },
   },
 ];
 
@@ -203,10 +239,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
         tr: "Süt Ürünleri",
       },
     ],
-    calories: 520,
-    protein: 22,
-    carbs: 38,
-    fats: 31,
+    nutrition: {
+      calories: 520,
+      protein: 22,
+      carbs: 38,
+      fats: 31,
+    },
     tags: ["vegetarian", "chef_choice"],
   },
   {
@@ -246,10 +284,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
         tr: "Balık",
       },
     ],
-    calories: 640,
-    protein: 34,
-    carbs: 36,
-    fats: 41,
+    nutrition: {
+      calories: 640,
+      protein: 34,
+      carbs: 36,
+      fats: 41,
+    },
     tags: ["chef_choice"],
   },
 
@@ -279,10 +319,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
         tr: "Süt Ürünleri",
       },
     ],
-    calories: 540,
-    protein: 12,
-    carbs: 58,
-    fats: 29,
+    nutrition: {
+      calories: 540,
+      protein: 12,
+      carbs: 58,
+      fats: 29,
+    },
     tags: ["vegetarian", "signature"],
   },
   {
@@ -309,10 +351,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
       { en: "Gluten", tr: "Gluten" },
       { en: "Eggs", tr: "Yumurta" },
     ],
-    calories: 480,
-    protein: 28,
-    carbs: 32,
-    fats: 26,
+    nutrition: {
+      calories: 480,
+      protein: 28,
+      carbs: 32,
+      fats: 26,
+    },
     tags: ["seafood"],
   },
   {
@@ -338,10 +382,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
       { en: "Dairy", tr: "Süt Ürünleri" },
       { en: "Nuts", tr: "Kuruyemiş" },
     ],
-    calories: 420,
-    protein: 14,
-    carbs: 28,
-    fats: 26,
+    nutrition: {
+      calories: 420,
+      protein: 14,
+      carbs: 28,
+      fats: 26,
+    },
     tags: ["vegetarian", "signature", "seasonal"],
   },
 
@@ -366,10 +412,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
       tr: "Dana antrikot, yaban mantarı, yaban havucu püresi, tereyağı, biberiye, kırmızı şarap sosu.",
     },
     allergens: [{ en: "Dairy", tr: "Süt Ürünleri" }],
-    calories: 920,
-    protein: 62,
-    carbs: 18,
-    fats: 64,
+    nutrition: {
+      calories: 920,
+      protein: 62,
+      carbs: 18,
+      fats: 64,
+    },
     tags: ["chef_choice", "signature"],
   },
   {
@@ -395,10 +443,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
       { en: "Fish", tr: "Balık" },
       { en: "Dairy", tr: "Süt Ürünleri" },
     ],
-    calories: 610,
-    protein: 44,
-    carbs: 10,
-    fats: 39,
+    nutrition: {
+      calories: 610,
+      protein: 44,
+      carbs: 10,
+      fats: 39,
+    },
     tags: ["seafood", "seasonal"],
   },
   {
@@ -424,10 +474,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
       { en: "Gluten", tr: "Gluten" },
       { en: "Dairy", tr: "Süt Ürünleri" },
     ],
-    calories: 690,
-    protein: 20,
-    carbs: 92,
-    fats: 24,
+    nutrition: {
+      calories: 690,
+      protein: 20,
+      carbs: 92,
+      fats: 24,
+    },
     tags: ["spicy", "vegetarian"],
   },
   {
@@ -450,10 +502,12 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
       tr: "Brokoli, sarımsak yağı, kavrulmuş badem, zeytinyağı, deniz tuzu.",
     },
     allergens: [{ en: "Nuts", tr: "Kuruyemiş" }],
-    calories: 180,
-    protein: 6,
-    carbs: 12,
-    fats: 11,
+    nutrition: {
+      calories: 180,
+      protein: 6,
+      carbs: 12,
+      fats: 11,
+    },
     tags: ["vegetarian"],
   },
 
@@ -468,8 +522,8 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
     },
     price: 155,
     image: "/images/luna-bistro/menu/almond-croissant.jpg",
-    vegetarian: true,
     available: true,
+    tags: ["vegetarian"],
   },
   {
     id: "ds-1",
@@ -481,8 +535,8 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
     },
     price: 190,
     image: "/images/luna-bistro/menu/san-sebastian.jpg",
-    vegetarian: true,
     available: true,
+    tags: ["vegetarian"],
   },
   {
     id: "ds-2",
@@ -494,8 +548,8 @@ const LUNA_BISTRO_MENU_ITEMS: Omit<MenuItemSeed, "restaurantId">[] = [
     },
     price: 210,
     image: "/images/luna-bistro/menu/chocolate-tart.jpg",
-    vegetarian: true,
     available: true,
+    tags: ["vegetarian"],
   },
 
   // --- COFFEE & TEA ---

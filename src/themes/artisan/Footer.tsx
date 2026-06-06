@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
 import type { MenuFooterThemeProps } from "@/types/theme";
+import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
 
 export default function ArtisanFooter({
   restaurant,
@@ -8,7 +8,12 @@ export default function ArtisanFooter({
 }: MenuFooterThemeProps) {
   const t = useTranslations("MenuFooter");
   const year = new Date().getFullYear();
-  const location = getLocalizedValue(restaurant.location, locale);
+  const location = [restaurant.location.city, restaurant.location.country].join(
+    ", ",
+  );
+  const statement = restaurant.content?.footer?.statement
+    ? getLocalizedValue(restaurant.content.footer.statement, locale)
+    : t("footerStatement");
 
   return (
     <footer className="px-5 pb-8 sm:px-8 lg:px-10">
@@ -19,7 +24,7 @@ export default function ArtisanFooter({
               {restaurant.name}
             </p>
             <p className="mt-3 max-w-md font-serif text-3xl uppercase text-theme-text">
-              {t("footerStatement")}
+              {statement}
             </p>
             <p className="mt-2 text-xs uppercase tracking-[0.18em] text-theme-text-muted/45">
               {location}
@@ -27,27 +32,33 @@ export default function ArtisanFooter({
           </div>
 
           <div className="flex gap-4 text-xs uppercase tracking-[0.18em] text-theme-text-muted/62">
-            <a
-              href={restaurant.contact.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t("instagram")}
-            </a>
-            <a
-              href={restaurant.contact.googleMapsUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t("maps")}
-            </a>
-            <a
-              href={restaurant.contact.whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t("whatsapp")}
-            </a>
+            {restaurant.socials?.instagram ? (
+              <a
+                href={restaurant.socials.instagram}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("instagram")}
+              </a>
+            ) : null}
+            {restaurant.location.mapsUrl ? (
+              <a
+                href={restaurant.location.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("maps")}
+              </a>
+            ) : null}
+            {restaurant.contact.whatsapp ? (
+              <a
+                href={restaurant.contact.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("whatsapp")}
+              </a>
+            ) : null}
           </div>
         </div>
 

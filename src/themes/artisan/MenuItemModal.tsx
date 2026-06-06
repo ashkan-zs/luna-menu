@@ -13,6 +13,8 @@ import type { MenuItemModalThemeProps } from "@/types/theme";
 export default function ArtisanMenuItemModal({
   item,
   onClose,
+  showPrices,
+  showImages,
 }: MenuItemModalThemeProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("MenuItemModal");
@@ -83,16 +85,18 @@ export default function ArtisanMenuItemModal({
             </motion.div>
 
             <div className="-mt-15 overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]">
-              <div className="relative aspect-4/3 overflow-hidden bg-theme-text/[0.04] sm:aspect-video">
-                <Image
-                  src={item.image.src}
-                  alt={item.image.alt[locale]}
-                  fill
-                  sizes="(min-width: 768px) 860px, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-theme-bg/78 via-transparent to-transparent" />
-              </div>
+              {showImages && item.image ? (
+                <div className="relative aspect-4/3 overflow-hidden bg-theme-text/[0.04] sm:aspect-video">
+                  <Image
+                    src={item.image.src}
+                    alt={item.image.alt[locale]}
+                    fill
+                    sizes="(min-width: 768px) 860px, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-theme-bg/78 via-transparent to-transparent" />
+                </div>
+              ) : null}
 
               <div className="space-y-8 px-5 py-7 sm:px-9 sm:py-9">
                 <div>
@@ -108,9 +112,11 @@ export default function ArtisanMenuItemModal({
                     >
                       {item.name[locale]}
                     </h2>
-                    <p className="font-serif text-4xl text-theme-accent">
-                      {formatPrice(item.price)}
-                    </p>
+                    {showPrices ? (
+                      <p className="font-serif text-4xl text-theme-accent">
+                        {formatPrice(item.price, item.currency)}
+                      </p>
+                    ) : null}
                   </div>
                   <p className="mt-5 text-base leading-8 text-theme-text-muted/72">
                     {item.description[locale]}
@@ -150,10 +156,10 @@ export default function ArtisanMenuItemModal({
                   </p>
                 </DetailBlock>
 
-                {item.calories ? (
+                {item.nutrition?.calories ? (
                   <DetailBlock title={t("calories")}>
                     <p className="text-sm text-theme-text-muted/72">
-                      {item.calories} kcal
+                      {item.nutrition.calories} kcal
                     </p>
                   </DetailBlock>
                 ) : null}

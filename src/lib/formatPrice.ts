@@ -1,4 +1,4 @@
-type Currency = "USD" | "TRY" | "EUR";
+import type { Currency } from "@/types/menu";
 
 const localeByCurrency: Record<Currency, string> = {
   USD: "en-us",
