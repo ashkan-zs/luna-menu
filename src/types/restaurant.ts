@@ -1,4 +1,5 @@
 import { LocalizedString } from "./i18n";
+import type { MenuThemeId } from "./theme";
 
 type RestaurantContact = {
       address: string,
@@ -11,7 +12,7 @@ type RestaurantContact = {
 export type Restaurant = {
     id: string,
     slug: string,
-    themeId: string,
+    themeId: MenuThemeId,
     name: string,
     tagline: LocalizedString,
     description: LocalizedString,
@@ -19,4 +20,3 @@ export type Restaurant = {
     location: LocalizedString,
     contact: RestaurantContact,
   };
-

@@ -16,7 +16,7 @@ export function mapCategorySeedToCategory(
 ): Category {
   return {
     id: category.id,
-    restaurantSlug: category.restaurantSlug,
+    restaurantId: category.restaurantId,
     slug: category.slug ?? category.id,
     label: category.label,
     order: category.order ?? index,
@@ -35,7 +35,7 @@ export function mapMenuItemSeedToMenuItem(
 
   return {
     id: item.id,
-    restaurantSlug: item.restaurantSlug,
+    restaurantId: item.restaurantId,
     categoryId: item.category,
     categorySlug: item.category,
     name: item.name,

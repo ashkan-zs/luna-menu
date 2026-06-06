@@ -1,14 +1,11 @@
-
-import MenuHero from "@/components/menu/MenuHero";
-import MenuNavbar from "@/components/menu/MenuNavbar";
 import MenuItemsSection from "@/components/menu/MenuItemsSection";
-import RestaurantInfoSection from "@/components/menu/RestaurantInfoSection";
-import MenuFooter from "@/components/menu/MenuFooter";
 import { notFound } from "next/navigation";
 
 import { getRestaurantMenu } from "@/lib/data/menu";
 import { getRestaurantBySlug } from "@/lib/data/restaurants";
 import { Locale } from "@/types/i18n";
+import { getMenuTheme } from "@/themes/registry";
+import { MenuTheme } from "@/types/theme";
 
 type PageProps = {
   params: Promise<{
@@ -26,30 +23,27 @@ export default async function MenuPage({ params }: PageProps) {
     notFound();
   }
 
-  // const [themeId, setThemeId] = useState<MenuThemeId>(DEFAULT_MENU_THEME_ID);
+  const theme = getMenuTheme(restaurant.themeId);
+  const components: MenuTheme["components"] = theme.components;
+  const { Navbar, Hero, RestaurantInfoSection, Footer } = components;
 
   return (
     <main
       id="top"
-      // data-menu-theme={themeId}
-      className="min-h-screen bg-menu-night font-sans text-menu-parchment"
+      data-menu-theme={theme.id}
+      className="min-h-screen bg-theme-bg font-sans text-theme-text"
     >
-      <MenuNavbar
-        restaurant={restaurant}
-        locale={locale}
-        // themes={MENU_THEMES}
-        // activeThemeId={themeId}
-        // onThemeChange={setThemeId}
-      />
-      <MenuHero restaurant={restaurant} locale={locale} />
+      {Navbar && <Navbar restaurant={restaurant} locale={locale} />}
+      <Hero restaurant={restaurant} locale={locale} />
       <MenuItemsSection
         locale={locale}
+        themeId={theme.id}
         items={menu.items}
         categories={menu.categories}
         featuredItemIds={menu.featuredItemIds}
       />
       <RestaurantInfoSection restaurant={restaurant} />
-      <MenuFooter restaurant={restaurant} locale={locale} />
+      <Footer restaurant={restaurant} locale={locale} />
     </main>
   );
 }

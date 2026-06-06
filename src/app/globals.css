@@ -3,159 +3,102 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --theme-night: #080705;
-  --theme-brass: #d8ba7c;
-  --theme-brass-muted: #d6b46c;
-  --theme-brass-hover: #e6c77f;
-  --theme-parchment: #f4ecdf;
-  --theme-cream: #efe7d7;
-  --theme-ivory: #fff7ea;
-  --theme-warm-white: #fff4dd;
-  --theme-logo-wash: #f3dfb3;
-  --theme-language-active: #efe0bd;
-  --theme-button-text: #f8eed9;
+  --theme-bg: #080705;
+  --theme-accent: #d8ba7c;
+  --theme-accent-muted: #d6b46c;
+  --theme-accent-hover: #e6c77f;
+  --theme-text: #f4ecdf;
+  --theme-text-muted: #efe7d7;
+  --theme-text-strong: #fff7ea;
+  --theme-text-soft: #fff4dd;
+  --theme-brand: #f3dfb3;
+  --theme-control-active: #efe0bd;
+  --theme-on-accent: #f8eed9;
   --theme-vegetarian: #86efac;
   --theme-vegetarian-text: #d1fae5;
   --theme-spicy: #fca5a5;
   --theme-spicy-text: #fee2e2;
-  --menu-night-rgb: 8 7 5;
-  --menu-brass-rgb: 216 186 124;
-  --shadow-menu-navbar-scrolled: 0 18px 60px rgb(0 0 0 / 0.42);
-  --shadow-menu-navbar-top: 0 16px 50px rgb(0 0 0 / 0.18);
-  --shadow-menu-button-hover: 0 12px 34px rgb(216 186 124 / 0.18);
-  --shadow-menu-card: 0 20px 60px rgb(0 0 0 / 0.24);
-  --menu-hero-glow: radial-gradient(
+  --theme-bg-rgb: 8 7 5;
+  --theme-accent-rgb: 216 186 124;
+  --theme-font-sans: var(--font-geist-sans);
+  --theme-font-heading: Georgia, Cambria, "Times New Roman", Times, serif;
+  --shadow-theme-navbar-scrolled: 0 18px 60px rgb(0 0 0 / 0.42);
+  --shadow-theme-navbar-top: 0 16px 50px rgb(0 0 0 / 0.18);
+  --shadow-theme-button-hover: 0 12px 34px rgb(216 186 124 / 0.18);
+  --shadow-theme-card: 0 20px 60px rgb(0 0 0 / 0.24);
+  --theme-hero-glow: radial-gradient(
       circle at 50% 0%,
-      rgb(var(--menu-brass-rgb) / 0.22),
+      rgb(var(--theme-accent-rgb) / 0.22),
       transparent 32%
     ),
     linear-gradient(
       180deg,
-      rgb(var(--menu-night-rgb) / 0.08),
-      var(--color-menu-night) 92%
+      rgb(var(--theme-bg-rgb) / 0.08),
+      var(--color-theme-bg) 92%
     );
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-menu-night: var(--theme-night);
-  --color-menu-brass: var(--theme-brass);
-  --color-menu-brass-muted: var(--theme-brass-muted);
-  --color-menu-brass-hover: var(--theme-brass-hover);
-  --color-menu-parchment: var(--theme-parchment);
-  --color-menu-cream: var(--theme-cream);
-  --color-menu-ivory: var(--theme-ivory);
-  --color-menu-warm-white: var(--theme-warm-white);
-  --color-menu-logo-wash: var(--theme-logo-wash);
-  --color-menu-language-active: var(--theme-language-active);
-  --color-menu-button-text: var(--theme-button-text);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
+  --color-forest-green: var(--forest-green);
+  --color-burgundy: var(--burgundy);
+  --color-espresso: var(--espresso);
+  --color-matte-black: var(--matte-black);
+  --color-wood: var(--wood);
+  --color-olive: var(--olive);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-theme-bg: var(--theme-bg);
+  --color-theme-accent: var(--theme-accent);
+  --color-theme-accent-muted: var(--theme-accent-muted);
+  --color-theme-accent-hover: var(--theme-accent-hover);
+  --color-theme-text: var(--theme-text);
+  --color-theme-text-muted: var(--theme-text-muted);
+  --color-theme-text-strong: var(--theme-text-strong);
+  --color-theme-text-soft: var(--theme-text-soft);
+  --color-theme-brand: var(--theme-brand);
+  --color-theme-control-active: var(--theme-control-active);
+  --color-theme-on-accent: var(--theme-on-accent);
   --color-menu-vegetarian: var(--theme-vegetarian);
   --color-menu-vegetarian-text: var(--theme-vegetarian-text);
   --color-menu-spicy: var(--theme-spicy);
   --color-menu-spicy-text: var(--theme-spicy-text);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--theme-font-sans);
+  --font-serif: var(--theme-font-heading);
+  --font-heading: var(--theme-font-heading);
   --font-mono: var(--font-geist-mono);
 }
 
-[data-menu-theme="amber-bistro"] {
-  --theme-night: #100b08;
-  --theme-brass: #e4ad61;
-  --theme-brass-muted: #cf9650;
-  --theme-brass-hover: #f3c577;
-  --theme-parchment: #f6ead8;
-  --theme-cream: #ead8c1;
-  --theme-ivory: #fff2df;
-  --theme-warm-white: #ffe9cf;
-  --theme-logo-wash: #f2cc93;
-  --theme-language-active: #f0c888;
-  --theme-button-text: #fff1dc;
-  --menu-night-rgb: 16 11 8;
-  --menu-brass-rgb: 228 173 97;
-}
-
-[data-menu-theme="olive-cafe"] {
-  --theme-night: #080c08;
-  --theme-brass: #b8c58a;
-  --theme-brass-muted: #9faf74;
-  --theme-brass-hover: #ccd99a;
-  --theme-parchment: #eff1df;
-  --theme-cream: #dde2c8;
-  --theme-ivory: #f8f9e8;
-  --theme-warm-white: #f4f7dd;
-  --theme-logo-wash: #d9e5a8;
-  --theme-language-active: #d9e5a8;
-  --theme-button-text: #fbffe9;
-  --theme-vegetarian: #b8c58a;
-  --theme-vegetarian-text: #edf4c7;
-  --menu-night-rgb: 8 12 8;
-  --menu-brass-rgb: 184 197 138;
-}
-
-[data-menu-theme="copper-cocktail"] {
-  --theme-night: #0d0707;
-  --theme-brass: #d68a63;
-  --theme-brass-muted: #c47755;
-  --theme-brass-hover: #eea37a;
-  --theme-parchment: #f5e5da;
-  --theme-cream: #ead0c1;
-  --theme-ivory: #fff0e5;
-  --theme-warm-white: #ffe5d7;
-  --theme-logo-wash: #efb18f;
-  --theme-language-active: #ebb08f;
-  --theme-button-text: #fff0e7;
-  --menu-night-rgb: 13 7 7;
-  --menu-brass-rgb: 214 138 99;
-}
-
-[data-menu-theme="ivory-brasserie"] {
-  --theme-night: #0d0b09;
-  --theme-brass: #d9c78e;
-  --theme-brass-muted: #c5ad73;
-  --theme-brass-hover: #ead9a1;
-  --theme-parchment: #fff5e5;
-  --theme-cream: #eee3cf;
-  --theme-ivory: #fff9ef;
-  --theme-warm-white: #fff1d9;
-  --theme-logo-wash: #f1dfaa;
-  --theme-language-active: #ecdcae;
-  --theme-button-text: #fff7ea;
-  --menu-night-rgb: 13 11 9;
-  --menu-brass-rgb: 217 199 142;
-}
-
-[data-menu-theme="pearl-daylight"] {
-  --theme-night: #f7f1e7;
-  --theme-brass: #8a6439;
-  --theme-brass-muted: #a77d4b;
-  --theme-brass-hover: #6f4e2b;
-  --theme-parchment: #1f1913;
-  --theme-cream: #4a3d31;
-  --theme-ivory: #17120e;
-  --theme-warm-white: #2b2118;
-  --theme-logo-wash: #7b552f;
-  --theme-language-active: #8a6439;
-  --theme-button-text: #1f1913;
-  --theme-vegetarian: #5f7f43;
-  --theme-vegetarian-text: #2f4d27;
-  --theme-spicy: #a4563e;
-  --theme-spicy-text: #74351f;
-  --menu-night-rgb: 247 241 231;
-  --menu-brass-rgb: 138 100 57;
-  --shadow-menu-navbar-scrolled: 0 18px 60px rgb(80 55 24 / 0.16);
-  --shadow-menu-navbar-top: 0 16px 50px rgb(80 55 24 / 0.12);
-  --shadow-menu-button-hover: 0 12px 34px rgb(138 100 57 / 0.16);
-  --shadow-menu-card: 0 20px 60px rgb(80 55 24 / 0.14);
-  --menu-hero-glow: radial-gradient(
-      circle at 50% 0%,
-      rgb(var(--menu-brass-rgb) / 0.2),
-      transparent 34%
-    ),
-    linear-gradient(
-      180deg,
-      rgb(255 250 242 / 0.2),
-      var(--color-menu-night) 92%
-    );
+[data-menu-theme="artisan"] {
+  --background: #f3eee7;
+  --surface: #e5d8c8;
+  --paper: #f8f1e8;
+  --forest-green: #214038;
+  --burgundy: #7b232a;
+  --espresso: #3b2a24;
+  --matte-black: #161412;
+  --wood: #a9794e;
+  --olive: #6d7158;
+  --text-primary: #1c1917;
+  --text-secondary: #665e57;
+  --theme-bg: var(--background);
+  --theme-accent: var(--forest-green);
+  --theme-accent-muted: var(--olive);
+  --theme-accent-hover: var(--burgundy);
+  --theme-text: var(--text-primary);
+  --theme-text-muted: var(--text-secondary);
+  --theme-text-strong: var(--espresso);
+  --theme-text-soft: var(--paper);
+  --theme-brand: var(--surface);
+  --theme-control-active: var(--wood);
+  --theme-on-accent: var(--paper);
+  --theme-bg-rgb: 22 20 18;
+  --theme-accent-rgb: 169 121 78;
+  --theme-font-sans: var(--font-inter);
+  --theme-font-heading: var(--font-oswald);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -166,15 +109,15 @@
 }
 
 body {
-  background: var(--theme-night);
+  background: var(--theme-bg);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
-  background: var(--theme-night);
+  background: var(--theme-bg);
 }
 
-.menu-hero-glow {
-  background: var(--menu-hero-glow);
+.theme-hero-glow {
+  background: var(--theme-hero-glow);
 }

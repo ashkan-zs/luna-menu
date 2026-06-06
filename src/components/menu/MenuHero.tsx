@@ -58,13 +58,13 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
           className="scale-105 object-cover motion-safe:duration-4200 motion-safe:ease-out sm:scale-110"
         />
       </div>
-      <div className="menu-hero-glow absolute inset-0" aria-hidden="true" />
+      <div className="theme-hero-glow absolute inset-0" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-linear-to-b from-black/44 via-menu-night/48 to-menu-night"
+        className="absolute inset-0 bg-linear-to-b from-black/44 via-theme-bg/48 to-theme-bg"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-menu-night to-transparent"
+        className="absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-theme-bg to-transparent"
         aria-hidden="true"
       />
 
@@ -76,23 +76,23 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
             : "translate-y-4 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100",
         ].join(" ")}
       >
-        <p className="mb-5 text-xs font-medium uppercase tracking-[0.42em] text-menu-brass">
+        <p className="mb-5 text-xs font-medium uppercase tracking-[0.42em] text-theme-accent">
           {t("welcome")}
         </p>
         <h1
           id="menu-hero-heading"
-          className="max-w-3xl font-serif text-6xl leading-[0.88] tracking-wide text-menu-ivory sm:text-8xl"
+          className="max-w-3xl font-serif text-6xl leading-[0.88] tracking-wide text-theme-text-strong sm:text-8xl"
         >
           {restaurant.name}
         </h1>
         <div
-          className="mt-6 h-px w-20 bg-linear-to-r from-transparent via-menu-brass/80 to-transparent"
+          className="mt-6 h-px w-20 bg-linear-to-r from-transparent via-theme-accent/80 to-transparent"
           aria-hidden="true"
         />
-        <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-menu-brass/78">
+        <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-theme-accent/78">
           {tagline}
         </p>
-        <p className="mt-4 max-w-xl text-base leading-7 text-menu-cream/78 sm:text-lg">
+        <p className="mt-4 max-w-xl text-base leading-7 text-theme-text-muted/78 sm:text-lg">
           {description}
         </p>
 
@@ -100,7 +100,7 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
           <button
             type="button"
             onClick={scrollToMenu}
-            className="flex items-center gap-2 cursor-pointer min-h-12 rounded-full border border-menu-brass/45 bg-menu-brass/16 px-7 text-sm font-medium tracking-wide text-menu-warm-white hover:shadow-(--shadow-menu-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass-hover/80 hover:bg-menu-brass/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 active:translate-y-0"
+            className="flex items-center gap-2 cursor-pointer min-h-12 rounded-full border border-theme-accent/45 bg-theme-accent/16 px-7 text-sm font-medium tracking-wide text-theme-text-soft hover:shadow-(--shadow-theme-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-theme-accent-hover/80 hover:bg-theme-accent/24 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80 active:translate-y-0"
           >
             <UtensilsCrossed size={18} strokeWidth={1.6} />
             {t("exploreMenu")}
@@ -109,7 +109,7 @@ export default function MenuHero({ restaurant, locale }: MenuHeroProps) {
           <button
             type="button"
             onClick={scrollToStory}
-            className="flex min-h-12 cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/4.5 px-7 text-sm font-medium tracking-wide text-menu-cream/76 transition duration-300 hover:-translate-y-0.5 hover:border-menu-brass/35 hover:text-menu-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70 active:translate-y-0"
+            className="flex min-h-12 cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/4.5 px-7 text-sm font-medium tracking-wide text-theme-text-muted/76 transition duration-300 hover:-translate-y-0.5 hover:border-theme-accent/35 hover:text-theme-text-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/70 active:translate-y-0"
           >
             <BookOpenText size={18} strokeWidth={1.6} />
             {t("story")}

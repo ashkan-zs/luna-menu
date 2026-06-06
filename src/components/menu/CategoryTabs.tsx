@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Category } from "@/types/menu";
 import type { Locale } from "@/types/i18n";
 import { useLocale } from "next-intl";
-
-type CategoryTabsProps = {
-  categories: Category[];
-  activeCategory: string;
-  onCategoryClick: (categoryId: string) => void;
-};
+import { CategoryTabsProps } from "@/types/theme";
 
 export default function CategoryTabs({
   categories,
-  activeCategory,
+  activeCategoryId,
   onCategoryClick,
 }: CategoryTabsProps) {
   const locale = useLocale() as Locale;
@@ -21,24 +15,31 @@ export default function CategoryTabs({
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
-    const activeButton = buttonRefs.current[activeCategory];
+    const activeButton = buttonRefs.current[activeCategoryId];
+    const scroller = tabsRef.current;
 
-    if (!activeButton) return;
+    if (!activeButton || !scroller) {
+      return;
+    }
 
-    activeButton.scrollIntoView({
+    const targetLeft =
+      activeButton.offsetLeft -
+      scroller.clientWidth / 2 +
+      activeButton.clientWidth / 2;
+
+    scroller.scrollTo({
+      left: Math.max(0, targetLeft),
       behavior: "smooth",
-      inline: "center",
-      block: "nearest",
     });
-  }, [activeCategory]);
+  }, [activeCategoryId]);
 
   return (
     <nav
-      className="sticky top-0 z-30 border-b border-menu-brass/10 bg-menu-night/36 px-5 py-2 shadow-[0_10px_28px_rgb(0_0_0_/0.12)] backdrop-blur-md sm:px-8 lg:px-12"
+      className="sticky top-0 z-30 border-b border-theme-accent/10 bg-theme-bg/36 px-5 py-2 shadow-[0_10px_28px_rgb(0_0_0_/0.12)] backdrop-blur-md sm:px-8 lg:px-12"
       aria-label="Menu Categories"
     >
       <div
-        className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-linear-to-b from-transparent to-menu-night/36"
+        className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-linear-to-b from-transparent to-theme-bg/36"
         aria-hidden="true"
       />
       <div
@@ -46,7 +47,7 @@ export default function CategoryTabs({
         className="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto scroll-smooth [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
       >
         {categories.map((category) => {
-          const isActive = activeCategory === category.id;
+          const isActive = activeCategoryId === category.id;
 
           return (
             <button
@@ -58,18 +59,18 @@ export default function CategoryTabs({
               onClick={() => onCategoryClick(category.id)}
               aria-pressed={isActive}
               className={[
-                "relative min-h-9 shrink-0 px-0.5 py-2 text-[0.66rem] font-medium uppercase tracking-[0.24em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/70",
+                "relative min-h-9 shrink-0 px-0.5 py-2 text-[0.66rem] font-medium uppercase tracking-[0.24em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/70",
                 isActive
-                  ? "text-menu-warm-white"
-                  : "text-menu-cream/52 hover:text-menu-cream/78",
+                  ? "text-theme-text-soft"
+                  : "text-theme-text-muted/52 hover:text-theme-text-muted/78",
               ].join(" ")}
             >
               {category.label[locale]}
               <span
                 className={[
-                  "absolute inset-x-0 bottom-0 mx-auto h-px rounded-full bg-menu-brass transition-all duration-300",
+                  "absolute inset-x-0 bottom-0 mx-auto h-px rounded-full bg-theme-accent transition-all duration-300",
                   isActive
-                    ? "w-full opacity-80 shadow-[0_0_14px_rgb(var(--menu-brass-rgb)/0.2)]"
+                    ? "w-full opacity-80 shadow-[0_0_14px_rgb(var(--theme-accent-rgb)/0.2)]"
                     : "w-0 opacity-0",
                 ].join(" ")}
                 aria-hidden="true"

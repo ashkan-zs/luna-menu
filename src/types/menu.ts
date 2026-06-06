@@ -10,7 +10,7 @@ export type MenuImage = {
 
 export type Category = {
   id: string;
-  restaurantSlug: string;
+  restaurantId: string;
   slug: string;
   label: LocalizedString;
   order: number;

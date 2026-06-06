@@ -33,7 +33,7 @@ function getItemTags(item: MenuItemType, language: Locale): ItemTag[] {
   if (item.featured) {
     tags.push({
       label: labels.featured,
-      className: "border-menu-brass/40 bg-menu-brass/14 text-menu-warm-white",
+      className: "border-theme-accent/40 bg-theme-accent/14 text-theme-text-soft",
     });
   }
 
@@ -84,7 +84,7 @@ export default function MenuItemCard({
       onClick={() => onSelect?.(item)}
       onKeyDown={handleKeyDown}
       className={[
-        "group cursor-pointer overflow-hidden rounded-[1.75rem] border bg-white/4.5 shadow-(--shadow-menu-card) backdrop-blur-xl transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-menu-brass/80 sm:hover:-translate-y-1 sm:hover:border-menu-brass/28 sm:hover:bg-white/6.5",
+        "group cursor-pointer overflow-hidden rounded-[1.75rem] border bg-white/4.5 shadow-(--shadow-theme-card) backdrop-blur-xl transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80 sm:hover:-translate-y-1 sm:hover:border-theme-accent/28 sm:hover:bg-white/6.5",
         isAvailable ? "border-white/10" : "border-white/5 opacity-62 grayscale",
       ].join(" ")}
     >
@@ -98,12 +98,12 @@ export default function MenuItemCard({
             className="object-cover"
           />
           <div
-            className="pointer-events-none absolute inset-0 bg-linear-to-t from-menu-night/78 via-menu-night/12 to-transparent"
+            className="pointer-events-none absolute inset-0 bg-linear-to-t from-theme-bg/78 via-theme-bg/12 to-transparent"
             aria-hidden="true"
           />
         </div>
         {!isAvailable ? (
-          <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-menu-night/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-menu-cream backdrop-blur-md">
+          <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-theme-bg/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-theme-text-muted backdrop-blur-md">
             {t("unavailable")}
           </div>
         ) : null}
@@ -125,15 +125,15 @@ export default function MenuItemCard({
         </div>
 
         <div className="flex items-start justify-between gap-5">
-          <h4 className="font-serif text-xl leading-7 text-menu-ivory">
+          <h4 className="font-serif text-xl leading-7 text-theme-text-strong">
             {itemName}
           </h4>
-          <p className="shrink-0 pt-1 text-sm font-semibold text-menu-brass">
+          <p className="shrink-0 pt-1 text-sm font-semibold text-theme-accent">
             {formatPrice(item.price)}
           </p>
         </div>
 
-        <p className="text-sm leading-6 text-menu-cream/66">
+        <p className="text-sm leading-6 text-theme-text-muted/66">
           {itemDescription}
         </p>
       </div>

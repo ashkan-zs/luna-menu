@@ -18,18 +18,18 @@ export default function MenuFooter({ restaurant, locale }: MenuFooterProps) {
       <div className="mx-auto max-w-7xl border-t border-white/10 pt-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[0.65rem] uppercase tracking-[0.35em] text-menu-brass/70">
+            <p className="text-[0.65rem] uppercase tracking-[0.35em] text-theme-accent/70">
               {restaurant.name}
             </p>
-            <p className="mt-3 max-w-md font-serif text-2xl text-menu-ivory">
+            <p className="mt-3 max-w-md font-serif text-2xl text-theme-text-strong">
               {t("footerStatement")}
             </p>
-            <p className="mt-2 text-xs uppercase tracking-[0.22em] text-menu-cream/40">
+            <p className="mt-2 text-xs uppercase tracking-[0.22em] text-theme-text-muted/40">
               {location}
             </p>
           </div>
 
-          <div className="flex gap-4 text-xs uppercase tracking-[0.22em] text-menu-cream/60">
+          <div className="flex gap-4 text-xs uppercase tracking-[0.22em] text-theme-text-muted/60">
             <a
               href={restaurant.contact.instagramUrl}
               target="_blank"
@@ -54,7 +54,7 @@ export default function MenuFooter({ restaurant, locale }: MenuFooterProps) {
           </div>
         </div>
 
-        <div className="mt-8 flex justify-between border-t border-white/10 pt-5 text-[0.65rem] uppercase tracking-[0.22em] text-menu-cream/35">
+        <div className="mt-8 flex justify-between border-t border-white/10 pt-5 text-[0.65rem] uppercase tracking-[0.22em] text-theme-text-muted/35">
           <span>
             © {year} {restaurant.name}
           </span>
