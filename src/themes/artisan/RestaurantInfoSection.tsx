@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import type { RestaurantInfoThemeProps } from "@/types/theme";
 import type { Locale } from "@/types/i18n";
 import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
+import { OPENING_HOUR_DAY_LABELS } from "@/config/openingHours";
 
 const closedLabel = {
   en: "Closed",
@@ -16,7 +17,7 @@ export default function ArtisanRestaurantInfoSection({
 }: RestaurantInfoThemeProps) {
   const t = useTranslations("RestaurantInfo");
   const hours = restaurant.openingHours.map((item) => ({
-    days: getLocalizedValue(item.day, locale),
+    days: OPENING_HOUR_DAY_LABELS[locale][item.day],
     time: item.closed ? closedLabel[locale] : `${item.open} - ${item.close}`,
   }));
   const phoneHref = restaurant.contact.phone

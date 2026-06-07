@@ -33,17 +33,22 @@ export const RESTAURANT: Restaurant[] = [
     },
     openingHours: [
       {
-        day: { en: "Monday - Thursday", tr: "Pazartesi - Perşembe" },
+        day: "weekdays",
         open: "12:00",
         close: "23:00",
       },
       {
-        day: { en: "Friday - Saturday", tr: "Cuma - Cumartesi" },
+        day: "friday",
         open: "12:00",
         close: "00:30",
       },
       {
-        day: { en: "Sunday", tr: "Pazar" },
+        day: "saturday",
+        open: "12:00",
+        close: "00:30",
+      },
+      {
+        day: "sunday",
         open: "12:00",
         close: "22:00",
       },
@@ -140,12 +145,12 @@ export const RESTAURANT: Restaurant[] = [
     },
     openingHours: [
       {
-        day: { en: "Weekdays", tr: "Hafta içi" },
+        day: "weekdays",
         open: "09:00",
         close: "23:00",
       },
       {
-        day: { en: "Weekend", tr: "Hafta sonu" },
+        day: "weekend",
         open: "09:00",
         close: "00:00",
       },

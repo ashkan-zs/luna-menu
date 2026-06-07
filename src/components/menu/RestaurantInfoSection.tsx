@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import { Restaurant } from "@/types/restaurant";
 import { Locale } from "@/types/i18n";
 import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
+import { OPENING_HOUR_DAY_LABELS } from "@/config/openingHours";
 
 type InfoSectionProps = { restaurant: Restaurant; locale: Locale };
 
@@ -68,7 +69,7 @@ export default function RestaurantInfoSection({
         transition: { duration: 0.55, ease: "easeOut" },
       };
   const hours = restaurant.openingHours.map((item) => ({
-    days: getLocalizedValue(item.day, locale),
+    days: OPENING_HOUR_DAY_LABELS[locale][item.day],
     time: item.closed ? closedLabel[locale] : `${item.open} - ${item.close}`,
   }));
 

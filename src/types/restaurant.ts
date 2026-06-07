@@ -21,8 +21,19 @@ type RestaurantLocation = {
   mapsUrl?: string;
 };
 
+export type OpeningHourDay =
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday"
+  | "weekdays"
+  | "weekend";
+
 type RestaurantOpeningHour = {
-  day: LocalizedString;
+  day: OpeningHourDay;
   open: string;
   close: string;
   closed?: boolean;
@@ -63,6 +74,7 @@ export type Restaurant = {
   id: string;
   name: string;
   slug: string;
+  ownerId?: string;
   ownerEmail?: string;
   logo?: string;
   themeId: MenuThemeId;
