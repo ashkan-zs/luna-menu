@@ -3,13 +3,14 @@
 import Image from "next/image";
 import type { KeyboardEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatMenuItemPrice } from "@/lib/menuPrice";
 import { MENU_TAGS } from "@/lib/menuTags";
 import type { Locale } from "@/types/i18n";
 import type { MenuItemCardThemeProps } from "@/types/theme";
 
 export default function ArtisanMenuItemCard({
   item,
+  restaurantName,
   onSelect,
   showPrices,
   showImages,
@@ -53,7 +54,7 @@ export default function ArtisanMenuItemCard({
             />
           ) : (
             <div className="flex h-full items-center justify-center bg-surface text-sm uppercase text-text-secondary">
-              restaurant name
+              {restaurantName}
             </div>
           )}
           <div className="absolute inset-0 bg-linear-to-t from-matte-black/42 via-transparent to-transparent" />
@@ -73,7 +74,7 @@ export default function ArtisanMenuItemCard({
         </div>
         {showPrices ? (
           <p className="pt-1 font-heading text-3xl text-burgundy">
-            {formatPrice(item.price, item.currency)}
+            {formatMenuItemPrice(item, locale)}
           </p>
         ) : null}
         <p className="text-sm leading-7 text-text-secondary">

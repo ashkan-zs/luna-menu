@@ -5,7 +5,7 @@ import type { MenuItem as MenuItemType } from "@/types/menu";
 import type { Locale } from "@/types/i18n";
 import type { FeaturedMenuThemeProps } from "@/types/theme";
 import { MENU_TAGS } from "@/lib/menuTags";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatMenuItemPrice } from "@/lib/menuPrice";
 import { useLocale, useTranslations } from "next-intl";
 
 function getSignatureTags(item: MenuItemType, language: Locale) {
@@ -154,7 +154,7 @@ function FeaturedDishCard({
           </h3>
           {showPrices ? (
             <p className="shrink-0 rounded-full border border-theme-accent/22 bg-theme-accent/10 px-3 py-1.5 text-sm font-semibold text-theme-accent">
-              {formatPrice(item.price, item.currency)}
+              {formatMenuItemPrice(item, locale)}
             </p>
           ) : null}
         </div>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { KeyboardEvent } from "react";
 import type { MenuItem as MenuItemType } from "@/types/menu";
 import type { Locale } from "@/types/i18n";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatMenuItemPrice } from "@/lib/menuPrice";
 import { hasMenuTag } from "@/lib/menuTags";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -57,11 +57,13 @@ function getItemTags(item: MenuItemType, language: Locale): ItemTag[] {
 
 export default function MenuItemCard({
   item,
+  restaurantName,
   onSelect,
   showPrices,
   showImages,
 }: {
   item: MenuItemType;
+  restaurantName?: string;
   onSelect?: (item: MenuItemType) => void;
   showPrices: boolean;
   showImages: boolean;
@@ -92,21 +94,27 @@ export default function MenuItemCard({
         isAvailable ? "border-white/10" : "border-white/5 opacity-62 grayscale",
       ].join(" ")}
     >
-      {showImages && item.image ? (
+      {showImages ? (
         <div className="relative isolate aspect-4/3 overflow-hidden bg-white/[0.035]">
-          <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
-            <Image
-            src={item.image.src}
-              alt={itemImageAlt}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-              className="object-cover"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 bg-linear-to-t from-theme-bg/78 via-theme-bg/12 to-transparent"
-              aria-hidden="true"
-            />
-          </div>
+          {item.image ? (
+            <div className="absolute -inset-px z-0 transition duration-700 sm:group-hover:scale-105">
+              <Image
+                src={item.image.src}
+                alt={itemImageAlt}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                className="object-cover"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 bg-linear-to-t from-theme-bg/78 via-theme-bg/12 to-transparent"
+                aria-hidden="true"
+              />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center bg-white/[0.035] px-5 text-center text-xs uppercase tracking-[0.18em] text-theme-text-muted/62">
+              {restaurantName}
+            </div>
+          )}
           {!isAvailable ? (
             <div className="absolute inset-x-4 top-4 z-20 rounded-full border border-white/12 bg-theme-bg/76 px-3 py-2 text-center text-xs font-medium uppercase tracking-[0.22em] text-theme-text-muted backdrop-blur-md">
               {t("unavailable")}
@@ -136,7 +144,7 @@ export default function MenuItemCard({
           </h4>
           {showPrices ? (
             <p className="shrink-0 pt-1 text-sm font-semibold text-theme-accent">
-              {formatPrice(item.price, item.currency)}
+              {formatMenuItemPrice(item, locale)}
             </p>
           ) : null}
         </div>

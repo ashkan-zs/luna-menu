@@ -12,7 +12,7 @@ type PageProps = {
 export default async function RestaurantPage({ params }: PageProps) {
   const { locale, restaurantSlug } = await params;
 
-  const restaurant = getRestaurantBySlug(restaurantSlug);
+  const restaurant = await getRestaurantBySlug(restaurantSlug);
 
   if (!restaurant) {
     notFound();

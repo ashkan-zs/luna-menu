@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "seed:oteki": "tsx scripts/seed-oteki-sanity.ts",
+    "upload:oteki-images": "tsx scripts/upload-oteki-menu-images.ts",
     "lint": "eslint"
   },
   "dependencies": {

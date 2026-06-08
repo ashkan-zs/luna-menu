@@ -1,6 +1,11 @@
 import type { MenuTag } from "@/lib/menuTags";
 import type { LocalizedString } from "@/types/i18n";
-import type { Currency, MenuNutrition } from "@/types/menu";
+import type {
+  Currency,
+  MenuAllergen,
+  MenuNutrition,
+  MenuPriceOption,
+} from "@/types/menu";
 import type {
   OpeningHourDay,
   RestaurantSettings,
@@ -119,14 +124,15 @@ export type SanityMenuItemDocument = SanityDocumentMeta & {
   category?: SanityMenuCategoryDocument;
   name: LocalizedString;
   description: LocalizedString;
-  price: number;
+  price?: number;
   currency: Currency;
+  priceOptions?: MenuPriceOption[];
   image?: SanityImageWithAlt;
   order: number;
   featured: boolean;
   available: boolean;
   ingredients?: LocalizedString;
-  allergens?: LocalizedString[];
+  allergens?: MenuAllergen[];
   nutrition?: MenuNutrition;
   tags?: MenuTag[];
 };

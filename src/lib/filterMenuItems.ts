@@ -1,6 +1,7 @@
 import { Locale } from "@/types/i18n";
 import { hasMenuTag } from "@/lib/menuTags";
 import type { MenuItem } from "@/types/menu";
+import { getMenuAllergenLabel } from "@/config/allergens";
 
 export type MenuItemFilters = {
   query: string;
@@ -46,7 +47,9 @@ export function filterMenuItems(
       item.name[language],
       item.description[language],
       item.ingredients?.[language],
-      ...(item.allergens?.map((allergen) => allergen[language]) ?? []),
+      ...(item.allergens?.map((allergen) =>
+        getMenuAllergenLabel(allergen, language),
+      ) ?? []),
     ]
       .filter(Boolean)
       .join(" ");

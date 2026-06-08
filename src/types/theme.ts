@@ -59,6 +59,7 @@ export type MenuSectionThemeProps = {
   category: Category;
   items: MenuItem[];
   locale: Locale;
+  restaurantName: string;
   onSelect: (item: MenuItem) => void;
   showPrices: boolean;
   showImages: boolean;
@@ -70,6 +71,7 @@ export type EmptyMenuThemeProps = {
 
 export type MenuItemCardThemeProps = {
   item: MenuItem;
+  restaurantName?: string;
   onSelect?: (item: MenuItem) => void;
   showPrices: boolean;
   showImages: boolean;

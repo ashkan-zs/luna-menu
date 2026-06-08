@@ -6,7 +6,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { formatPrice } from "@/lib/formatPrice";
+import {
+  getMenuItemPriceListTitle,
+  getMenuItemPriceOptions,
+} from "@/lib/menuPrice";
 import { MENU_TAGS } from "@/lib/menuTags";
+import { getMenuAllergenLabel } from "@/config/allergens";
 import type { Locale } from "@/types/i18n";
 import type { MenuItemModalThemeProps } from "@/types/theme";
 
@@ -18,6 +23,7 @@ export default function ArtisanMenuItemModal({
 }: MenuItemModalThemeProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("MenuItemModal");
+  const priceOptions = item ? getMenuItemPriceOptions(item) : [];
 
   useEffect(() => {
     if (!item) {
@@ -114,7 +120,12 @@ export default function ArtisanMenuItemModal({
                     </h2>
                     {showPrices ? (
                       <p className="font-serif text-4xl text-theme-accent">
-                        {formatPrice(item.price, item.currency)}
+                        {priceOptions[0]
+                          ? formatPrice(
+                              priceOptions[0].price,
+                              priceOptions[0].currency,
+                            )
+                          : null}
                       </p>
                     ) : null}
                   </div>
@@ -128,6 +139,26 @@ export default function ArtisanMenuItemModal({
                     <p className="text-sm leading-7 text-theme-text-muted/72">
                       {item.ingredients[locale]}
                     </p>
+                  </DetailBlock>
+                ) : null}
+
+                {showPrices && item.priceOptions?.length ? (
+                  <DetailBlock title={getMenuItemPriceListTitle(locale)}>
+                    <div className="divide-y divide-theme-accent/12 rounded-3xl border border-theme-accent/14 bg-theme-text/[0.04]">
+                      {priceOptions.map((option) => (
+                        <div
+                          key={`${option.label[locale]}-${option.price}`}
+                          className="flex items-center justify-between gap-4 px-4 py-3 text-sm"
+                        >
+                          <span className="text-theme-text-muted/72">
+                            {option.label[locale]}
+                          </span>
+                          <span className="font-serif text-lg text-theme-accent">
+                            {formatPrice(option.price, option.currency)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </DetailBlock>
                 ) : null}
 
@@ -150,7 +181,9 @@ export default function ArtisanMenuItemModal({
                   <p className="text-sm leading-7 text-theme-text-muted/72">
                     {item.allergens?.length
                       ? item.allergens
-                          .map((allergen) => allergen[locale])
+                          .map((allergen) =>
+                            getMenuAllergenLabel(allergen, locale),
+                          )
                           .join(", ")
                       : t("noListedAllergens")}
                   </p>

@@ -1,7 +1,18 @@
 import { RESTAURANT } from "@/data/restaurant";
+import { fetchMappedPublishedRestaurantBySlug } from "@/sanity/fetchers";
 
-export function getRestaurantBySlug(slug: string) {
+function getStaticRestaurantBySlug(slug: string) {
   return RESTAURANT.find(
     (restaurant) => restaurant.slug === slug && restaurant.isPublished,
   );
+}
+
+export async function getRestaurantBySlug(slug: string) {
+  try {
+    const restaurant = await fetchMappedPublishedRestaurantBySlug(slug);
+
+    return restaurant ?? getStaticRestaurantBySlug(slug);
+  } catch {
+    return getStaticRestaurantBySlug(slug);
+  }
 }

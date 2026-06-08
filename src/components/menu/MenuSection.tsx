@@ -3,21 +3,24 @@
 import { useTranslations } from "next-intl";
 import type { MenuSectionThemeProps } from "@/types/theme";
 import MenuItemCard from "./MenuItemCard";
+import { getMenuCategorySectionId } from "@/lib/menuCategoryAnchors";
 
 export default function MenuSection({
   category,
   items,
   locale,
+  restaurantName,
   onSelect,
   showPrices,
   showImages,
 }: MenuSectionThemeProps) {
   const t = useTranslations("Menu");
-  const headingId = `${category.id}-heading`;
+  const sectionId = getMenuCategorySectionId(category);
+  const headingId = `${sectionId}-heading`;
 
   return (
     <section
-      id={category.id}
+      id={sectionId}
       aria-labelledby={headingId}
       className="space-y-5 scroll-mt-32"
     >
@@ -45,6 +48,7 @@ export default function MenuSection({
           <MenuItemCard
             key={item.id}
             item={item}
+            restaurantName={restaurantName}
             onSelect={onSelect}
             showPrices={showPrices}
             showImages={showImages}

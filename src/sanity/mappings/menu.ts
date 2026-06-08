@@ -1,5 +1,5 @@
 import type { MenuTag } from "@/lib/menuTags";
-import type { Category, MenuItem } from "@/types/menu";
+import type { Category, MenuAllergen, MenuItem } from "@/types/menu";
 
 import { mapSanityImageToUrl } from "./images";
 import type {
@@ -59,6 +59,7 @@ export function mapSanityMenuItemToMenuItem(
     description: item.description,
     price: item.price,
     currency: item.currency,
+    priceOptions: item.priceOptions,
     image: imageUrl
       ? {
           src: imageUrl,
@@ -69,7 +70,9 @@ export function mapSanityMenuItemToMenuItem(
     featured: item.featured,
     available: item.available,
     ingredients: item.ingredients,
-    allergens: item.allergens,
+    allergens: item.allergens
+      ? (Array.from(new Set(item.allergens)) as MenuAllergen[])
+      : undefined,
     nutrition: item.nutrition,
     tags: item.tags ? Array.from(new Set(item.tags)) as MenuTag[] : undefined,
   };

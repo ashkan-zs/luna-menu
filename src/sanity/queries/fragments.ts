@@ -58,6 +58,7 @@ export const menuItemProjection = `{
   description,
   price,
   currency,
+  priceOptions,
   image ${imageWithAltProjection},
   order,
   featured,

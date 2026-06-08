@@ -1,7 +1,14 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
 
+import {MENU_ALLERGEN_OPTIONS} from '../../config/allergens'
+
 type SanityReference = {
   _ref?: string
+}
+
+type MenuItemParent = {
+  price?: number
+  priceOptions?: unknown[]
 }
 
 const currencyOptions = [
@@ -74,7 +81,16 @@ export const menuItem = defineType({
       name: 'price',
       title: 'Price',
       type: 'number',
-      validation: (Rule) => Rule.required().min(0),
+      description:
+        'Use this for a single-price item. Leave empty if this item uses price options.',
+      validation: (Rule) =>
+        Rule.min(0).custom((value, context) => {
+          const parent = context.parent as MenuItemParent | undefined
+
+          return value !== undefined || parent?.priceOptions?.length
+            ? true
+            : 'Add a price or at least one price option'
+        }),
     }),
     defineField({
       name: 'currency',
@@ -86,6 +102,76 @@ export const menuItem = defineType({
       },
       initialValue: 'TRY',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'priceOptions',
+      title: 'Price options',
+      description:
+        'Use for sizes or variants, such as small and large pizza prices.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'localizedString',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'price',
+              title: 'Price',
+              type: 'number',
+              validation: (Rule) => Rule.required().min(0),
+            }),
+            defineField({
+              name: 'currency',
+              title: 'Currency',
+              type: 'string',
+              description:
+                'Optional. Uses the item currency when this is empty.',
+              options: {
+                list: currencyOptions,
+                layout: 'radio',
+              },
+            }),
+            defineField({
+              name: 'isDefault',
+              title: 'Default option',
+              type: 'boolean',
+              initialValue: false,
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'label.en',
+              price: 'price',
+              currency: 'currency',
+              isDefault: 'isDefault',
+            },
+            prepare({title, price, currency, isDefault}) {
+              return {
+                title,
+                subtitle: [
+                  price && currency ? `${price} ${currency}` : price,
+                  isDefault ? 'Default' : undefined,
+                ]
+                  .filter(Boolean)
+                  .join(' · '),
+              }
+            },
+          },
+        }),
+      ],
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const parent = context.parent as MenuItemParent | undefined
+
+          return value?.length || parent?.price !== undefined
+            ? true
+            : 'Add at least one price option or a single price'
+        }),
     }),
     defineField({
       name: 'image',
@@ -120,9 +206,15 @@ export const menuItem = defineType({
     }),
     defineField({
       name: 'allergens',
-      title: 'Allergens',
+      title: 'Contains allergens',
+      description:
+        'Select allergens present in this menu item. Use tags for labels such as gluten free or dairy free.',
       type: 'array',
-      of: [defineArrayMember({type: 'localizedString'})],
+      of: [defineArrayMember({type: 'string'})],
+      options: {
+        list: MENU_ALLERGEN_OPTIONS,
+      },
+      validation: (Rule) => Rule.unique(),
     }),
     defineField({
       name: 'nutrition',

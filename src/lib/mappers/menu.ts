@@ -1,13 +1,41 @@
 import type {
   Category,
   CategorySeed,
+  MenuAllergen,
   MenuItem,
   MenuItemSeed,
 } from "@/types/menu";
 import type { MenuTag } from "@/lib/menuTags";
+import { getMenuAllergenFromLabel } from "@/config/allergens";
 
 function uniqueTags(tags: MenuTag[]) {
   return Array.from(new Set(tags));
+}
+
+function isMenuAllergen(value: string): value is MenuAllergen {
+  return getMenuAllergenFromLabel(value) === value;
+}
+
+function mapSeedAllergens(
+  allergens: MenuItemSeed["allergens"],
+): MenuAllergen[] | undefined {
+  if (!allergens?.length) {
+    return undefined;
+  }
+
+  const mappedAllergens = allergens
+    .map((allergen) => {
+      if (typeof allergen === "string") {
+        return isMenuAllergen(allergen)
+          ? allergen
+          : getMenuAllergenFromLabel(allergen);
+      }
+
+      return getMenuAllergenFromLabel(allergen.en);
+    })
+    .filter((allergen): allergen is MenuAllergen => Boolean(allergen));
+
+  return Array.from(new Set(mappedAllergens));
 }
 
 export function mapCategorySeedToCategory(
@@ -39,6 +67,7 @@ export function mapMenuItemSeedToMenuItem(
     description: item.description,
     price: item.price,
     currency: item.currency ?? "TRY",
+    priceOptions: item.priceOptions,
     image: item.image
       ? {
           src: item.image,
@@ -49,7 +78,7 @@ export function mapMenuItemSeedToMenuItem(
     featured: item.featured ?? false,
     available: item.available ?? true,
     ingredients: item.ingredients,
-    allergens: item.allergens,
+    allergens: mapSeedAllergens(item.allergens),
     nutrition: item.nutrition,
     tags,
   };

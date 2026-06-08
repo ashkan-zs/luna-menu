@@ -5,6 +5,7 @@ import type { Category, MenuItem as MenuItemType } from "@/types/menu";
 import type { MenuThemeId } from "@/types/theme";
 import type { Restaurant, RestaurantSettings } from "@/types/restaurant";
 import { filterMenuItems } from "@/lib/filterMenuItems";
+import { getMenuCategorySectionId } from "@/lib/menuCategoryAnchors";
 import { useActiveCategory } from "@/hooks/useActiveCategory";
 import { Locale } from "@/types/i18n";
 import { getMenuItemsThemeComponents } from "@/themes/registry";
@@ -77,11 +78,6 @@ export default function MenuItemsSection({
     ],
   );
 
-  const categoryIds = useMemo(
-    () => filteredItems.map((item) => item.categoryId),
-    [filteredItems],
-  );
-
   const visibleCategories = useMemo(() => {
     const categoryIdsWithItem = new Set(
       filteredItems.map((item) => item.categoryId),
@@ -89,7 +85,16 @@ export default function MenuItemsSection({
     return categories.filter((item) => categoryIdsWithItem.has(item.id));
   }, [categories, filteredItems]);
 
-  const activeCategory = useActiveCategory(categoryIds);
+  const categorySectionIds = useMemo(
+    () => visibleCategories.map(getMenuCategorySectionId),
+    [visibleCategories],
+  );
+  const activeCategorySectionId = useActiveCategory(categorySectionIds);
+  const activeCategory =
+    visibleCategories.find(
+      (category) =>
+        getMenuCategorySectionId(category) === activeCategorySectionId,
+    )?.id ?? "";
   const featuredItems = useMemo(
     () =>
       featuredItemIds
@@ -99,7 +104,13 @@ export default function MenuItemsSection({
   );
 
   function scrollToCategory(categoryId: string) {
-    document.getElementById(categoryId)?.scrollIntoView({
+    const category = categories.find((item) => item.id === categoryId);
+
+    if (!category) {
+      return;
+    }
+
+    document.getElementById(getMenuCategorySectionId(category))?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -161,6 +172,7 @@ export default function MenuItemsSection({
                   category={category}
                   items={categoryItems}
                   locale={locale}
+                  restaurantName={restaurant.name}
                   onSelect={setSelectedItem}
                   showPrices={menuSettings.showPrices}
                   showImages={menuSettings.showImages}

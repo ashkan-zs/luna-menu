@@ -6,6 +6,10 @@ import type { MenuItem } from "@/types/menu";
 import type { Locale } from "@/types/i18n";
 import { formatPrice } from "@/lib/formatPrice";
 import {
+  getMenuItemPriceListTitle,
+  getMenuItemPriceOptions,
+} from "@/lib/menuPrice";
+import {
   AnimatePresence,
   motion,
   PanInfo,
@@ -13,6 +17,7 @@ import {
 } from "motion/react";
 import { Star, X } from "lucide-react";
 import { MENU_TAGS } from "@/lib/menuTags";
+import { getMenuAllergenLabel } from "@/config/allergens";
 import { useLocale, useTranslations } from "next-intl";
 
 type MenuItemModalProps = {
@@ -32,6 +37,7 @@ export default function MenuItemModal({
   const t = useTranslations("MenuItemModal");
   const CLOSE_THRESHOLD = 120;
   const dragControls = useDragControls();
+  const priceOptions = item ? getMenuItemPriceOptions(item) : [];
 
   function handleDragEnd(info: PanInfo) {
     if (info.offset.y > CLOSE_THRESHOLD) onClose();
@@ -109,7 +115,12 @@ export default function MenuItemModal({
 
                   {showPrices ? (
                     <p className="mt-3 text-2xl font-medium text-[#c8a96b]">
-                      {formatPrice(item.price, item.currency)}
+                      {priceOptions[0]
+                        ? formatPrice(
+                            priceOptions[0].price,
+                            priceOptions[0].currency,
+                          )
+                        : null}
                     </p>
                   ) : null}
 
@@ -117,6 +128,29 @@ export default function MenuItemModal({
                     {item.description[locale]}
                   </p>
                 </div>
+
+                {showPrices && item.priceOptions?.length ? (
+                  <section>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                      {getMenuItemPriceListTitle(locale)}
+                    </h3>
+                    <div className="mt-3 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/4">
+                      {priceOptions.map((option) => (
+                        <div
+                          key={`${option.label[locale]}-${option.price}`}
+                          className="flex items-center justify-between gap-4 px-4 py-3 text-sm"
+                        >
+                          <span className="text-white/62">
+                            {option.label[locale]}
+                          </span>
+                          <span className="font-medium text-[#c8a96b]">
+                            {formatPrice(option.price, option.currency)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
 
                 {item.tags && (
                   <div
@@ -158,10 +192,10 @@ export default function MenuItemModal({
                       {item.allergens ? (
                         item.allergens.map((allergen) => (
                           <span
-                            key={allergen[locale]}
+                            key={allergen}
                             className="rounded-full border border-white/10 bg-white/4 px-3 py-1.5 text-sm text-white/60"
                           >
-                            {allergen[locale]}
+                            {getMenuAllergenLabel(allergen, locale)}
                           </span>
                         ))
                       ) : (

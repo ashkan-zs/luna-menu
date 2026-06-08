@@ -10,12 +10,30 @@ export type MenuImage = {
 
 export type Currency = "TRY" | "USD" | "EUR";
 
+export type MenuPriceOption = {
+  label: LocalizedString;
+  price: number;
+  currency?: Currency;
+  isDefault?: boolean;
+};
+
 export type MenuNutrition = {
   calories?: number;
   protein?: number;
   carbs?: number;
   fats?: number;
 };
+
+export type MenuAllergen =
+  | "gluten"
+  | "dairy"
+  | "egg"
+  | "nuts"
+  | "peanuts"
+  | "soy"
+  | "fish"
+  | "seafood"
+  | "sesame";
 
 export type Category = {
   id: string;
@@ -33,14 +51,15 @@ export type MenuItem = {
   categorySlug: string;
   name: LocalizedString;
   description: LocalizedString;
-  price: number;
+  price?: number;
   currency: Currency;
+  priceOptions?: MenuPriceOption[];
   image?: MenuImage;
   order: number;
   featured: boolean;
   available: boolean;
   ingredients?: LocalizedString;
-  allergens?: LocalizedString[];
+  allergens?: MenuAllergen[];
   nutrition?: MenuNutrition;
   tags?: MenuTag[];
 };
@@ -61,15 +80,20 @@ export type MenuItemSeed = Omit<
   | "image"
   | "order"
   | "currency"
+  | "priceOptions"
   | "featured"
   | "available"
+  | "allergens"
   | "tags"
 > & {
   category: MenuCategory;
   currency?: Currency;
+  price?: number;
+  priceOptions?: MenuPriceOption[];
   image?: string;
   order?: number;
   featured?: boolean;
   available?: boolean;
+  allergens?: MenuAllergen[] | LocalizedString[];
   tags?: MenuTag[];
 };

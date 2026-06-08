@@ -1,8 +1,7 @@
 import MenuItemsSection from "@/components/menu/MenuItemsSection";
 import { notFound } from "next/navigation";
 
-import { getRestaurantMenu } from "@/lib/data/menu";
-import { getRestaurantBySlug } from "@/lib/data/restaurants";
+import { getRestaurantMenuPageData } from "@/lib/data/menu";
 import { Locale } from "@/types/i18n";
 import { getMenuTheme } from "@/themes/registry";
 import { MenuTheme } from "@/types/theme";
@@ -16,13 +15,13 @@ type PageProps = {
 
 export default async function MenuPage({ params }: PageProps) {
   const { restaurantSlug, locale } = await params;
-  const restaurant = getRestaurantBySlug(restaurantSlug);
-  const menu = getRestaurantMenu(restaurantSlug);
+  const pageData = await getRestaurantMenuPageData(restaurantSlug);
 
-  if (!restaurant || !menu) {
+  if (!pageData) {
     notFound();
   }
 
+  const { restaurant, menu } = pageData;
   const theme = getMenuTheme(restaurant.themeId);
   const components: MenuTheme["components"] = theme.components;
   const { Navbar, Hero, RestaurantInfoSection, Footer } = components;
