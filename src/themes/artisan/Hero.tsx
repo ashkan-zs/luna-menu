@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useTranslations } from "next-intl";
 import { getLocalizedValue } from "@/lib/i18n/getLocalizedValue";
 import type { MenuHeroThemeProps } from "@/types/theme";
+import LanguageSwitcher from "@/components/menu/LanguageSwitcher";
 
 export default function ArtisanHero({
   restaurant,
@@ -48,9 +49,12 @@ export default function ArtisanHero({
           <div className="font-heading text-3xl uppercase">
             {restaurant.name}
           </div>
-          <p className="max-w-32 text-right text-[0.68rem] uppercase leading-4 text-paper/80 sm:max-w-none">
-            {tagline}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="hidden max-w-32 text-right text-[0.68rem] uppercase leading-4 text-paper/80 sm:block sm:max-w-none">
+              {tagline}
+            </p>
+            <LanguageSwitcher />
+          </div>
         </header>
 
         <div className="pb-10 pt-28 sm:pb-16">

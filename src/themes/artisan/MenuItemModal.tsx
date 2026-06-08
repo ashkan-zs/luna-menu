@@ -51,7 +51,7 @@ export default function ArtisanMenuItemModal({
     <AnimatePresence>
       {item ? (
         <motion.div
-          className="fixed inset-0 z-50 bg-theme-bg/70 backdrop-blur-sm"
+          className="fixed inset-0 z-50 bg-theme-bg/70 backdrop-blur-sm flex items-end justify-center px-3 sm:items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -61,7 +61,16 @@ export default function ArtisanMenuItemModal({
             role="dialog"
             aria-modal="true"
             aria-labelledby="menu-item-modal-title"
-            className="absolute inset-x-0 bottom-0 flex max-h-[96svh] flex-col overflow-hidden rounded-t-4xl bg-theme-bg text-theme-text shadow-[0_-28px_80px_rgb(0_0_0/0.28)] sm:left-1/2 sm:top-1/2 sm:max-h-[90vh] sm:w-[min(920px,92vw)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-4xl"
+            className="
+              fixed inset-x-0 bottom-0
+              flex max-h-[96vh] w-full flex-col overflow-hidden
+              rounded-t-4xl bg-theme-bg text-theme-text
+              shadow-[0_-28px_80px_rgb(0_0_0/0.28)]
+              sm:left-1/2 sm:top-1/2 sm:bottom-auto sm:right-auto
+              sm:w-[min(920px,92vw)] sm:max-h-[90vh]
+              sm:-translate-x-1/2 sm:-translate-y-1/2
+              sm:rounded-4xl
+            "
             initial={{ y: "100%", scale: 0.98 }}
             animate={{ y: 0, scale: 1 }}
             exit={{ y: "100%", scale: 0.98 }}
@@ -92,7 +101,7 @@ export default function ArtisanMenuItemModal({
 
             <div className="-mt-15 overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]">
               {showImages && item.image ? (
-                <div className="relative aspect-4/3 overflow-hidden bg-theme-text/[0.04] sm:aspect-video">
+                <div className="relative aspect-4/3 overflow-hidden bg-theme-text/4 sm:aspect-video">
                   <Image
                     src={item.image.src}
                     alt={item.image.alt[locale]}
@@ -100,7 +109,6 @@ export default function ArtisanMenuItemModal({
                     sizes="(min-width: 768px) 860px, 100vw"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-theme-bg/78 via-transparent to-transparent" />
                 </div>
               ) : null}
 
@@ -111,7 +119,7 @@ export default function ArtisanMenuItemModal({
                       {t("unavailable")}
                     </p>
                   ) : null}
-                  <div className="flex items-start justify-between gap-5">
+                  <div className="flex items-center justify-between gap-5">
                     <h2
                       id="menu-item-modal-title"
                       className="font-serif text-6xl uppercase leading-none text-theme-text sm:text-7xl"
@@ -144,7 +152,7 @@ export default function ArtisanMenuItemModal({
 
                 {showPrices && item.priceOptions?.length ? (
                   <DetailBlock title={getMenuItemPriceListTitle(locale)}>
-                    <div className="divide-y divide-theme-accent/12 rounded-3xl border border-theme-accent/14 bg-theme-text/[0.04]">
+                    <div className="divide-y divide-theme-accent/12 rounded-3xl border border-theme-accent/14 bg-theme-text/4">
                       {priceOptions.map((option) => (
                         <div
                           key={`${option.label[locale]}-${option.price}`}
