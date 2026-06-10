@@ -3,7 +3,7 @@ import type { Locale } from "./i18n";
 import type { Category, MenuItem } from "./menu";
 import type { Restaurant } from "./restaurant";
 
-export type MenuThemeId = "luna" | "artisan";
+export type MenuThemeId = "luna" | "artisan" | "street-food";
 
 export type MenuThemeMeta = {
   id: MenuThemeId;
@@ -89,6 +89,7 @@ export type RestaurantInfoThemeProps = RestaurantLocaleProps;
 export type MenuFooterThemeProps = RestaurantLocaleProps;
 
 export type MenuItemsThemeComponents = {
+  controlsOrder?: "categories-first" | "search-first";
   CategoryTabs: ComponentType<CategoryTabsProps>;
   FeaturedSection: ComponentType<FeaturedMenuThemeProps>;
   SearchFilter: ComponentType<MenuSearchFilterThemeProps>;

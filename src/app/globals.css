@@ -101,6 +101,49 @@
   --theme-font-heading: var(--font-oswald);
 }
 
+[data-menu-theme="street-food"] {
+  --background: #f3f4f6;
+  --surface: #e5e7eb;
+  --paper: #ffffff;
+
+  --balloon-blue: #1e88e5;
+  --sky-blue: #64b5f6;
+  --deep-navy: #0f172a;
+  --soft-blue: #eff6ff;
+  --border-blue: #bfdbfe;
+
+  --warm-cream: #f7f3ed;
+  --warm-gray: #e5e7eb;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-soft: #f8fafc;
+
+  --success: #4f7f3a;
+  --danger: #dc2626;
+  --popular: #f59e0b;
+
+  --theme-bg: var(--background);
+  --theme-accent: var(--balloon-blue);
+  --theme-accent-muted: var(--sky-blue);
+  --theme-accent-hover: #1565c0;
+
+  --theme-text: var(--text-primary);
+  --theme-text-muted: var(--text-secondary);
+  --theme-text-strong: var(--deep-navy);
+  --theme-text-soft: var(--text-soft);
+
+  --theme-brand: var(--soft-blue);
+  --theme-control-active: var(--balloon-blue);
+  --theme-on-accent: #ffffff;
+
+  --theme-bg-rgb: 243 244 246;
+  --theme-accent-rgb: 30 136 229;
+
+  --theme-font-sans: var(--font-dm-sans);
+  --theme-font-heading: var(--font-bricolage);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

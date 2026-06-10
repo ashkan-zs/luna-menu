@@ -5,12 +5,10 @@
     "story": "Hikayemiz",
     "featuredEyebrow": "Tüm Gün Lezzetleri",
     "featuredHeading": "İmza Seçkisi",
-    "featuredDescription":
-      "Mevsimsel malzemeler ve modern mutfak teknikleriyle hazırlandı.",
+    "featuredDescription": "Mevsimsel malzemeler ve modern mutfak teknikleriyle hazırlandı.",
     "items": "{count, plural, =0 {Ürün yok} other {# ürün}}",
     "emptyHeading": "Ürün bulunamadı",
-    "emptyDescription":
-      "Daha geniş bir arama deneyin veya menüden daha fazlasını görmek için filtrelerden birini kaldırın.",
+    "emptyDescription": "Daha geniş bir arama deneyin veya menüden daha fazlasını görmek için filtrelerden birini kaldırın.",
     "available": "Mevcut",
     "unavailable": "Mevcut değil",
     "featured": "Şefin Seçimi",
@@ -18,6 +16,9 @@
     "searchEyebrow": "Menü Keşfi",
     "searchLabel": "Menüde ara",
     "searchPlaceholder": "Yemek, içerik, not ara...",
+    "call": "Ara",
+    "openNow": "Açık",
+    "closedToday": "Kapalı",
     "vegetarian": "Vejetaryen",
     "spicy": "Acılı",
     "results": "{count, plural,=0 {} other {# ürün mevcut}}"
@@ -25,10 +26,8 @@
   "RestaurantInfo": {
     "eyebrow": "Luna'da Gece",
     "heading": "Daha sakin bir lüks.",
-    "story":
-      "Luna Bistro, yavaş akan akşamlar, rafine tabaklar ve kendini gösterişsiz hissettiren kişisel bir misafirperverlik için tasarlandı. Mevsimsel Akdeniz mutfağı; loş ışıklı bir salon, ölçülü servis ve uzun sohbetlere eşlik eden bir bar programıyla buluşur.",
-    "quote":
-      "Menümüz mevsimi takip eder; atmosferimiz ise aynı kalır: sıcak ışık, cömert masalar ve her detayda küçük bir tören hissi.",
+    "story": "Luna Bistro, yavaş akan akşamlar, rafine tabaklar ve kendini gösterişsiz hissettiren kişisel bir misafirperverlik için tasarlandı. Mevsimsel Akdeniz mutfağı; loş ışıklı bir salon, ölçülü servis ve uzun sohbetlere eşlik eden bir bar programıyla buluşur.",
+    "quote": "Menümüz mevsimi takip eder; atmosferimiz ise aynı kalır: sıcak ışık, cömert masalar ve her detayda küçük bir tören hissi.",
     "quoteBy": "Şefin notu",
     "hoursTitle": "Açılış Saatleri",
     "contactTitle": "İletişim",
@@ -39,10 +38,21 @@
     "instagram": "Instagram",
     "atmosphere": "Yemek & Kokteyl",
     "hours": [
-      { "days": "Pzt - Per", "time": "17:00 - 00:00" },
-      { "days": "Cum - Cmt", "time": "17:00 - 01:30" },
-      { "days": "Pazar", "time": "12:00 - 23:00" }
-    ]
+      {
+        "days": "Pzt - Per",
+        "time": "17:00 - 00:00"
+      },
+      {
+        "days": "Cum - Cmt",
+        "time": "17:00 - 01:30"
+      },
+      {
+        "days": "Pazar",
+        "time": "12:00 - 23:00"
+      }
+    ],
+    "open": "Açık",
+    "closed": "Kapalı"
   },
   "MenuFooter": {
     "instagram": "Instagram",

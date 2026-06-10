@@ -6,10 +6,12 @@ import type {
 } from "@/types/theme";
 import { artisanThemeComponents } from "./artisan";
 import { lunaThemeComponents } from "./luna";
+import { streetFoodThemeComponents } from "./street-food";
 
 const THEME_COMPONENTS = {
   luna: lunaThemeComponents,
   artisan: artisanThemeComponents,
+  "street-food": streetFoodThemeComponents,
 } satisfies Record<MenuThemeId, MenuTheme["components"]>;
 
 export const MENU_THEMES = MENU_THEME_META.map((theme) => ({

@@ -30,6 +30,7 @@ export default function MenuItemsSection({
   settings,
 }: MenuItemsSectionProps) {
   const {
+    controlsOrder = "categories-first",
     FeaturedSection,
     CategoryTabs,
     SearchFilter,
@@ -116,19 +117,37 @@ export default function MenuItemsSection({
     });
   }
 
+  const categoryTabs = menuSettings.enableCategoryTabs ? (
+    <CategoryTabs
+      categories={visibleCategories}
+      activeCategoryId={activeCategory}
+      onCategoryClick={scrollToCategory}
+    />
+  ) : null;
+
+  const searchFilter = menuSettings.enableSearch ? (
+    <SearchFilter
+      query={query}
+      featuredOnly={featuredOnly}
+      availableOnly={availableOnly}
+      vegetarianOnly={vegetarianOnly}
+      spicyOnly={spicyOnly}
+      resultCount={filteredItems.length}
+      onQueryChange={setQuery}
+      onFeaturedOnlyChange={setFeaturedOnly}
+      onAvailableOnlyChange={setAvailableOnly}
+      onVegetarianOnlyChange={setVegetarianOnly}
+      onSpicyOnlyChange={setSpicyOnly}
+    />
+  ) : null;
+
   return (
     <section
       id="menu"
       className="scroll-mt-16 pt-0"
       aria-labelledby="featured-heading"
     >
-      {menuSettings.enableCategoryTabs ? (
-        <CategoryTabs
-          categories={visibleCategories}
-          activeCategoryId={activeCategory}
-          onCategoryClick={scrollToCategory}
-        />
-      ) : null}
+      {controlsOrder === "categories-first" ? categoryTabs : null}
       <div className="px-5 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-7xl mt-4">
           <FeaturedSection
@@ -140,21 +159,14 @@ export default function MenuItemsSection({
             showImages={menuSettings.showImages}
           />
 
-          {menuSettings.enableSearch ? (
-            <SearchFilter
-              query={query}
-              featuredOnly={featuredOnly}
-              availableOnly={availableOnly}
-              vegetarianOnly={vegetarianOnly}
-              spicyOnly={spicyOnly}
-              resultCount={filteredItems.length}
-              onQueryChange={setQuery}
-              onFeaturedOnlyChange={setFeaturedOnly}
-              onAvailableOnlyChange={setAvailableOnly}
-              onVegetarianOnlyChange={setVegetarianOnly}
-              onSpicyOnlyChange={setSpicyOnly}
-            />
-          ) : null}
+          {controlsOrder === "search-first" ? (
+            <>
+              {searchFilter}
+              {categoryTabs}
+            </>
+          ) : (
+            searchFilter
+          )}
 
           <div className="space-y-14">
             {visibleCategories.map((category) => {

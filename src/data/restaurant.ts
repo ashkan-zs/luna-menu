@@ -209,4 +209,121 @@ export const RESTAURANT: Restaurant[] = [
     },
     isPublished: true,
   },
+  {
+    id: "mavi-balloon",
+    name: "Mavi Balloon",
+    slug: "mavi-balloon",
+    themeId: "street-food",
+
+    tagline: {
+      en: "Antakya Döner & Signature Burgers",
+      tr: "Antakya Döner ve Özel Burgerler",
+    },
+
+    description: {
+      en: "Street food favorites, signature burgers, Antakya-style döner, sides and cold drinks.",
+      tr: "Sokak lezzetleri, özel burgerler, Antakya usulü döner, aperatifler ve soğuk içecekler.",
+    },
+
+    logo: "/images/mavi-balloon/logo.png",
+    coverImage: "/images/mavi-balloon/cover.jpg",
+
+    location: {
+      address: "Caferağa, Neşet Ömer Sk. No:16 B Kadıköy",
+      city: "Istanbul",
+      country: "Turkey",
+    },
+
+    contact: {
+      phone: "+905513473134",
+      whatsapp: "https://wa.me/+905513473134",
+    },
+
+    socials: {
+      instagram: "https://www.instagram.com/maviballoonfood/",
+    },
+
+    openingHours: [
+      {
+        day: "monday",
+        open: "",
+        close: "",
+        closed: true,
+      },
+      {
+        day: "tuesday",
+        open: "11:00",
+        close: "23:30",
+      },
+      {
+        day: "wednesday",
+        open: "11:00",
+        close: "23:30",
+      },
+      {
+        day: "thursday",
+        open: "11:00",
+        close: "23:30",
+      },
+      {
+        day: "friday",
+        open: "11:00",
+        close: "01:30",
+      },
+      {
+        day: "saturday",
+        open: "11:00",
+        close: "01:30",
+      },
+      {
+        day: "sunday",
+        open: "12:00",
+        close: "23:00",
+      },
+    ],
+
+    content: {
+      hero: {
+        eyebrow: {
+          en: "Antakya flavor",
+          tr: "Antakya lezzeti",
+        },
+        title: {
+          en: "Döner & Burgers",
+          tr: "Döner & Burger",
+        },
+        description: {
+          en: "Fresh. Hot. Legendary.",
+          tr: "Taze. Sıcak. Efsane.",
+        },
+      },
+      story: {
+        eyebrow: {
+          en: "Mavi Balloon",
+          tr: "Mavi Balloon",
+        },
+        title: {
+          en: "Antakya street food, served fast and full of flavor.",
+          tr: "Antakya sokak lezzeti, hızlı ve bol aromalı.",
+        },
+        body: {
+          en: "Mavi Balloon brings together Antakya-style döner, juicy burgers, crispy sides, and cold drinks in a bright, easygoing menu experience made for quick lunches, late cravings, and casual tables.",
+          tr: "Mavi Balloon; Antakya usulü döneri, bol soslu burgerleri, çıtır atıştırmalıkları ve soğuk içecekleri hızlı öğle yemekleri, gece lezzet kaçamakları ve rahat sofralar için canlı bir menü deneyiminde buluşturur.",
+        },
+        atmosphere: {
+          en: "Döner, Burgers & Street Bites",
+          tr: "Döner, Burger & Sokak Lezzetleri",
+        },
+      },
+    },
+
+    settings: {
+      showPrices: true,
+      showImages: true,
+      enableSearch: true,
+      enableCategoryTabs: true,
+    },
+
+    isPublished: true,
+  },
 ];
