@@ -5,10 +5,13 @@ import { createClient } from "next-sanity";
 import { MENU_ITEMS } from "@/data/menu";
 import type { MenuItemSeed } from "@/types/menu";
 
-const TARGET_RESTAURANT_SLUG = "oteki";
-const SOURCE_RESTAURANT_ID = "oteki-restaurant";
-const CONVERTED_IMAGE_DIRECTORY =
-  process.env.OTEKI_MENU_JPG_DIR ?? "public/images/oteki-restaurant/menu-jpg";
+function getCliOption(name: string) {
+  const prefix = `--${name}=`;
+  return process.argv
+    .find((argument) => argument.startsWith(prefix))
+    ?.slice(prefix.length);
+}
+
 const forceUpload = process.argv.includes("--force");
 
 type ExistingMenuItem = {
@@ -55,6 +58,27 @@ function loadEnvFile(fileName: string) {
 
 loadEnvFile(".env");
 loadEnvFile(".env.local");
+
+const TARGET_RESTAURANT_SLUG =
+  getCliOption("target-slug") ?? process.env.TARGET_RESTAURANT_SLUG;
+
+if (!TARGET_RESTAURANT_SLUG) {
+  throw new Error(
+    [
+      "Missing target restaurant slug.",
+      "Pass --target-slug=restaurant-slug or set TARGET_RESTAURANT_SLUG.",
+    ].join(" "),
+  );
+}
+
+const SOURCE_RESTAURANT_ID =
+  getCliOption("source-id") ??
+  process.env.SOURCE_RESTAURANT_ID ??
+  TARGET_RESTAURANT_SLUG;
+const CONVERTED_IMAGE_DIRECTORY =
+  getCliOption("image-dir") ??
+  process.env.MENU_IMAGE_DIR ??
+  `public/images/${SOURCE_RESTAURANT_ID}/menu-jpg`;
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -166,7 +190,7 @@ async function uploadAndPatchImage(
     {
       filename: basename(localImagePath),
       source: {
-        name: "oteki-menu-seed",
+        name: `${TARGET_RESTAURANT_SLUG}-menu-seed`,
         id: localImagePath,
         url: localImagePath,
       },
@@ -197,6 +221,13 @@ async function uploadAndPatchImage(
 async function main() {
   const restaurantId = await findRestaurantId();
   const seedItems = getSeedMenuItemsWithImages();
+
+  if (seedItems.length === 0) {
+    throw new Error(
+      `No static menu items with images found for source restaurant "${SOURCE_RESTAURANT_ID}".`,
+    );
+  }
+
   const results = [];
 
   for (const seedItem of seedItems) {

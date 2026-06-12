@@ -6,8 +6,12 @@ import { CATEGORIES, MENU_ITEMS } from "@/data/menu";
 import { getMenuAllergenFromLabel } from "@/config/allergens";
 import type { CategorySeed, MenuAllergen, MenuItemSeed } from "@/types/menu";
 
-const TARGET_RESTAURANT_SLUG = "oteki";
-const SOURCE_RESTAURANT_ID = "oteki-restaurant";
+function getCliOption(name: string) {
+  const prefix = `--${name}=`;
+  return process.argv
+    .find((argument) => argument.startsWith(prefix))
+    ?.slice(prefix.length);
+}
 
 type SanityReference = {
   _type: "reference";
@@ -70,6 +74,23 @@ function loadEnvFile(fileName: string) {
 
 loadEnvFile(".env");
 loadEnvFile(".env.local");
+
+const TARGET_RESTAURANT_SLUG =
+  getCliOption("target-slug") ?? process.env.TARGET_RESTAURANT_SLUG;
+
+if (!TARGET_RESTAURANT_SLUG) {
+  throw new Error(
+    [
+      "Missing target restaurant slug.",
+      "Pass --target-slug=restaurant-slug or set TARGET_RESTAURANT_SLUG.",
+    ].join(" "),
+  );
+}
+
+const SOURCE_RESTAURANT_ID =
+  getCliOption("source-id") ??
+  process.env.SOURCE_RESTAURANT_ID ??
+  TARGET_RESTAURANT_SLUG;
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -155,6 +176,12 @@ const menuItems: SeedMenuItem[] = MENU_ITEMS.filter(
   nutrition: item.nutrition,
   tags: item.tags,
 }));
+
+if (categories.length === 0 && menuItems.length === 0) {
+  throw new Error(
+    `No static menu seed data found for source restaurant "${SOURCE_RESTAURANT_ID}".`,
+  );
+}
 
 async function upsertCategory(restaurantId: string, category: SeedCategory) {
   const existingCategory = await client.fetch<{ _id: string } | null>(
