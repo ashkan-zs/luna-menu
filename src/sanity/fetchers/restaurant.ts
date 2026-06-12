@@ -9,13 +9,14 @@ import { mapSanityRestaurantToRestaurant } from "../mappings";
 
 type RestaurantSlugResult = {
   slug: string;
+  updatedAt?: string;
 };
 
 export function fetchPublishedRestaurantSlugs() {
   return client.fetch<RestaurantSlugResult[]>(restaurantsSlugsQuery, {});
 }
 
-export function fetchPublishedRestaurantBySlug(slug: string) {
+export function fetchRestaurantBySlug(slug: string) {
   return client.fetch<SanityRestaurantDocument | null>(
     restaurantBySlugQuery,
     { slug },
@@ -27,13 +28,13 @@ export function fetchPublishedRestaurantBySlug(slug: string) {
   );
 }
 
-export async function fetchMappedPublishedRestaurantBySlug(slug: string) {
-  const restaurant = await fetchPublishedRestaurantBySlug(slug);
+export async function fetchMappedRestaurantBySlug(slug: string) {
+  const restaurant = await fetchRestaurantBySlug(slug);
 
   return mapSanityRestaurantToRestaurant(restaurant);
 }
 
-export function fetchPublishedRestaurantById(restaurantId: string) {
+export function fetchRestaurantById(restaurantId: string) {
   return client.fetch<SanityRestaurantDocument | null>(
     restaurantByIdQuery,
     { restaurantId },
@@ -45,8 +46,8 @@ export function fetchPublishedRestaurantById(restaurantId: string) {
   );
 }
 
-export async function fetchMappedPublishedRestaurantById(restaurantId: string) {
-  const restaurant = await fetchPublishedRestaurantById(restaurantId);
+export async function fetchMappedRestaurantById(restaurantId: string) {
+  const restaurant = await fetchRestaurantById(restaurantId);
 
   return mapSanityRestaurantToRestaurant(restaurant);
 }

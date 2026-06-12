@@ -25,6 +25,8 @@ export const restaurant = defineType({
       name: 'isPublished',
       title: 'Published',
       type: 'boolean',
+      description:
+        'Whether this restaurant is publicly indexable and ready for search engines.',
       initialValue: false,
       validation: (Rule) => Rule.required(),
     }),

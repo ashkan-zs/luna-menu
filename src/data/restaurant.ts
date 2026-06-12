@@ -113,7 +113,9 @@ export const RESTAURANT: Restaurant[] = [
       enableSearch: true,
       enableCategoryTabs: true,
     },
-    isPublished: true,
+    // Demo restaurants should never be indexed. Set this to true only for
+    // real customer restaurants that are ready to appear in search engines.
+    isPublished: false,
   },
   {
     id: "oteki-restaurant",
@@ -207,7 +209,7 @@ export const RESTAURANT: Restaurant[] = [
       enableSearch: true,
       enableCategoryTabs: true,
     },
-    isPublished: true,
+    isPublished: false,
   },
   {
     id: "mavi-balloon",
@@ -324,6 +326,6 @@ export const RESTAURANT: Restaurant[] = [
       enableCategoryTabs: true,
     },
 
-    isPublished: true,
+    isPublished: false,
   },
 ];

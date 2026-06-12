@@ -23,8 +23,7 @@ export const menuItemsByRestaurantIdQuery = defineQuery(`
 export const restaurantMenuBySlugQuery = defineQuery(`
   *[
     _type == "restaurant" &&
-    slug.current == $slug &&
-    isPublished == true
+    slug.current == $slug
   ][0] {
     "restaurant": ${restaurantProjection},
     "categories": *[

@@ -12,6 +12,7 @@ export function mapSanityRestaurantToRestaurant(
 
   const slug = restaurant.slug?.current;
   const coverImage = mapSanityImageToUrl(restaurant.coverImage);
+  const seoImage = mapSanityImageToUrl(restaurant.seo?.image);
   const location = restaurant.location;
 
   if (!slug || !coverImage || !location?.address || !location.city || !location.country) {
@@ -47,6 +48,13 @@ export function mapSanityRestaurantToRestaurant(
           closed: item.closed,
         })) ?? [],
     content: restaurant.content,
+    seo: restaurant.seo
+      ? {
+          title: restaurant.seo.title,
+          description: restaurant.seo.description,
+          image: seoImage,
+        }
+      : undefined,
     settings: restaurant.settings,
     subscription:
       restaurant.subscription?.plan && restaurant.subscription.status

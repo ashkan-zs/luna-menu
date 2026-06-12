@@ -63,6 +63,12 @@ type RestaurantContent = {
   };
 };
 
+type RestaurantSeo = {
+  title?: LocalizedString;
+  description?: LocalizedString;
+  image?: string;
+};
+
 export type RestaurantSettings = {
   showPrices: boolean;
   showImages: boolean;
@@ -86,6 +92,7 @@ export type Restaurant = {
   socials?: RestaurantSocials;
   openingHours: RestaurantOpeningHour[];
   content?: RestaurantContent;
+  seo?: RestaurantSeo;
   settings?: RestaurantSettings;
   subscription?: {
     plan: "free" | "starter" | "pro";

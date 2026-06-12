@@ -39,9 +39,7 @@ function createRestaurantMenu(restaurantSlug: string): RestaurantMenu {
 }
 
 function getStaticRestaurantBySlug(slug: string) {
-  return RESTAURANT.find(
-    (restaurant) => restaurant.slug === slug && restaurant.isPublished,
-  );
+  return RESTAURANT.find((restaurant) => restaurant.slug === slug);
 }
 
 function getStaticRestaurantMenu(

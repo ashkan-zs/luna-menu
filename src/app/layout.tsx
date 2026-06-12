@@ -2,7 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter, Oswald } from "next/font/google";
 import type { ReactNode } from "react";
 
-import { APP_THEME_COLOR } from "@/config/app";
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_THEME_COLOR,
+  getAppBaseUrl,
+} from "@/config/app";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,9 +34,13 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "Luna Bistro QR Menu",
-  description:
-    "A premium mobile-first QR menu experience for modern restaurants, cafés, and cocktail bars. Elegant design, cinematic visuals, smooth navigation, and multilingual digital menus built for upscale hospitality brands.",
+  metadataBase: new URL(getAppBaseUrl()),
+  title: {
+    default: APP_NAME,
+    template: `%s | ${APP_NAME}`,
+  },
+  description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
 };
 
 export const viewport: Viewport = {
