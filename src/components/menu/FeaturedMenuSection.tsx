@@ -71,7 +71,7 @@ export default function FeaturedMenuSection({
         </div>
       </div>
 
-      <div className="relative mt-8 -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 scrollbar-none sm:-mx-7 sm:gap-6 sm:px-7 [&::-webkit-scrollbar]:hidden">
+      <div className="relative mt-8 -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 py-2 scrollbar-none sm:-mx-7 sm:gap-6 sm:px-7 [&::-webkit-scrollbar]:hidden">
         {items.map((item) => (
           <FeaturedDishCard
             key={item.id}
@@ -121,22 +121,16 @@ function FeaturedDishCard({
       className="group relative min-w-[82vw] max-w-[24rem] snap-center cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-theme-bg/54 shadow-[0_24px_80px_rgb(0_0_0_/0.34)] outline-none backdrop-blur-xl transition duration-300 focus-visible:ring-2 focus-visible:ring-theme-accent/80 sm:min-w-92 sm:hover:-translate-y-1 sm:hover:border-theme-accent/30 sm:hover:shadow-[0_30px_90px_rgb(0_0_0_/0.42)] lg:min-w-100"
     >
       {showImages && item.image ? (
-        <div className="relative aspect-[1.18/1] overflow-hidden bg-white/[0.035]">
+        <div className="relative aspect-4/2 overflow-hidden bg-white/[0.035]">
           <Image
             src={item.image.src}
             alt={itemImageAlt}
             fill
             sizes="(max-width: 640px) 82vw, (max-width: 1024px) 23rem, 25rem"
-            className="object-cover transition duration-700 ease-out sm:group-hover:scale-105 mask-b-from-50%"
+            className="object-cover transition duration-700 ease-out mask-[linear-gradient(to_bottom,black_60%,transparent)] sm:group-hover:scale-105"
           />
-          <div
-            className="absolute inset-0 bg-linear-to-t from-theme-bg/88 via-theme-bg/16 to-black/18"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-theme-bg via-theme-bg/82 to-transparent"
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-linear-to-b from-transparent via-theme-bg/40 to-theme-bg/54" />
+
           <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-theme-accent/28 bg-theme-bg/48 px-3 py-2 text-[0.64rem] font-medium uppercase tracking-[0.2em] text-theme-text-soft shadow-[0_14px_40px_rgb(0_0_0_/0.24)] backdrop-blur-xl">
             <ChefHat
               className="size-3.5 text-theme-accent"
@@ -147,7 +141,7 @@ function FeaturedDishCard({
         </div>
       ) : null}
 
-      <div className="relative z-10 -mt-8 space-y-5 p-5 pt-0 sm:p-6 sm:pt-0">
+      <div className="relative z-10 -mt-6 space-y-5 p-5 pt-0 sm:p-6 sm:pt-0">
         <div className="flex items-start justify-between gap-5">
           <h3 className="font-serif text-2xl leading-7 text-theme-text-strong sm:text-[1.7rem]">
             {itemName}

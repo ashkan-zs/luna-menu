@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 
 import type { MenuItem } from "@/types/menu";
 import type { Locale } from "@/types/i18n";
@@ -38,6 +39,19 @@ export default function MenuItemModal({
   const CLOSE_THRESHOLD = 120;
   const dragControls = useDragControls();
   const priceOptions = item ? getMenuItemPriceOptions(item) : [];
+
+  useEffect(() => {
+    if (!item) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [item]);
 
   function handleDragEnd(info: PanInfo) {
     if (info.offset.y > CLOSE_THRESHOLD) onClose();
@@ -152,7 +166,7 @@ export default function MenuItemModal({
                   </section>
                 ) : null}
 
-                {item.tags && (
+                {item.tags?.length ? (
                   <div
                     className={`grid gap-3 border-y border-white/10 py-4 text-xs uppercase tracking-[0.16em] text-white/60 ${
                       item.tags.length >= 3 ? "grid-cols-3" : "grid-cols-2"
@@ -169,7 +183,7 @@ export default function MenuItemModal({
                       );
                     })}
                   </div>
-                )}
+                ) : null}
 
                 {item.ingredients && (
                   <section>

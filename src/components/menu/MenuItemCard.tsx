@@ -11,29 +11,17 @@ type ItemTag = {
   className: string;
 };
 
-const copy = {
-  en: {
-    featured: "Featured",
-    spicy: "Spicy",
-    vegetarian: "Vegetarian",
-    unavailable: "Unavailable",
-  },
-  tr: {
-    featured: "Öne çıkan",
-    spicy: "Acılı",
-    vegetarian: "Vejetaryen",
-    unavailable: "Mevcut değil",
-  },
-} satisfies Record<Locale, Record<string, string>>;
-
-function getItemTags(item: MenuItemType, language: Locale): ItemTag[] {
-  const labels = copy[language];
+function getItemTags(
+  item: MenuItemType,
+  labels: { featured: string; vegetarian: string; spicy: string },
+): ItemTag[] {
   const tags: ItemTag[] = [];
 
   if (item.featured) {
     tags.push({
       label: labels.featured,
-      className: "border-theme-accent/40 bg-theme-accent/14 text-theme-text-soft",
+      className:
+        "border-theme-accent/40 bg-theme-accent/14 text-theme-text-soft",
     });
   }
 
@@ -125,7 +113,11 @@ export default function MenuItemCard({
 
       <div className="space-y-4 p-5">
         <div className="flex flex-wrap gap-2">
-          {getItemTags(item, locale).map((tag) => (
+          {getItemTags(item, {
+            featured: t("featured"),
+            vegetarian: t("vegetarian"),
+            spicy: t("spicy"),
+          }).map((tag) => (
             <span
               key={tag.label}
               className={[

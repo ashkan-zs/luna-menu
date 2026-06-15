@@ -23,13 +23,13 @@ export const RESTAURANT: Restaurant[] = [
         "https://maps.google.com/?q=Luna%20Bistro%20Nisantasi%20Istanbul",
     },
     contact: {
-      phone: "+90 212 555 18 18",
-      whatsapp: "https://wa.me/902125551818",
+      phone: "+90 555 000 00 00",
+      whatsapp: "https://wa.me/#",
       email: "hello@lunabistro.example",
-      website: "https://lunabistro.example",
+      website: "https://luna-menu.vercel.app/tr/luna-bistro/menu",
     },
     socials: {
-      instagram: "https://instagram.com/lunabistro",
+      instagram: "https://instagram.com/thelunamenu",
     },
     openingHours: [
       {
