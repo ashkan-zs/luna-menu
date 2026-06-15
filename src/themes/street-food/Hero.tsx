@@ -131,6 +131,11 @@ export default function StreetFoodHero({
 
   return (
     <section className="relative isolate overflow-hidden rounded-b-4xl bg-theme-bg text-theme-text shadow-[0_22px_60px_rgb(var(--theme-accent-rgb)/0.18)]">
+      <LanguageSwitcher
+        position="bottom-right"
+        variant="circle"
+        color="light"
+      />
       {restaurant.coverImage ? (
         <div className="absolute inset-0">
           <Image
