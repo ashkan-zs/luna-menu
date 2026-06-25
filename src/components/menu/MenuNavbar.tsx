@@ -9,16 +9,11 @@ import { Locale } from "@/types/i18n";
 type MenuNavbarProps = {
   restaurant: Restaurant;
   locale: Locale;
-  logoSrc?: string;
-  // themes: MenuTheme[];
-  // activeThemeId: MenuThemeId;
-  // onThemeChange: (themeId: MenuThemeId) => void;
 };
 
 export default function MenuNavbar({
   restaurant,
   locale,
-  logoSrc,
 }: MenuNavbarProps) {
   const restaurantInitials = getRestaurantInitials(restaurant.name);
   const tagline = getLocalizedValue(restaurant.tagline, locale);
@@ -35,9 +30,9 @@ export default function MenuNavbar({
           aria-label={`${restaurant.name} home`}
         >
           <span className="relative grid size-8 shrink-0 place-items-center overflow-hidden rounded-full border border-theme-accent/20 bg-theme-brand/8 sm:size-8.5">
-            {logoSrc ? (
+            {restaurant.logo ? (
               <Image
-                src={logoSrc}
+                src={restaurant.logo}
                 alt=""
                 fill
                 sizes="40px"

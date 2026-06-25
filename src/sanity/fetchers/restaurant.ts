@@ -1,5 +1,6 @@
-import { client } from "../lib/client";
+import { client, hasSanityPreviewToken, previewClient } from "../lib/client";
 import {
+  restaurantPreviewBySlugQuery,
   restaurantByIdQuery,
   restaurantBySlugQuery,
   restaurantsSlugsQuery,
@@ -30,6 +31,28 @@ export function fetchRestaurantBySlug(slug: string) {
 
 export async function fetchMappedRestaurantBySlug(slug: string) {
   const restaurant = await fetchRestaurantBySlug(slug);
+
+  return mapSanityRestaurantToRestaurant(restaurant);
+}
+
+export function fetchRestaurantPreviewBySlug(slug: string) {
+  if (!hasSanityPreviewToken()) {
+    return Promise.resolve(null);
+  }
+
+  return previewClient.fetch<SanityRestaurantDocument | null>(
+    restaurantPreviewBySlugQuery,
+    { slug },
+    {
+      next: {
+        tags: [`restaurant-preview:${slug}`],
+      },
+    }
+  );
+}
+
+export async function fetchMappedRestaurantPreviewBySlug(slug: string) {
+  const restaurant = await fetchRestaurantPreviewBySlug(slug);
 
   return mapSanityRestaurantToRestaurant(restaurant);
 }

@@ -76,6 +76,12 @@ export type RestaurantSettings = {
   enableCategoryTabs: boolean;
 };
 
+export type RestaurantPublishingStatus =
+  | "draft"
+  | "preview"
+  | "published"
+  | "archived";
+
 export type Restaurant = {
   id: string;
   name: string;
@@ -98,6 +104,7 @@ export type Restaurant = {
     plan: "free" | "starter" | "pro";
     status: "active" | "inactive" | "trial";
   };
+  publishingStatus: RestaurantPublishingStatus;
   isPublished: boolean;
   createdAt?: string;
   updatedAt?: string;

@@ -26,7 +26,7 @@ export const RESTAURANT: Restaurant[] = [
       phone: "+90 555 000 00 00",
       whatsapp: "https://wa.me/#",
       email: "hello@lunabistro.example",
-      website: "https://luna-menu.vercel.app/tr/luna-bistro/menu",
+      website: "https://luna-menu.vercel.app/tr/luna-bistro",
     },
     socials: {
       instagram: "https://instagram.com/thelunamenu",
@@ -115,7 +115,8 @@ export const RESTAURANT: Restaurant[] = [
     },
     // Demo restaurants should never be indexed. Set this to true only for
     // real customer restaurants that are ready to appear in search engines.
-    isPublished: false,
+    publishingStatus: "published",
+    isPublished: true,
   },
   {
     id: "mavi-balloon",
@@ -232,6 +233,7 @@ export const RESTAURANT: Restaurant[] = [
       enableCategoryTabs: true,
     },
 
-    isPublished: false,
+    publishingStatus: "published",
+    isPublished: true,
   },
 ];

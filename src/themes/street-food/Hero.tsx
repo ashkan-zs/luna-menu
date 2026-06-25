@@ -241,7 +241,7 @@ export default function StreetFoodHero({
         <div className="hidden lg:block" />
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-20 rounded-t-[2rem] bg-linear-to-b from-transparent to-theme-bg/80" />
+      <div className="absolute inset-x-0 bottom-0 h-20 rounded-t-4xl bg-linear-to-b from-transparent to-theme-bg/80" />
     </section>
   );
 }

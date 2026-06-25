@@ -1,7 +1,17 @@
 import type { Restaurant } from "@/types/restaurant";
+import type { RestaurantPublishingStatus } from "@/types/restaurant";
 
 import { mapSanityImageToUrl } from "./images";
 import type { SanityRestaurantDocument } from "../types";
+
+function getPublishingStatus(
+  restaurant: SanityRestaurantDocument,
+): RestaurantPublishingStatus {
+  return (
+    restaurant.publishingStatus ??
+    (restaurant.isPublished ? "published" : "draft")
+  );
+}
 
 export function mapSanityRestaurantToRestaurant(
   restaurant: SanityRestaurantDocument | null | undefined,
@@ -18,6 +28,8 @@ export function mapSanityRestaurantToRestaurant(
   if (!slug || !coverImage || !location?.address || !location.city || !location.country) {
     return null;
   }
+
+  const publishingStatus = getPublishingStatus(restaurant);
 
   return {
     id: restaurant._id,
@@ -63,7 +75,8 @@ export function mapSanityRestaurantToRestaurant(
             status: restaurant.subscription.status,
           }
         : undefined,
-    isPublished: restaurant.isPublished ?? false,
+    publishingStatus,
+    isPublished: publishingStatus === "published",
     createdAt: restaurant._createdAt,
     updatedAt: restaurant._updatedAt,
   };

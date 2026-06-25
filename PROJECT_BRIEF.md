@@ -8,7 +8,7 @@ The product should allow each restaurant to have its own public menu page, brand
 
 The public customer-facing experience should feel like a luxury hospitality brand — not a generic restaurant SaaS dashboard or food delivery app.
 
-The SaaS/admin side should support restaurant onboarding, menu management, branding configuration, and theme selection while keeping the guest-facing menu experience premium, cinematic, and minimal.
+The SaaS/admin side is a future direction, not MVP scope.
 
 The experience focuses on:
 
@@ -28,7 +28,7 @@ The interface should evoke the feeling of:
 
 ---
 
-# Core Product Vision
+## Core Product Vision
 
 The QR menu should feel:
 
@@ -53,7 +53,7 @@ The user should feel like they are browsing a curated dining experience.
 
 ---
 
-# Target Businesses
+## Target Businesses
 
 * Premium restaurants
 * Fine dining venues
@@ -66,7 +66,8 @@ The user should feel like they are browsing a curated dining experience.
 * Modern hospitality brands
 
 ---
-# SaaS Product Direction
+
+## SaaS Product Direction
 
 Luna Menu should function as a multi-tenant QR menu SaaS platform.
 
@@ -86,8 +87,8 @@ Example public URLs:
 ```txt
 /en/luna-bistro
 /tr/luna-bistro
-/en/mavi-balon
-/tr/mavi-balon
+/en/mavi-balloon
+/tr/mavi-balloon
 ```
 
 The platform should support multiple restaurants without duplicating frontend code.
@@ -104,7 +105,7 @@ This allows new restaurants to be added through data/CMS/admin configuration ins
 
 ---
 
-# Restaurant Page Model
+## Restaurant Page Model
 
 Each restaurant should have its own customer-facing page.
 
@@ -144,7 +145,7 @@ The restaurant slug should be used to fetch the correct restaurant data.
 
 ---
 
-# Theme Selection System
+## Theme Selection System
 
 Restaurants should be able to choose from existing themes.
 
@@ -160,79 +161,24 @@ Themes may include different versions of:
 * restaurant info section
 * footer
 
-Example themes:
+**Current Themes:**
 
-* Luna — dark luxury / cinematic dining
-* Bistro — warm editorial / casual premium
-* Cocktail — moody bar / nightlife atmosphere
-* Café — soft minimal / specialty coffee
-* Fine Dining — restrained Michelin-inspired layout
+* Luna
+* Artisan
+* Street Food
+
+**Future Theme Ideas:**
+
+* Cocktail
+* Fine Dining
+* Café
+* Bistro
 
 Theme choice should be stored as restaurant configuration.
 
-Example:
-
-```ts
-restaurant.themeId = "luna";
-```
-
-The theme registry should map `themeId` to the correct theme components.
-
 ---
 
-# Multi-Restaurant Architecture
-
-The application should support many restaurants using one codebase.
-
-Recommended data model:
-
-```ts
-type Restaurant = {
-  id: string;
-  slug: string;
-  themeId: string;
-  name: LocalizedString;
-  tagline: LocalizedString;
-  description: LocalizedString;
-  location: LocalizedString;
-  openingHours: OpeningHour[];
-  contact: RestaurantContact;
-  branding: RestaurantBranding;
-  menu: RestaurantMenu;
-};
-```
-
-The page should follow this flow:
-
-```txt
-restaurantSlug from URL
-        ↓
-getRestaurantBySlug(restaurantSlug)
-        ↓
-load restaurant content + selected theme
-        ↓
-render shared logic with theme-specific UI
-```
-
-Components should not hardcode one restaurant.
-
-Avoid:
-
-```ts
-import { RESTAURANT } from "@/data/restaurant";
-```
-
-Prefer:
-
-```tsx
-<MenuPage restaurant={restaurant} theme={theme} />
-```
-
-This keeps the product ready for SaaS scaling, Sanity CMS, and future admin features.
-
----
-
-# SaaS/Admin Direction
+## SaaS/Admin Direction
 
 The guest-facing QR menu should stay cinematic and premium.
 
@@ -254,53 +200,15 @@ Restaurant owners should eventually be able to:
 
 Admin routes can be separated from public menu routes.
 
-Example:
-
-```txt
-/dashboard
-/dashboard/restaurants
-/dashboard/restaurants/[restaurantId]/menu
-/dashboard/restaurants/[restaurantId]/theme
-```
-
 The first version does not need a full dashboard, but the architecture should not block it.
 
 ---
 
+## Design Philosophy
 
-# Tech Stack
+### Visual Direction
 
-## Frontend
-
-* Next.js (App Router)
-* TypeScript
-* Tailwind CSS
-* Framer Motion
-
-## Deployment
-
-* Vercel
-
-## CMS (Later Phase)
-
-* Sanity CMS
-
-## Possible Future Integrations
-
-* Stripe
-* WhatsApp reservations
-* Google Maps
-* Reservation systems
-* Analytics
-* Multi-branch support
-
----
-
-# Design Philosophy
-
-## Visual Direction
-
-### Aesthetic
+#### Aesthetic
 
 * Dark luxury
 * Cinematic
@@ -308,7 +216,7 @@ The first version does not need a full dashboard, but the architecture should no
 * Warm minimalism
 * Elegant glassmorphism
 
-### Color Palette
+#### Color Palette
 
 Primary tones:
 
@@ -351,15 +259,15 @@ Avoid:
 
 ---
 
-# UX Principles
+### UX Principles
 
-## Mobile First
+#### Mobile First
 
 The entire experience is primarily designed for mobile QR scanning.
 
 Desktop is secondary.
 
-### Priorities
+**Priorities:**
 
 * thumb-friendly interactions
 * large tap targets
@@ -370,7 +278,7 @@ Desktop is secondary.
 
 ---
 
-# User Experience Goals
+## User Experience Goals
 
 The menu should:
 
@@ -390,11 +298,11 @@ The experience should feel:
 
 ---
 
-# Interaction Design
+## Interaction Design
 
-## Animation Style
+### Animation Style
 
-### Use
+**Use:**
 
 * fade transitions
 * blur reveals
@@ -403,7 +311,7 @@ The experience should feel:
 * soft hover states
 * cinematic scrolling
 
-### Avoid
+**Avoid:**
 
 * bouncing animations
 * flashy motion
@@ -415,241 +323,9 @@ Framer Motion should enhance the experience, not dominate it.
 
 ---
 
-# Core Features
+## Accessibility
 
-## Current Features
-
-* Premium hero section
-* Floating navbar
-* Sticky category navigation
-* Active category detection
-* Smooth scrolling
-* Auto-scrolling category tabs
-* Search system
-* Filter system
-* Menu item cards
-* Menu item modal
-* EN/TR multilingual support
-* Dynamic restaurant route support
-* Early multi-restaurant structure
-* Early theme architecture
-
----
-
-# Planned Features
-
-## Near-Term
-
-* Dynamic restaurant pages by slug
-* Theme customization
-* Restaurant theme selection
-* Restaurant branding
-* Restaurant-specific menu content
-* Better search UX
-* Animated menu transitions
-* Dietary filtering
-* Featured items carousel
-* Seasonal menu sections
-
-## Mid-Term
-
-* Sanity CMS integration
-* Live menu management
-* QR generation
-* Restaurant settings
-* Multiple menus
-* Dynamic availability
-
-## Long-Term
-
-* Table ordering
-* Reservations
-* Payment integration
-* Customer analytics
-* Loyalty systems
-* Multi-location support
-
----
-
-# Application Architecture
-
-## Folder Structure
-
-```txt
-/src
-  /app
-    /[locale]
-      /[restaurantSlug]
-      /dashboard
-  /components
-    /ui
-    /menu
-    /dashboard
-  /themes
-    /luna
-    /bistro
-    /cocktail
-    /cafe
-  /hooks
-  /lib
-    /data
-    /i18n
-    /theme
-  /types
-  /data
-  /messages
-  /sanity
-  /styles
-```
-
----
-
-# Component Architecture
-
-## Shared UI Components
-
-Location:
-
-```txt
-/components/ui
-```
-
-Examples:
-
-* Button
-* Modal
-* Sheet
-* Badge
-* Input
-* SearchBar
-* LanguageSwitcher
-
-These components must:
-
-* be reusable
-* stay generic
-* avoid business-specific logic
-
----
-
-## Menu Components
-
-Location:
-
-```txt
-/components/menu
-```
-
-Examples:
-
-* MenuNavbar
-* MenuHero
-* CategoryTabs
-* MenuItemsSection
-* MenuItemCard
-* MenuItemModal
-
-These components contain menu/business logic.
-
----
-
-# TypeScript Standards
-
-## Rules
-
-* Strict TypeScript
-* Avoid `any`
-* Prefer explicit domain types
-* Use discriminated unions when useful
-* Keep types modular
-
----
-
-# Rendering Strategy
-
-## Default
-
-Use Server Components by default.
-
-## Client Components
-
-Only use `"use client"` when necessary:
-
-* animations
-* event listeners
-* scrolling
-* interactive state
-* browser APIs
-
-Avoid unnecessary client rendering.
-
----
-
-# Data Structure
-
-## Menu Item Type
-
-```ts
-type MenuItem = {
-  id: string;
-  category: string;
-
-  name: {
-    en: string;
-    tr: string;
-  };
-
-  description: {
-    en: string;
-    tr: string;
-  };
-
-  price: number;
-
-  image: string;
-
-  featured: boolean;
-
-  available: boolean;
-
-  ingredients: {
-    en: string;
-    tr: string;
-  };
-
-  allergens: {
-    en: string;
-    tr: string;
-  }[];
-
-  calories?: number;
-};
-```
-
----
-
-# Performance Principles
-
-## Priorities
-
-* fast first load
-* optimized images
-* minimal JavaScript
-* lazy-loaded modals
-* smooth scrolling
-* efficient animations
-
-Avoid:
-
-* large dependency chains
-* unnecessary libraries
-* over-engineered abstractions
-
----
-
-# Accessibility
-
-## Requirements
+**Requirements:**
 
 * semantic HTML
 * keyboard accessibility
@@ -660,7 +336,7 @@ Avoid:
 
 ---
 
-# SEO Strategy
+## SEO Strategy
 
 Even though QR menus are mostly direct-entry apps:
 
@@ -671,7 +347,7 @@ Even though QR menus are mostly direct-entry apps:
 
 ---
 
-# Multilingual Strategy
+## Multilingual Strategy
 
 Initial languages:
 
@@ -689,9 +365,9 @@ Architecture should remain scalable for localization.
 
 ---
 
-# Future CMS Direction
+## Future CMS Direction
 
-## Sanity CMS Goals
+### Sanity CMS Goals
 
 Restaurant owners should eventually manage:
 
@@ -713,7 +389,7 @@ without touching code.
 
 ---
 
-# Brand Experience Principles
+## Brand Experience Principles
 
 Every screen should answer:
 
@@ -736,28 +412,3 @@ The product should feel:
 * immersive
 * intentional
 * beautifully restrained
-
----
-
-# Portfolio Strategy
-
-## Private Repository
-
-The real production/business system remains private.
-
-## Public Demo Repository
-
-Later create:
-
-* polished showcase version
-* curated demo data
-* simplified architecture
-* beautiful README
-* premium branding
-
-Purpose:
-
-* freelance visibility
-* portfolio credibility
-* LinkedIn showcase
-* Fiverr/Contra/Upwork proof of quality

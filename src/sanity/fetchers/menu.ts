@@ -1,7 +1,8 @@
-import { client } from "../lib/client";
+import { client, hasSanityPreviewToken, previewClient } from "../lib/client";
 import {
   menuCategoriesByRestaurantIdQuery,
   menuItemsByRestaurantIdQuery,
+  restaurantPreviewMenuBySlugQuery,
   restaurantMenuBySlugQuery,
 } from "../queries";
 import type {
@@ -71,6 +72,28 @@ export function fetchRestaurantMenuBySlug(slug: string) {
 
 export async function fetchMappedRestaurantMenuBySlug(slug: string) {
   const payload = await fetchRestaurantMenuBySlug(slug);
+
+  return mapSanityRestaurantMenuPayload(payload);
+}
+
+export function fetchRestaurantPreviewMenuBySlug(slug: string) {
+  if (!hasSanityPreviewToken()) {
+    return Promise.resolve(null);
+  }
+
+  return previewClient.fetch<SanityRestaurantMenuPayload | null>(
+    restaurantPreviewMenuBySlugQuery,
+    { slug },
+    {
+      next: {
+        tags: [`restaurant-preview:${slug}`, `restaurant-preview-menu:${slug}`],
+      },
+    }
+  );
+}
+
+export async function fetchMappedRestaurantPreviewMenuBySlug(slug: string) {
+  const payload = await fetchRestaurantPreviewMenuBySlug(slug);
 
   return mapSanityRestaurantMenuPayload(payload);
 }

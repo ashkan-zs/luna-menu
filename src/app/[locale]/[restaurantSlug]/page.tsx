@@ -1,5 +1,9 @@
-import { notFound, redirect } from "next/navigation";
-import { getRestaurantBySlug } from "@/lib/data/restaurants";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+import RestaurantMenuPageView from "./RestaurantMenuPageView";
+import { getRestaurantMenuPageData } from "@/lib/data/menu";
+import { createRestaurantMenuMetadata } from "@/lib/metadata/restaurantMenu";
 import type { Locale } from "@/types/i18n";
 
 type PageProps = {
@@ -9,14 +13,29 @@ type PageProps = {
   }>;
 };
 
-export default async function RestaurantPage({ params }: PageProps) {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { locale, restaurantSlug } = await params;
+  const pageData = await getRestaurantMenuPageData(restaurantSlug);
 
-  const restaurant = await getRestaurantBySlug(restaurantSlug);
-
-  if (!restaurant) {
+  if (!pageData) {
     notFound();
   }
 
-  redirect(`/${locale}/${restaurant.slug}/menu`);
+  return createRestaurantMenuMetadata({
+    locale,
+    restaurant: pageData.restaurant,
+  });
+}
+
+export default async function RestaurantPage({ params }: PageProps) {
+  const { restaurantSlug, locale } = await params;
+  const pageData = await getRestaurantMenuPageData(restaurantSlug);
+
+  if (!pageData) {
+    notFound();
+  }
+
+  return <RestaurantMenuPageView locale={locale} pageData={pageData} />;
 }

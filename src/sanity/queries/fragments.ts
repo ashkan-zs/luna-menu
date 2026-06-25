@@ -17,6 +17,7 @@ export const restaurantProjection = `{
   ownerEmail,
   logo ${imageWithAltProjection},
   themeId,
+  publishingStatus,
   tagline,
   description,
   coverImage ${imageWithAltProjection},

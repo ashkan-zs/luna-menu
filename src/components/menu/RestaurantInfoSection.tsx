@@ -3,7 +3,6 @@
 import Image from "next/image";
 import {
   AtSign,
-  CalendarCheck,
   Clock,
   MapPin,
   Navigation,
@@ -207,8 +206,8 @@ export default function RestaurantInfoSection({
                     href={phoneHref}
                     className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-theme-accent/36 bg-theme-accent/18 px-5 text-sm font-medium uppercase tracking-[0.16em] text-theme-on-accent shadow-(--shadow-theme-button-hover) transition duration-300 hover:-translate-y-0.5 hover:border-theme-accent-hover/70 hover:bg-theme-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent/80"
                   >
-                    <CalendarCheck className="size-4" aria-hidden="true" />
-                    {t("reserve")}
+                    <Phone className="size-4" aria-hidden="true" />
+                    {t("callRestaurant")}
                   </a>
                 ) : null}
                 <div className="grid grid-cols-2 gap-3">

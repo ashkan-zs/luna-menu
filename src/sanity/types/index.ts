@@ -8,6 +8,7 @@ import type {
 } from "@/types/menu";
 import type {
   OpeningHourDay,
+  RestaurantPublishingStatus,
   RestaurantSettings,
 } from "@/types/restaurant";
 import type { MenuThemeId } from "@/types/theme";
@@ -95,6 +96,7 @@ export type SanityRestaurantDocument = SanityDocumentMeta & {
     plan?: "free" | "starter" | "pro";
     status?: "active" | "inactive" | "trial";
   };
+  publishingStatus?: RestaurantPublishingStatus;
   isPublished?: boolean;
   seo?: {
     title?: LocalizedString;

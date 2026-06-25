@@ -100,7 +100,12 @@ export function mapSanityRestaurantMenuPayload(
       categories,
       items,
       featuredItemIds: items
-        .filter((item) => item.featured)
+        .filter(
+          (item) =>
+            item.featured &&
+            item.available &&
+            item.restaurantId === restaurant.id,
+        )
         .map((item) => item.id),
     },
   };

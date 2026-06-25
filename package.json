@@ -8,7 +8,8 @@
     "start": "next start",
     "seed:sanity-menu": "tsx scripts/seed-sanity-menu.ts",
     "upload:sanity-menu-images": "tsx scripts/upload-sanity-menu-images.ts",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",

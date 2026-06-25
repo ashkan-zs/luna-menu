@@ -1,8 +1,12 @@
-import { CATEGORIES, MENU_ITEMS } from "@/data/menu";
-import { RESTAURANT } from "@/data/restaurant";
-import { fetchMappedRestaurantMenuBySlug } from "@/sanity/fetchers";
+import {
+  fetchMappedRestaurantMenuBySlug,
+  fetchMappedRestaurantPreviewMenuBySlug,
+} from "@/sanity/fetchers";
 import type { Category, MenuItem } from "@/types/menu";
-import type { Restaurant } from "@/types/restaurant";
+import type {
+  Restaurant,
+  RestaurantPublishingStatus,
+} from "@/types/restaurant";
 import {
   mapCategorySeedToCategory,
   mapMenuItemSeedToMenuItem,
@@ -20,7 +24,17 @@ export type RestaurantMenuPageData = {
   menu: RestaurantMenu;
 };
 
-function createRestaurantMenu(restaurantSlug: string): RestaurantMenu {
+function canUseStaticDemoData() {
+  return (
+    process.env.NODE_ENV !== "production" &&
+    process.env.LUNA_ENABLE_STATIC_DEMO_DATA === "true"
+  );
+}
+
+async function createRestaurantMenu(
+  restaurantSlug: string,
+): Promise<RestaurantMenu> {
+  const { CATEGORIES, MENU_ITEMS } = await import("@/data/menu");
   const categories = CATEGORIES.filter(
     (category) => category.restaurantId === restaurantSlug,
   );
@@ -33,19 +47,62 @@ function createRestaurantMenu(restaurantSlug: string): RestaurantMenu {
     categories: sortByOrder(categories.map(mapCategorySeedToCategory)),
     items: mappedItems,
     featuredItemIds: mappedItems
-      .filter((item) => item.featured)
+      .filter(
+        (item) =>
+          item.featured &&
+          item.available &&
+          item.restaurantId === restaurantSlug,
+      )
       .map((item) => item.id),
   };
 }
 
-function getStaticRestaurantBySlug(slug: string) {
-  return RESTAURANT.find((restaurant) => restaurant.slug === slug);
+async function getStaticRestaurantBySlug(slug: string) {
+  if (!canUseStaticDemoData()) {
+    return undefined;
+  }
+
+  const { RESTAURANT } = await import("@/data/restaurant");
+
+  return RESTAURANT.find(
+    (restaurant) => restaurant.slug === slug && restaurant.isPublished,
+  );
 }
 
-function getStaticRestaurantMenu(
+function getRestaurantPublishingStatus(
+  restaurant: Restaurant,
+): RestaurantPublishingStatus {
+  return (
+    restaurant.publishingStatus ??
+    (restaurant.isPublished ? "published" : "draft")
+  );
+}
+
+async function getStaticPreviewRestaurantBySlug(slug: string) {
+  if (!canUseStaticDemoData()) {
+    return undefined;
+  }
+
+  const { RESTAURANT } = await import("@/data/restaurant");
+
+  return RESTAURANT.find((restaurant) => {
+    const publishingStatus = getRestaurantPublishingStatus(restaurant);
+
+    return (
+      restaurant.slug === slug &&
+      (publishingStatus === "draft" || publishingStatus === "preview")
+    );
+  });
+}
+
+async function getStaticRestaurantMenu(
   restaurantSlug: string,
-): RestaurantMenu | undefined {
-  const menu = createRestaurantMenu(restaurantSlug);
+): Promise<RestaurantMenu | undefined> {
+  if (!canUseStaticDemoData()) {
+    return undefined;
+  }
+
+  const menu = await createRestaurantMenu(restaurantSlug);
 
   if (menu.items.length === 0 && menu.categories.length === 0) {
     return undefined;
@@ -59,7 +116,10 @@ export async function getRestaurantMenu(
   try {
     const payload = await fetchMappedRestaurantMenuBySlug(restaurantSlug);
 
-    if (payload?.menu.categories.length || payload?.menu.items.length) {
+    if (
+      payload?.restaurant.isPublished &&
+      (payload.menu.categories.length || payload.menu.items.length)
+    ) {
       return payload.menu;
     }
   } catch {
@@ -77,6 +137,7 @@ export async function getRestaurantMenuPageData(
 
     if (
       payload &&
+      payload.restaurant.isPublished &&
       (payload.menu.categories.length > 0 || payload.menu.items.length > 0)
     ) {
       return payload;
@@ -85,8 +146,41 @@ export async function getRestaurantMenuPageData(
     // Static demo data keeps local development usable while Sanity is empty.
   }
 
-  const restaurant = getStaticRestaurantBySlug(restaurantSlug);
-  const menu = getStaticRestaurantMenu(restaurantSlug);
+  const restaurant = await getStaticRestaurantBySlug(restaurantSlug);
+  const menu = await getStaticRestaurantMenu(restaurantSlug);
+
+  if (!restaurant || !menu) {
+    return undefined;
+  }
+
+  return {
+    restaurant,
+    menu,
+  };
+}
+
+export async function getRestaurantPreviewMenuPageData(
+  restaurantSlug: string,
+): Promise<RestaurantMenuPageData | undefined> {
+  try {
+    const payload = await fetchMappedRestaurantPreviewMenuBySlug(restaurantSlug);
+    const publishingStatus = payload
+      ? getRestaurantPublishingStatus(payload.restaurant)
+      : undefined;
+
+    if (
+      payload &&
+      (publishingStatus === "draft" || publishingStatus === "preview") &&
+      (payload.menu.categories.length > 0 || payload.menu.items.length > 0)
+    ) {
+      return payload;
+    }
+  } catch {
+    // Local seed data is available only when explicitly enabled outside production.
+  }
+
+  const restaurant = await getStaticPreviewRestaurantBySlug(restaurantSlug);
+  const menu = await getStaticRestaurantMenu(restaurantSlug);
 
   if (!restaurant || !menu) {
     return undefined;

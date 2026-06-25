@@ -5,15 +5,15 @@ import { routing } from "@/i18n/routing";
 import { getPublishedRestaurantSitemapEntries } from "@/lib/data/restaurants";
 import type { Locale } from "@/types/i18n";
 
-function getMenuPath(locale: Locale, restaurantSlug: string) {
-  return `/${locale}/${restaurantSlug}/menu`;
+function getRestaurantPath(locale: Locale, restaurantSlug: string) {
+  return `/${locale}/${restaurantSlug}`;
 }
 
 function getLanguageAlternates(restaurantSlug: string) {
   return Object.fromEntries(
     routing.locales.map((locale) => [
       locale,
-      createAbsoluteUrl(getMenuPath(locale as Locale, restaurantSlug)),
+      createAbsoluteUrl(getRestaurantPath(locale as Locale, restaurantSlug)),
     ]),
   );
 }
@@ -25,7 +25,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return restaurants.flatMap((restaurant) =>
     routing.locales.map((locale) => ({
-      url: createAbsoluteUrl(getMenuPath(locale as Locale, restaurant.slug)),
+      url: createAbsoluteUrl(
+        getRestaurantPath(locale as Locale, restaurant.slug),
+      ),
       lastModified: restaurant.updatedAt
         ? new Date(restaurant.updatedAt)
         : undefined,

@@ -20,15 +20,15 @@ const NON_INDEXABLE_ROBOTS: Metadata["robots"] = {
   },
 };
 
-function getMenuPath(locale: Locale, restaurantSlug: string) {
-  return `/${locale}/${restaurantSlug}/menu`;
+function getRestaurantPath(locale: Locale, restaurantSlug: string) {
+  return `/${locale}/${restaurantSlug}`;
 }
 
 function getLanguageAlternates(restaurantSlug: string) {
   return Object.fromEntries(
     routing.locales.map((locale) => [
       locale,
-      getMenuPath(locale as Locale, restaurantSlug),
+      getRestaurantPath(locale as Locale, restaurantSlug),
     ]),
   );
 }
@@ -65,7 +65,7 @@ export function createRestaurantMenuMetadata({
 }): Metadata {
   const title = getRestaurantMetadataTitle(restaurant, locale);
   const description = getRestaurantMetadataDescription(restaurant, locale);
-  const path = getMenuPath(locale, restaurant.slug);
+  const path = getRestaurantPath(locale, restaurant.slug);
   const image = restaurant.seo?.image || restaurant.coverImage;
   const absoluteImage = createAbsoluteUrl(image);
 
@@ -120,7 +120,7 @@ export function createRestaurantMenuJsonLd({
     return null;
   }
 
-  const path = getMenuPath(locale, restaurant.slug);
+  const path = getRestaurantPath(locale, restaurant.slug);
 
   return {
     "@context": "https://schema.org",
