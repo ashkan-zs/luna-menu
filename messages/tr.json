@@ -72,5 +72,181 @@
     "fats": "Yağ",
     "unavailable": "Bu ürün şu anda mevcut değil.",
     "close": "Ürün detaylarını kapat"
+  },
+  "MarketingHomepage": {
+    "seo": {
+      "title": "Luna Menu — Restoranlar İçin Premium Dijital Menü",
+      "description": "Luna Menu; restoranlar, kafeler, kokteyl barları, şarap barları, butik oteller ve misafirperverlik markaları için premium, mobil öncelikli QR menüler hazırlar."
+    },
+    "nav": {
+      "ariaLabel": "Ana navigasyon",
+      "demo": "Demoyu Gör",
+      "contact": "İletişim",
+      "contactSubject": "Luna Menu demo talebi",
+      "instagram": "Instagram"
+    },
+    "hero": {
+      "eyebrow": "Misafirperverlik markaları için premium QR menüler",
+      "headline": "Güzel ağırlanmış bir akşam hissi veren dijital menüler.",
+      "description": "Luna Menu, her restoran menüsünü ilk taramadan itibaren markanın atmosferini taşıyan hızlı, zarif ve mobil öncelikli bir sayfaya dönüştürür.",
+      "demoCta": "Demoyu Gör",
+      "contactCta": "İletişim",
+      "previewLabel": "Canlı menü önizlemesi",
+      "previewBadge": "QR",
+      "previewRestaurant": "Luna Bistro",
+      "previewCategory": "Akşam menüsü",
+      "previewItems": ["Mevsim tabakları", "İmza kokteyller", "Öne çıkan lezzetler"],
+      "previewNavStart": "Menü",
+      "previewNavEnd": "Marka"
+    },
+    "problemSolution": {
+      "eyebrow": "Neden değişmeli",
+      "heading": "PDF, görsel ve basılı menüler misafire gereksiz yük çıkarır.",
+      "problemTitle": "Eski menüler yavaş, sabit ve marka dışı hissettirir",
+      "problemDescription": "Misafirler büyük dosyaları bekler, yakınlaştırıp uzaklaştırır ya da masaya, sezona ve mekana artık uymayan bir menüye bakar.",
+      "solutionTitle": "Luna Menu ilk tarama anı için tasarlandı",
+      "solutionDescription": "Restoran; rafine bir public URL, kimliğine uygun tema, lokalize içerik, hızlı gezinme, arama, filtreler ve CMS destekli güncellemeler kazanır."
+    },
+    "features": {
+      "eyebrow": "Neler var",
+      "heading": "Public menünün ihtiyacı olan her şey, panel kalabalığı olmadan.",
+      "items": [
+        {
+          "title": "Mobil öncelikli menü",
+          "description": "Masada telefonla bakan misafirler için okunaklı bölümler, büyük dokunma alanları ve sakin gezinme."
+        },
+        {
+          "title": "Restoran markası",
+          "description": "Logo, kapak görseli, renk ruhu, tipografi ve misafirperverlik detayları deneyimin merkezinde kalır."
+        },
+        {
+          "title": "Türkçe ve İngilizce destek",
+          "description": "Lokalize public sayfalar, UI metinlerini ve restoran içeriğini temiz biçimde ayrı tutar."
+        },
+        {
+          "title": "QR'a hazır public URL",
+          "description": "Her restoranın QR materyallerinde kullanılabilecek sabit ve lokalize bir menü adresi olur."
+        },
+        {
+          "title": "Öne çıkan ürünler",
+          "description": "Mevsim tabaklarını, imza içecekleri, şef seçkilerini veya misafir favorilerini vurgulayın."
+        },
+        {
+          "title": "Arama ve filtreler",
+          "description": "Misafirler yemekleri, içecekleri, notları, vejetaryen seçenekleri ve acılı ürünleri hızlıca bulabilir."
+        },
+        {
+          "title": "Hızlı yükleme",
+          "description": "Server-rendered sayfalar, optimize görseller ve ölçülü etkileşim deneyimi hafif tutar."
+        },
+        {
+          "title": "SEO dostu sayfalar",
+          "description": "Lokalize metadata, canonical URL'ler, hreflang alternatifleri ve yapılandırılmış veri keşfedilebilirliği destekler."
+        },
+        {
+          "title": "Kolay CMS güncellemeleri",
+          "description": "Menü içeriği Sanity'de yaşar; isimler, fiyatlar, uygunluk ve öne çıkanlar güncel tutulabilir."
+        }
+      ]
+    },
+    "themes": {
+      "eyebrow": "Tema vitrini",
+      "heading": "Üç görsel yön, tek ortak menü sistemi.",
+      "previewCta": "Temayı önizle",
+      "items": [
+        {
+          "name": "Luna",
+          "description": "Restoranlar, kokteyl barları ve akşam odaklı misafirperverlik için koyu, sinematik ve rafine."
+        },
+        {
+          "name": "Artisan",
+          "description": "Kafeler, fırınlar, bistrolar ve malzeme odaklı markalar için sıcak, editorial ve zanaatkar."
+        },
+        {
+          "name": "Street Food",
+          "description": "Güçlü bir marka hissi isteyen casual menüler için canlı, direkt ve enerjik."
+        }
+      ]
+    },
+    "demos": {
+      "eyebrow": "Demo restoranlar",
+      "heading": "Örnek menüyü iki dilde açın.",
+      "description": "Bu linkler güvenli public örneklerdir. Demo restoran o anda yayında değilse bile homepage normal şekilde render edilir.",
+      "links": [
+        {
+          "label": "Türkçe demo",
+          "href": "/tr/luna-bistro"
+        },
+        {
+          "label": "İngilizce demo",
+          "href": "/en/luna-bistro"
+        }
+      ]
+    },
+    "howItWorks": {
+      "eyebrow": "Nasıl çalışır",
+      "heading": "Menü içeriğinden masaya hazır QR'a beş net adım.",
+      "steps": [
+        {
+          "title": "Restoran menüsünü oluştur",
+          "description": "Kategorileri, ürünleri, fiyatları, uygunluğu, görselleri ve restoran detaylarını ekleyin."
+        },
+        {
+          "title": "Temayı özelleştir",
+          "description": "Restoranın ruhuna ve markasına uyan görsel yönü seçin."
+        },
+        {
+          "title": "Public URL'i yayınla",
+          "description": "Misafirlerin modern telefonlardan doğrudan açabileceği lokalize sayfayı yayına alın."
+        },
+        {
+          "title": "QR kod üret",
+          "description": "Menü URL'ini masalar, odalar, tezgahlar veya barlar için basılı QR materyaline yerleştirin."
+        },
+        {
+          "title": "Misafirler tarar ve gezer",
+          "description": "Misafirler menüde hızlıca dolaşır, arar, filtreler ve öne çıkan ürünleri keşfeder."
+        }
+      ]
+    },
+    "faq": {
+      "eyebrow": "SSS",
+      "heading": "Restoran sahiplerinin ilk sorduğu pratik sorular.",
+      "items": [
+        {
+          "question": "Fiyatlar güncellenebilir mi?",
+          "answer": "Evet. Menü içeriği CMS üzerinden yönetilir; fiyatlar, ürün adları, uygunluk ve öne çıkanlar basılı bir dosyayı değiştirmeden güncellenebilir."
+        },
+        {
+          "question": "Türkçe ve İngilizce destekliyor mu?",
+          "answer": "Evet. MVP, Türkçe ve İngilizce lokalize public menü sayfalarını destekler."
+        },
+        {
+          "question": "Menü restoran markasına uyabilir mi?",
+          "answer": "Evet. Her restoran kendi marka varlıklarını kullanabilir ve onaylı tema yönlerinden birini seçebilir."
+        },
+        {
+          "question": "QR kodlarla kullanabilir miyim?",
+          "answer": "Evet. Her restoran menüsünün QR materyallerinde kullanılabilecek public bir URL'i vardır."
+        },
+        {
+          "question": "Mobil uyumlu mu?",
+          "answer": "Evet. Luna Menu, masada gezinen misafirler için mobil öncelikli tasarlanır."
+        }
+      ]
+    },
+    "finalCta": {
+      "eyebrow": "Daha sakin bir menü deneyimine hazır olun",
+      "heading": "Misafirlere mekan kadar özenli hissettiren bir menü sunun.",
+      "description": "Demo talep edin ya da Luna Menu'nün bir restoranı mobilde nasıl sunduğunu görmek için canlı örneği açın.",
+      "demoCta": "Demoyu Gör",
+      "contactCta": "İletişim"
+    },
+    "footer": {
+      "brand": "Luna Menu",
+      "demo": "Demo",
+      "contact": "İletişim",
+      "instagram": "Instagram"
+    }
   }
 }

@@ -72,5 +72,181 @@
     "fats": "Fats",
     "unavailable": "This item is currently unavailable.",
     "close": "Close item details"
+  },
+  "MarketingHomepage": {
+    "seo": {
+      "title": "Luna Menu — Premium Digital Menus for Restaurants",
+      "description": "Luna Menu creates premium, mobile-first QR menu pages for restaurants, cafes, cocktail bars, wine bars, boutique hotels, and hospitality brands."
+    },
+    "nav": {
+      "ariaLabel": "Primary navigation",
+      "demo": "View Demo",
+      "contact": "Contact",
+      "contactSubject": "Luna Menu demo request",
+      "instagram": "Instagram"
+    },
+    "hero": {
+      "eyebrow": "Premium QR menus for hospitality brands",
+      "headline": "Digital menus with the feeling of a beautifully hosted evening.",
+      "description": "Luna Menu turns every restaurant menu into a fast, elegant, mobile-first public page that carries the atmosphere of the brand from the first scan.",
+      "demoCta": "View Demo",
+      "contactCta": "Contact",
+      "previewLabel": "Live menu preview",
+      "previewBadge": "QR",
+      "previewRestaurant": "Luna Bistro",
+      "previewCategory": "Evening menu",
+      "previewItems": ["Seasonal plates", "Signature cocktails", "Featured dishes"],
+      "previewNavStart": "Menu",
+      "previewNavEnd": "Brand"
+    },
+    "problemSolution": {
+      "eyebrow": "Why change",
+      "heading": "PDF, image, and printed menus make guests work too hard.",
+      "problemTitle": "Old menus feel slow, static, and off-brand",
+      "problemDescription": "Guests pinch, zoom, wait for large files, or browse a menu that no longer matches the table, the season, or the room.",
+      "solutionTitle": "Luna Menu is built for the first scan",
+      "solutionDescription": "A restaurant gets a polished public URL, a theme that fits its identity, localized content, fast browsing, search, filters, and CMS-backed updates."
+    },
+    "features": {
+      "eyebrow": "What is included",
+      "heading": "Everything the public menu needs, without dashboard clutter.",
+      "items": [
+        {
+          "title": "Mobile-first menu",
+          "description": "Designed for guests holding a phone at the table, with readable sections, large tap targets, and calm browsing."
+        },
+        {
+          "title": "Restaurant branding",
+          "description": "Logo, cover imagery, color mood, typography, and hospitality details stay centered in the experience."
+        },
+        {
+          "title": "Turkish and English support",
+          "description": "Localized public pages keep UI labels and restaurant content cleanly separated."
+        },
+        {
+          "title": "QR-ready public URL",
+          "description": "Each restaurant has a stable localized menu address that can be printed on QR materials."
+        },
+        {
+          "title": "Featured items",
+          "description": "Highlight seasonal plates, signature drinks, chef selections, or high-margin guest favorites."
+        },
+        {
+          "title": "Search and filters",
+          "description": "Guests can quickly find dishes, drinks, notes, vegetarian options, and spicy items."
+        },
+        {
+          "title": "Fast loading",
+          "description": "Server-rendered pages, optimized images, and restrained interaction keep the experience light."
+        },
+        {
+          "title": "SEO-friendly pages",
+          "description": "Localized metadata, canonical URLs, hreflang alternates, and structured data support discoverability."
+        },
+        {
+          "title": "Easy CMS updates",
+          "description": "Menu content lives in Sanity, so restaurants can keep names, prices, availability, and highlights current."
+        }
+      ]
+    },
+    "themes": {
+      "eyebrow": "Theme showcase",
+      "heading": "Three visual directions, one shared menu system.",
+      "previewCta": "Preview theme",
+      "items": [
+        {
+          "name": "Luna",
+          "description": "Dark, cinematic, and polished for restaurants, cocktail bars, and evening-led hospitality."
+        },
+        {
+          "name": "Artisan",
+          "description": "Warm, editorial, and crafted for cafes, bakeries, bistros, and ingredient-led brands."
+        },
+        {
+          "name": "Street Food",
+          "description": "Bright, direct, and energetic for casual menus that still need a strong branded presence."
+        }
+      ]
+    },
+    "demos": {
+      "eyebrow": "Demo restaurants",
+      "heading": "Open the sample menu in either language.",
+      "description": "These links are safe public examples. If a demo restaurant is not currently published, the homepage still renders normally.",
+      "links": [
+        {
+          "label": "Turkish demo",
+          "href": "/tr/luna-bistro"
+        },
+        {
+          "label": "English demo",
+          "href": "/en/luna-bistro"
+        }
+      ]
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "heading": "From menu content to table-ready QR in five clear steps.",
+      "steps": [
+        {
+          "title": "Create restaurant menu",
+          "description": "Add categories, items, prices, availability, images, and restaurant details."
+        },
+        {
+          "title": "Customize theme",
+          "description": "Choose a visual direction that matches the restaurant's mood and brand."
+        },
+        {
+          "title": "Publish public URL",
+          "description": "Launch a localized page guests can open directly from any modern phone."
+        },
+        {
+          "title": "Generate QR code",
+          "description": "Place the menu URL on printed QR material for tables, rooms, counters, or bars."
+        },
+        {
+          "title": "Guests scan and browse",
+          "description": "Guests move through the menu quickly, search, filter, and discover featured items."
+        }
+      ]
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "heading": "The practical questions restaurant owners ask first.",
+      "items": [
+        {
+          "question": "Can prices be updated?",
+          "answer": "Yes. Menu content is managed through the CMS, so prices, item names, availability, and highlights can be updated without replacing a printed file."
+        },
+        {
+          "question": "Does it support Turkish and English?",
+          "answer": "Yes. The MVP supports Turkish and English localized public menu pages."
+        },
+        {
+          "question": "Can the menu match the restaurant brand?",
+          "answer": "Yes. Each restaurant can use its own branding assets and select an approved theme direction."
+        },
+        {
+          "question": "Can I use QR codes?",
+          "answer": "Yes. Every restaurant menu has a public URL that can be used for QR code materials."
+        },
+        {
+          "question": "Is it mobile-friendly?",
+          "answer": "Yes. Luna Menu is designed mobile-first for guests browsing at the table."
+        }
+      ]
+    },
+    "finalCta": {
+      "eyebrow": "Ready for a quieter menu experience",
+      "heading": "Give guests a menu that feels as considered as the room.",
+      "description": "Request a demo or open the live sample to see how Luna Menu presents a restaurant on mobile.",
+      "demoCta": "View Demo",
+      "contactCta": "Contact"
+    },
+    "footer": {
+      "brand": "Luna Menu",
+      "demo": "Demo",
+      "contact": "Contact",
+      "instagram": "Instagram"
+    }
   }
 }

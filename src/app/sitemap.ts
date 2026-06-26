@@ -3,6 +3,10 @@ import type { MetadataRoute } from "next";
 import { createAbsoluteUrl } from "@/config/app";
 import { routing } from "@/i18n/routing";
 import { getPublishedRestaurantSitemapEntries } from "@/lib/data/restaurants";
+import {
+  getAbsoluteMarketingHomepageAlternates,
+  getMarketingHomepagePath,
+} from "@/lib/metadata/marketingHomepage";
 import type { Locale } from "@/types/i18n";
 
 function getRestaurantPath(locale: Locale, restaurantSlug: string) {
@@ -22,8 +26,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Only real customer restaurants should appear in search engines and
   // sitemap.xml; demo restaurants remain reachable by direct URL only.
   const restaurants = await getPublishedRestaurantSitemapEntries();
+  const homepageEntries = routing.locales.map((locale) => ({
+    url: createAbsoluteUrl(getMarketingHomepagePath(locale as Locale)),
+    changeFrequency: "weekly" as const,
+    priority: 1,
+    alternates: {
+      languages: getAbsoluteMarketingHomepageAlternates(),
+    },
+  }));
 
-  return restaurants.flatMap((restaurant) =>
+  const restaurantEntries = restaurants.flatMap((restaurant) =>
     routing.locales.map((locale) => ({
       url: createAbsoluteUrl(
         getRestaurantPath(locale as Locale, restaurant.slug),
@@ -38,4 +50,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     })),
   );
+
+  return [...homepageEntries, ...restaurantEntries];
 }
