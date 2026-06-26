@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Luna Menu
+
+Luna Menu is a premium multi-tenant QR menu SaaS platform for restaurants, cafes, cocktail bars, wine bars, boutique hotels, and hospitality brands.
+
+The MVP focuses on public, mobile-first restaurant menu pages powered by Sanity CMS, localized in English and Turkish, rendered through selectable visual themes, and deployed with Next.js on Vercel.
+
+## Features
+
+- Multi-tenant public restaurant menu pages
+- Canonical localized routes such as `/en/luna-bistro` and `/tr/luna-bistro`
+- Sanity-powered restaurant profiles, branding, categories, menu items, opening hours, and contact details
+- English and Turkish localization with `next-intl`
+- Theme registry with `luna`, `artisan`, and `street-food` visual themes
+- Dynamic SEO metadata, canonical URLs, hreflang alternates, Open Graph data, sitemap, and robots support
+- Preview route foundation for protected restaurant-owner review
+- Mobile-first, accessible, premium hospitality-focused UI
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+```
+
+Run the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev
+pnpm build
+pnpm start
+pnpm lint
+pnpm typecheck
+pnpm seed:sanity-menu
+pnpm upload:sanity-menu-images
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```txt
+src/
+  app/        Next.js routes, metadata, sitemap, robots, and Studio route
+  components/ Shared UI and layout components
+  features/   Product feature components
+  themes/     Theme registry and theme-specific visual components
+  lib/        App helpers, metadata, data, mappers, routing, and utilities
+  sanity/     Sanity clients, schemas, queries, fetchers, and mappings
+  types/      Shared TypeScript domain types
+messages/     UI localization messages
+public/       Static assets
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create a `.env.local` file before running Sanity-backed features. Required values include the Sanity project, dataset, API version, and any server-only tokens used by local scripts or preview flows.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app is designed for Vercel deployment. Configure the required environment variables in Vercel, then deploy the Next.js application normally.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Author
+
+Ashkan Zarifian

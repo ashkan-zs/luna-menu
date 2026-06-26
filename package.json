@@ -1,7 +1,17 @@
 {
-  "name": "qr-menu-product",
+  "name": "luna-menu",
   "version": "0.1.0",
-  "private": true,
+  "description": "Premium multi-tenant QR menu SaaS platform for hospitality brands.",
+  "private": false,
+  "author": "Ashkan Zarifian",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashkan-zs/luna-menu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ashkan-zs/luna-menu/issues"
+  },
+  "homepage": "https://github.com/ashkan-zs/luna-menu#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
