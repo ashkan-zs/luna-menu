@@ -41,6 +41,20 @@ pnpm lint
 pnpm typecheck
 ```
 
+## CI Quality
+
+GitHub Actions runs the `CI` workflow on pushes to `main` and pull requests targeting `main`.
+
+The quality job installs dependencies with `pnpm install --frozen-lockfile`, then runs:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+The workflow requires the same Sanity and site environment values needed for a production build. Public `NEXT_PUBLIC_*` values can be stored as GitHub Actions variables, while server-only values such as `SANITY_API_READ_TOKEN` should remain GitHub Actions secrets.
+
 ## Project Structure
 
 ```txt
