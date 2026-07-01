@@ -39,8 +39,6 @@ pnpm build
 pnpm start
 pnpm lint
 pnpm typecheck
-pnpm seed:sanity-menu
-pnpm upload:sanity-menu-images
 ```
 
 ## Project Structure

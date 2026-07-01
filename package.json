@@ -16,8 +16,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed:sanity-menu": "tsx scripts/seed-sanity-menu.ts",
-    "upload:sanity-menu-images": "tsx scripts/upload-sanity-menu-images.ts",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
   },
